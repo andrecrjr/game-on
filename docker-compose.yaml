@@ -1,0 +1,19 @@
+# docker-compose.yaml
+# Defina a versão do docker-compose
+version: '3'
+
+# Defina os serviços do projeto
+services:
+  # Serviço do app nextjs
+  app:
+    # Construa a imagem a partir do Dockerfile
+    build: .
+    # Monte a pasta do projeto no container
+    volumes:
+      - .:/app
+    # Defina a porta do container para se comunicar com o host
+    ports:
+      - 3000:3000
+    # Defina a variável de ambiente do node
+    environment:
+      - NODE_ENV=development
