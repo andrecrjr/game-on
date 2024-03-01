@@ -1,27 +1,31 @@
 import React from 'react'
 import Image from 'next/image'
+import { Button } from './ui/button'
+import Link from 'next/link'
+import { cva } from 'class-variance-authority'
 
 const HeroBanner = () => {
+
   return (
-    <section className="bg-gray-900 text-white px-8">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="w-1/2">
-          <h1 className="text-4xl font-bold">Steam ON</h1>
-          <p className="text-lg mt-4">
+    <section className=" bg-gray-800 text-white md:px-8">
+      <div className="w-screen md:container md:mx-auto flex 
+              flex-col md:flex-row items-center md:justify-between">
+        <div className="md:min-w-1/2 py-8 lg:py-0">
+          <h1 className="text-4xl md:text-left font-bold pt-8 md:pt-4">Steam ON</h1>
+          <p className="text-md mt-8 md:mt-4">
             A Steam ON é um client minimalista que permite que você acesse dados e
             funcionalidades do Steam. Você pode usar a Steam ON para
             obter notícias, estatísticas, conquistas, perfis, amigos e jogos de
             qualquer usuário ou jogo do Steam.
-
           </p>
-          <a
-            href="#"
-            className="inline-block bg-green-600 text-white px-6 py-3 mt-6 rounded"
+          <Button className='bg-green-600 text-white px-6 py-3 mt-6 rounded'>
+          <Link href={"/login"}
           >
             Sign In
-          </a>
+          </Link>
+          </Button>
         </div>
-        <div className="w-1/2 relative">
+        <section className="w-1/2 relative">
           <Image
             src={'/public/steam-on-logo.png'}
             alt="Steam logo"
@@ -29,7 +33,7 @@ const HeroBanner = () => {
             height={400}
             className="object-contain"
           />
-        </div>
+        </section>
       </div>
     </section>
   )
