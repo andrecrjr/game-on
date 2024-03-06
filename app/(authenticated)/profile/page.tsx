@@ -1,11 +1,13 @@
 
+import { getServerSession } from 'next-auth';
 import * as React from 'react';
 
-interface IAppProps {
+interface IProfilePage {
 }
 
-const App: React.FunctionComponent<IAppProps> = (props) => {
-  return ;
+const ProfilePage: React.FunctionComponent<IProfilePage> = () => {
+  const data = getServerSession()
+  return <p>user</p>;
 };
 
-export default App;
+export default ProfilePage;
