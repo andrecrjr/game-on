@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { Button } from './ui/button'
 import Link from 'next/link'
+import SignButton from './SignButton';
 
 const HeroBanner = () => {
   return (
@@ -12,9 +13,7 @@ const HeroBanner = () => {
           <p className="text-md mt-8 md:mt-4">
             Steam ON is a minimalist client that lets you access Steam data and functionalities. Use it to explore news, stats, achievements, profiles, friends, and games for any Steam user or game.
           </p>
-          <Button className="bg-green-600 hover:bg-green-500 mx-auto text-white px-6 py-3 mt-6 rounded">
-            <Link href="/login">Sign In</Link>
-          </Button>
+          <SignButton />
         </section>
         <section className="md:w-1/2  relative">
           <Image
