@@ -4,7 +4,9 @@ import { PROVIDER_ID } from 'next-auth-steam'
 import SteamProvider from 'next-auth-steam'
 import type { NextRequest } from 'next/server'
 
-export function getAuthOptions(req: NextRequest): AuthOptions {
+
+export function getAuthOptions(req: NextApiRequest|undefined): AuthOptions {
+    
     return {
         providers: req
             ? [
@@ -13,24 +15,26 @@ export function getAuthOptions(req: NextRequest): AuthOptions {
                     callbackUrl: 'http://localhost:3000/api/auth/callback',
                 }),
             ]
-            : [],
+            : [
+            ],
+        
         callbacks: {
-            jwt({ token, account, profile }) {
+            async jwt({ token, account, profile }) {
                 if (account?.provider === PROVIDER_ID) {
                     token.steam = profile;
                 }
                 return token;
             },
-            session({ session, token }) {
-                console.log(token, session)
+            async session({ session, token }) {
                 if ('steam' in token) {
                     // @ts-expect-error
                     session.user.steam = token.steam;
-                    console.log("ssss",session.user)
                 }
                 return session;
             },
         },
+        debug:process.env.NODE_ENV !== "production",
+        secret: process.env.NEXT_AUTH_SECRET
     };
 }
 
@@ -39,7 +43,7 @@ async function handler(
     res: NextApiResponse,
     ctx: { params: { nextauth: string[] }},
 ) {
-    // @ts-expect-error
+    
     return NextAuth(req, res, getAuthOptions(req));
 }
 

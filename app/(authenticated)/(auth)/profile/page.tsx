@@ -1,16 +1,19 @@
 
 import { getServerSession } from 'next-auth';
-import * as React from 'react';
 import { getAuthOptions } from '../../api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
 
 interface IProfilePage {
 }
 
 const ProfilePage: React.FunctionComponent<IProfilePage> = async() => {
-  // @ts-ignore
-  const data = await getServerSession(getAuthOptions())
-  console.log("dados", data)
-  return <p>user</p>;
+  
+  const session = await getServerSession(getAuthOptions(undefined))
+  if(!session){
+    redirect("/")
+  }
+
+  return <p>{session?.user?.name}</p>;
 };
 
 export default ProfilePage;
