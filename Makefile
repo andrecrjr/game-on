@@ -5,7 +5,7 @@ DOCKER_COMPOSE_FILE = docker-compose.yaml
 install:
 	pnpm install
 
-up:
+setup:
 	pnpm install && docker-compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 
 down:
@@ -14,6 +14,4 @@ down:
 dev:
 	pnpm run dev
 
-setup: install up
-
-run: dev
+run: docker-compose up

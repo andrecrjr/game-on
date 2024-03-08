@@ -23,10 +23,10 @@ const ProfilePage: React.FunctionComponent<IProfilePage> = async() => {
     <div>
       <p className="text-xl text-gray-700 font-bold">{session?.user?.name}</p>
       <p className="text-gray-600">Jogo Favorito: {session?.user?.ownedgames && mostPlayedData.name}</p>
+      <p className="text-gray-700">Total de Horas Jogadas: {convertTiming(mostPlayedTime.playtime_forever)}</p>
     </div>
   </div>
   <div>
-    <p className="text-gray-700">Total de Horas Jogadas: {convertTiming(mostPlayedTime.playtime_forever)}</p>
     <p className="text-gray-700">Total de Jogos na Biblioteca: {session?.user?.ownedgames?.game_count}</p>
   </div>
 </div>);

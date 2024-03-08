@@ -20,7 +20,7 @@ export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned):Promise<{mo
 }
 
 export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
-    const res = await fetch(`${process.env.STEAMSPY_ROUTE}?request=appdetails&appid=${appid}`)
+    const res = await fetch(`${process.env.STEAMSPY_ROUTE}?request=appdetails&appid=${appid}`, { next: { revalidate: 8000 } })
     const data = await res.json()
     
     return {...data, avatarCapsule:imageGameSteam(appid), avatarHeader:imageGameSteam(appid, "header")};

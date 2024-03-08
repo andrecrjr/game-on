@@ -44,7 +44,8 @@ export interface ISteamAccount {
 }
 
 export interface ISteamSpyGameData {
-  avatar?:string;
+  avatarCapsule?:string;
+  avatarHeader?:string
   appid: number
   name: string
   developer: string
