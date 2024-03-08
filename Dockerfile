@@ -5,6 +5,8 @@ FROM node:20.11.1-alpine
 # Defina a pasta de trabalho no container
 WORKDIR /app
 
+COPY package*.json ./
+
 # Instale o corepack
 RUN corepack enable
 
@@ -12,11 +14,10 @@ RUN corepack enable
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-# Copie os arquivos do projeto para o container
-COPY . .
-
 # Instale as dependências do projeto usando a montagem de cache do BuildKit
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --no-frozen-lockfile
+
+COPY . .
 
 # Exponha a porta 3000 do container
 EXPOSE 3000
