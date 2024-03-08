@@ -29,9 +29,8 @@ export function getAuthOptions(req: NextApiRequest|undefined): AuthOptions {
             },
             async session({ session, token }) {
                 // @ts-expect-error
-                const res = await fetch(` http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_SECRET}&steamid=${token.account.steamId}`)
-                const {response:gamesOwned}:{response:IGamesOwned} = await res.json()
-                console.log(token.account)
+                const res = await fetch(` https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_SECRET}&steamid=${token.account.steamId}`)
+                const {response:gamesOwned}:{response:ISteamGamesOwned} = await res.json()
                 if ('steam' in token) {
                     // @ts-expect-error
                     session.user.steam = token.steam;

@@ -42,3 +42,50 @@ export interface ISteamAccount {
   access_token: '06471b3e-cc06-47f5-91ab-0dfa0a7d23e2',
   steamId: '76561198287998371'
 }
+
+export interface ISteamSpyGameData {
+  avatar?:string;
+  appid: number
+  name: string
+  developer: string
+  publisher: string
+  score_rank: string
+  positive: number
+  negative: number
+  userscore: number
+  owners: string
+  average_forever: number
+  average_2weeks: number
+  median_forever: number
+  median_2weeks: number
+  price: string
+  initialprice: string
+  discount: string
+  ccu: number
+  languages: string
+  genre: string
+  tags: ISteamSpyTags
+}
+
+export interface ISteamSpyTags {
+  "Free to Play": number
+  "Card Game": number
+  Anime: number
+  Strategy: number
+  Multiplayer: number
+  "Trading Card Game": number
+  Singleplayer: number
+  "Turn-Based": number
+  Competitive: number
+  Casual: number
+  RPG: number
+  Memes: number
+  "Great Soundtrack": number
+  "Online Co-Op": number
+  Action: number
+  Adventure: number
+  Simulation: number
+  "Massively Multiplayer": number
+  "Psychological Horror": number
+  MMORPG: number
+}
