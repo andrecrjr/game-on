@@ -3,6 +3,8 @@ import React from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { NavigationMenuContent, NavigationMenuTrigger, navigationMenuTriggerStyle } from '../ui/navigation-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import ProfileIcon from '../icons/UserProfile';
+import UserLogout from '../icons/UserLogout';
 
 
 
@@ -24,15 +26,22 @@ const RightMenu: React.FC = () => {
                         <AvatarFallback>AA</AvatarFallback>
                     </Avatar>
                 </NavigationMenuTrigger>
-                <NavigationMenuContent className='transition fixed flex bg-black z-10 top-13 left-0 flex-col text-center'>
-                    <NavigationMenuLink className='p-4 text-sm' href="/profile">
-                        Profile
+                <NavigationMenuContent className='transition fixed flex 
+                            bg-black z-10 top-13 flex-col
+                                justify-center text-center'>
+                    <NavigationMenuLink className='p-4 md:p-2 w-full 
+                        inline-flex justify-center items-center hover:opacity-80' 
+                                    href="/profile">
+                      <ProfileIcon/>  
+                      <p className='text-sm md:text-xs ml-1'>Profile</p>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className='p-4 cursor-pointer' onClick={(e)=>{
+                    <NavigationMenuLink className='p-4 md:p-2 w-full
+                         inline-flex justify-center 
+                         cursor-pointer items-center hover:opacity-80' onClick={(e)=>{
                         e.preventDefault()
                          signOut()
                     }}> 
-                        Logout
+                     <UserLogout/>   <p className='text-sm md:text-xs ml-1'>Logout</p>
                     </NavigationMenuLink>
                 </NavigationMenuContent>
             </NavigationMenuItem>
