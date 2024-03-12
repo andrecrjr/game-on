@@ -13,12 +13,12 @@ const RightMenu: React.FC = () => {
     
     if (status === 'authenticated')
     return ( 
-        <NavigationMenu className='mr-5'>
+        <NavigationMenu className=''>
             <NavigationMenuList className='flex'>
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
                     
 
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
             <NavigationMenuItem>
                 <NavigationMenuTrigger>
                     <Avatar className='w-9 h-9'>

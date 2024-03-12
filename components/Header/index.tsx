@@ -8,7 +8,7 @@ import RightMenu from "./RightMenu";
 const Header: React.FC = () => {
   
   return (
-    <header className="w-full h-16 flex items-center">
+    <header className="w-11/12 h-16 flex mx-auto items-center">
       <LeftMenu/>
       <RightMenu/>
     </header>
