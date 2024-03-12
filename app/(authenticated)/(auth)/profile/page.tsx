@@ -16,15 +16,16 @@ const ProfilePage: React.FunctionComponent<IProfilePage> = async() => {
   if(!session){
     redirect("/")
   }
+  
   return (<div className="bg-white shadow-lg rounded-lg p-6">
   <div className="flex items-center space-x-6 mb-4">
     <Image className="h-24 w-24 rounded-full" 
         src={session?.user?.image||""} width="96" height="96" alt="Foto do perfil"/>
-    <div>
+    <section>
       <p className="text-xl text-gray-700 font-bold">{session?.user?.name}</p>
       <p className="text-gray-600">Jogo Favorito: {session?.user?.ownedgames && mostPlayedData.name}</p>
       <p className="text-gray-700">Total de Horas Jogadas: {convertTiming(mostPlayedTime.playtime_forever)}</p>
-    </div>
+    </section>
   </div>
   <div>
     <p className="text-gray-700">Total de Jogos na Biblioteca: {session?.user?.ownedgames?.game_count}</p>

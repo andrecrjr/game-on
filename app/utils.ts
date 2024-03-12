@@ -10,9 +10,9 @@ export const imageGameSteam = (appid:number, type="capsule") =>{
 
 export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned):Promise<{mostPlayedData:ISteamSpyGameData; mostPlayedTime:IGameOwned}> => {
     
-    const mostPlayedTime:IGameOwned = data.games.reduce((prev, curr)=>{
+    const mostPlayedTime:IGameOwned = data?.games?.reduce((prev, curr)=>{
         return (prev.playtime_forever > curr.playtime_forever) ? prev : curr;
-    })
+    }) || []
     
     const mostPlayedData = await getGameData(mostPlayedTime.appid)
 
@@ -35,5 +35,5 @@ export function convertTiming(minutos:number) {
   const m = Math.floor(mRestantes / 60);
   const s = mRestantes % 60;
 
-  return `${d}d ${h}h ${m}m ${s}s`;
+  return `${d}d ${h}h ${m}m`;
 }

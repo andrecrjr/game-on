@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className+" min-h-screen"}>
         <SessionContext>
-        {children}
+          {children}
         </SessionContext>
         </body>
     </html>

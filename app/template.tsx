@@ -1,4 +1,5 @@
 // template.tsx
+import Header from '@/components/Header'
 import React from 'react'
 
 
@@ -10,7 +11,8 @@ export type TemplateProps = {
 const Template: React.FC<TemplateProps> = ({ children }) => {
   return (
     <>
-     {children}
+      <Header />
+      {children}
     </>
   )
 }
