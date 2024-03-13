@@ -4,7 +4,7 @@ import React from "react";
 
 
 export default function Template({children}:TemplateProps) {
-  return (<main>
-      <section className="pt-16 flex items-center justify-center">{children}</section>
+  return (<main className="pt-10 flex items-center justify-center flex-wrap">
+      {children}
     </main>);
 }

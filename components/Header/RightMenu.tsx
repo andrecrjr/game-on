@@ -16,8 +16,6 @@ const RightMenu: React.FC = () => {
         <NavigationMenu className=''>
             <NavigationMenuList className='flex'>
             {/* <NavigationMenuItem>
-                    
-
             </NavigationMenuItem> */}
             <NavigationMenuItem>
                 <NavigationMenuTrigger>
@@ -27,13 +25,13 @@ const RightMenu: React.FC = () => {
                     </Avatar>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className='transition fixed flex 
-                            bg-black z-10 top-13 flex-col
+                            bg-black md:bg-transparent z-10 top-13 flex-col
                                 justify-center text-center'>
                     <NavigationMenuLink className='p-4 md:p-2 w-full 
                         inline-flex justify-center items-center hover:opacity-80' 
                                     href="/profile">
                       <ProfileIcon/>  
-                      <p className='text-sm md:text-xs ml-1'>Profile</p>
+                      <p className='text-sm md:text-xs ml-3 md:ml-1'>Profile</p>
                     </NavigationMenuLink>
                     <NavigationMenuLink className='p-4 md:p-2 w-full
                          inline-flex justify-center 
@@ -41,7 +39,8 @@ const RightMenu: React.FC = () => {
                         e.preventDefault()
                          signOut()
                     }}> 
-                     <UserLogout/>   <p className='text-sm md:text-xs ml-1'>Logout</p>
+                     <UserLogout/>   
+                     <p className='text-sm md:text-xs  ml-3 md:ml-1'>Logout</p>
                     </NavigationMenuLink>
                 </NavigationMenuContent>
             </NavigationMenuItem>

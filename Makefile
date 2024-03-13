@@ -14,4 +14,5 @@ down:
 dev:
 	pnpm run dev
 
-run: docker-compose up
+run: 
+	docker-compose up
