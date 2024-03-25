@@ -19,3 +19,8 @@ export function convertTiming(minutos:number) {
 
   return `${d}d ${h}h ${m}m`;
 }
+
+export function convertCentsToDols(cents:number) {
+  const dolares = (cents / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
+  return dolares;
+}

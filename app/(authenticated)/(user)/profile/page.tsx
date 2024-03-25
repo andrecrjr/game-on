@@ -16,7 +16,7 @@ interface IProfilePage {
 const ProfilePage: React.FunctionComponent<IProfilePage> = async() => {
   
   const session = await getServerSession(getAuthOptions(undefined))
-  const {mostPlayedData, mostPlayedTime,} = await getMostPlayedOwnedGames(session?.user?.ownedgames)
+  const {mostPlayedData, mostPlayedTime } = await getMostPlayedOwnedGames(session?.user?.ownedgames)
   
   if(!session){
     redirect("/")

@@ -33,6 +33,7 @@ const OwnedGameTable: React.FC = () => {
                     </TableRow>}
                 </TableHeader>
                 <TableBody>
+                    
                     {gameUser?.ownedGames.map(game=><TableRow key={game.appid}>
                         {game.avatarCapsule && <TableCell ><Image alt={game.name} 
                                 src={game.avatarCapsule} width="112" height={"60"}></Image></TableCell>}

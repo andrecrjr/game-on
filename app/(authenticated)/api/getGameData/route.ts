@@ -9,14 +9,11 @@ export const POST = async (req: NextRequest, res:NextResponse) => {
     // Check for ownedGames presence directly
     if (ownedGames) {
       const data = await getMostPlayedOwnedGames(ownedGames);
-      console.log(data);
       return NextResponse.json(data)
     } else {
-      // Handle empty ownedGames scenario
        return  NextResponse.json({"error":true})
     }
   } catch (error) {
-    console.error(error);
     return NextResponse.json({"error":true})
   }
 };

@@ -1,5 +1,5 @@
 import { IGameOwned, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
-import { imageGameSteam } from "../utils";
+import { convertCentsToDols, imageGameSteam } from "../utils";
 
 const spyRoute = (process.env.STEAMSPY_ROUTE || process.env.NEXT_PUBLIC_STEAMSPY_ROUTE)
 
@@ -24,5 +24,9 @@ export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
     const res = await fetch(`${spyRoute}?request=appdetails&appid=${appid}`, { next: { revalidate: 8000 } })
     const data = await res.json()
     
-    return {...data, avatarCapsule:imageGameSteam(appid), avatarHeader:imageGameSteam(appid, "header")};
+    return {...data, 
+            avatarCapsule:imageGameSteam(appid), 
+            avatarHeader:imageGameSteam(appid, "header"),
+            price: data.price === "0" ? "Free" : convertCentsToDols(Number(data.price)) 
+        };
 }
