@@ -20,9 +20,9 @@ const LibraryTable: React.FC = () => {
     const {data} = useSession()
     const gameUser = useGetUserGameLibrary(data?.user?.ownedgames||null)
     if(!gameUser.error)
-        return( <Column className='w-screen md:mr-8 min-h-6'>
+        return( <Column className='w-screen md:w-full min-h-6'>
             <h2>Games Library</h2>
-            <Table className='w-[700px] md:w-full'>
+            <Table className='w-[650px] md:w-full'>
                 <TableCaption>Games Library</TableCaption>
                 <TableHeader>
                     {<TableRow>
