@@ -18,7 +18,7 @@ export const useGetOwnedGame = (ownedGames:ISteamGamesOwned|null):OwnedGameData 
     const getData = useCallback(async ()=>{
         try {
             if(!!ownedGames && ownedGames.games){
-                const res = await fetch("api/getGameData", {
+                const res = await fetch("api/getUserGameLibrary", {
                     method:"POST", 
                       headers: { "content-type": "application/json" },
                     body:JSON.stringify(ownedGames)
