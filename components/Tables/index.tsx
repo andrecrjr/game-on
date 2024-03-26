@@ -1,5 +1,5 @@
 import React from "react";
-import OwnedGameTable from "./OwnedGames";
+import OwnedGameTable from "./Library";
 export default function index() {
   return <div>index</div>;
 }

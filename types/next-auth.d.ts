@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import { IGamesOwned, ISteamAccount, ISteamProfile } from "./steam";
+import { IGamesOwned, ISteamAccount, ISteamGamesOwned, ISteamProfile } from "./steam";
 
 declare module "next-auth" {
   interface Session {

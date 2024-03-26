@@ -3,20 +3,23 @@ import { convertCentsToDols, imageGameSteam } from "../utils";
 
 const spyRoute = (process.env.STEAMSPY_ROUTE || process.env.NEXT_PUBLIC_STEAMSPY_ROUTE)
 
-export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned):Promise<{
+export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned|undefined):Promise<{
     mostPlayedData:ISteamSpyGameData; 
-    mostPlayedTime:IGameOwned;
+    mostPlayedTime:IGameOwned
     ownedGames:ISteamSpyGameData[] }> => {
-    const mostPlayedTime:IGameOwned = data?.games?.reduce((prev, curr)=>{
-        return (prev.playtime_forever > curr.playtime_forever) ? prev : curr;
-    }) || []
+        if(!data){
+            throw new Error("Problem to get data")
+        }
+        const mostPlayedTime:IGameOwned = data?.games?.reduce((prev, curr)=>{
+            return (prev.playtime_forever > curr.playtime_forever) ? prev : curr;
+        }) || []
 
-    const ownedGames:ISteamSpyGameData[] = await Promise.all<ISteamSpyGameData>(data.games.map(game=>{
-        return getGameData(game.appid)
-    }))
-    const mostPlayedData = await getGameData(mostPlayedTime.appid)
-    const responseData = {mostPlayedData, mostPlayedTime, ownedGames}
-    return responseData
+        const ownedGames:ISteamSpyGameData[] = await Promise.all<ISteamSpyGameData>(data.games.map(game=>{
+            return getGameData(game.appid)
+        }))
+        const mostPlayedData = await getGameData(mostPlayedTime.appid)
+        const responseData = {mostPlayedData, mostPlayedTime, ownedGames}
+        return responseData
 }
 
 export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{

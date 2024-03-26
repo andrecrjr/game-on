@@ -9,7 +9,7 @@ type OwnedGameData = {
   error?: boolean;                          // Optional error flag
 };
 
-export const useGetOwnedGame = (ownedGames:ISteamGamesOwned):OwnedGameData =>{
+export const useGetOwnedGame = (ownedGames:ISteamGamesOwned|null):OwnedGameData =>{
     const [gameData, setGameData] = useState<OwnedGameData>({
     mostPlayedData: [],
     mostPlayedTime: [],
