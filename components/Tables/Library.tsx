@@ -12,17 +12,17 @@ import {
 import Column from '../Grid/Column';
 import { useSession } from 'next-auth/react';
 import { getMostPlayedOwnedGames } from '@/app/services';
-import { useGetOwnedGame } from '@/app/hooks/useGetOwnedGame';
+import { useGetUserGameLibrary } from '@/app/hooks/useGetOwnedGame';
 import Image from 'next/image';
 
 
 const LibraryTable: React.FC = () => {
     const {data} = useSession()
-    const gameUser = useGetOwnedGame(data?.user?.ownedgames||null)
+    const gameUser = useGetUserGameLibrary(data?.user?.ownedgames||null)
     if(!gameUser.error)
-        return( <Column className='mr-8 min-h-6'>
+        return( <Column className='w-screen md:mr-8 min-h-6'>
             <h2>Games Library</h2>
-            <Table >
+            <Table className='w-[700px] md:w-full'>
                 <TableCaption>Games Library</TableCaption>
                 <TableHeader>
                     {<TableRow>
@@ -32,8 +32,7 @@ const LibraryTable: React.FC = () => {
                         <TableHead className="text-right w-[150px]">Current Price</TableHead>
                     </TableRow>}
                 </TableHeader>
-                <TableBody>
-
+                <TableBody className='overflow-x-scroll'>
                     {gameUser?.ownedGames.map(game=><TableRow key={game.appid}>
                         {game.avatarCapsule && <TableCell >
                             <Image alt={game.name} 

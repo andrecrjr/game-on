@@ -7,14 +7,12 @@ import { getMostPlayedOwnedGames } from "@/app/services";
 import { convertTiming } from "@/app/utils";
 import Image from "next/image";
 
-type Props = {};
-
-const ColumnProfile = async (props: Props) => {
+const ColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))
 
   const {mostPlayedData, mostPlayedTime } = await getMostPlayedOwnedGames(session?.user.ownedgames)
 
-  return (<Column className='md:w-3/12 md:pl-8 relative'>
+  return (<Column className='w-full md:w-3/12 md:pl-8 relative'>
                 <section className='md:w-full flex flex-col sticky top-20'>
                 <h1 className='text-2xl text-center text-gray-800'>{session?.user?.name}</h1>
                 <Avatar className='w-24 h-24 self-center mt-2'>
