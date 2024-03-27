@@ -1,5 +1,5 @@
 import { Session } from "next-auth";
-import { IGamesOwned, ISteamAccount, ISteamGamesOwned, ISteamProfile } from "./steam";
+import { IGameOwned, IGamesOwned, ISteamAccount, ISteamGamesOwned, ISteamProfile, ISteamSpyGameData } from "./steam";
 
 declare module "next-auth" {
   interface Session {
@@ -12,7 +12,11 @@ declare module "next-auth" {
       username?: string;
       uid?: string;
       steam: ISteamProfile
-      ownedgames: ISteamGamesOwned
+      gamesLibraryData:{
+        mostPlayedData: ISteamSpyGameData;
+        mostPlayedTime: IGameOwned;
+        ownedGames: ISteamSpyGameData[];
+      }
       account: ISteamAccount
     }
   }

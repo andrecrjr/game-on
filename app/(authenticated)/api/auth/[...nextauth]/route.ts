@@ -1,3 +1,4 @@
+import { getMostPlayedOwnedGames } from '@/app/services';
 import { ISteamGamesOwned } from '@/types/steam';
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { AuthOptions, getServerSession } from 'next-auth';
@@ -31,12 +32,13 @@ export function getAuthOptions(req: NextApiRequest|undefined): AuthOptions {
                 // @ts-expect-error
                 const res = await fetch(` https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_SECRET}&steamid=${token.account.steamId}`)
                 const {response:gamesOwned}:{response:ISteamGamesOwned} = await res.json()
+                const data = await getMostPlayedOwnedGames(gamesOwned)
                 if ('steam' in token) {
                     // @ts-expect-error
                     session.user.steam = token.steam;
                     // @ts-expect-error
                     session.user.account = token.account
-                    session.user.ownedgames = gamesOwned
+                    session.user.gamesLibraryData = data
                 }
                 return session;
             },

@@ -3,7 +3,6 @@ import Column from "../Grid/Column";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getServerSession } from "next-auth";
 import { getAuthOptions } from "@/app/(authenticated)/api/auth/[...nextauth]/route";
-import { getMostPlayedOwnedGames } from "@/app/services";
 import { convertTiming } from "@/app/utils";
 import Image from "next/image";
 import Title from "../Title";
@@ -11,7 +10,6 @@ import Title from "../Title";
 const ColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))
 
-  const {mostPlayedData, mostPlayedTime } = await getMostPlayedOwnedGames(session?.user.ownedgames)
 
   return (<Column className='w-full md:w-3/12 md:pl-8 relative mb-12 md:mb-auto'>
                 <section className='md:w-full flex flex-col sticky top-20'>
@@ -24,10 +22,10 @@ const ColumnProfile = async () => {
                     </Avatar>
                     <section className="self-center md:self-auto">
                         <h2 className='mt-8 font-bold'>Favorite Game:</h2>
-                        <Image fetchPriority="high" className='mt-2' src={session?.user.ownedgames && mostPlayedData.avatarHeader || ""}
-                         loading="eager" alt={ mostPlayedData.name} width={200} height={60}/>
-                        <p className="text-sm text-gray-600 mt-2"><strong>{session?.user?.ownedgames && mostPlayedData.name}</strong></p>
-                        <p className="text-sm text-gray-600">Time Played: {convertTiming(mostPlayedTime.playtime_forever)}</p>
+                        <Image fetchPriority="high" className='mt-2' src={session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.avatarHeader || ""}
+                         loading="eager" alt={session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.name || ''} width={200} height={60}/>
+                        <p className="text-sm text-gray-600 mt-2"><strong>{session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.name}</strong></p>
+                        <p className="text-sm text-gray-600">Time Played: {session?.user?.gamesLibraryData && convertTiming(session?.user?.gamesLibraryData.mostPlayedTime.playtime_forever)}</p>
                     </section>
                 </section>
             </Column>);

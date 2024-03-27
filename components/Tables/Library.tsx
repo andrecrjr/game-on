@@ -1,4 +1,4 @@
-'use client'
+
 import React from 'react';
 import {
   Table,
@@ -10,17 +10,16 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import Column from '../Grid/Column';
-import { useSession } from 'next-auth/react';
-import { useGetUserGameLibrary } from '@/app/hooks/useGetOwnedGame';
 import Image from 'next/image';
 import ProfileIcon from '../icons/UserProfile';
 import Title from '../Title';
+import { getServerSession } from 'next-auth';
+import { getAuthOptions } from '@/app/(authenticated)/api/auth/[...nextauth]/route';
 
 
-const LibraryTable: React.FC = () => {
-    const {data} = useSession()
-    const gameUser = useGetUserGameLibrary(data?.user?.ownedgames||null)
-    if(!gameUser.error)
+const LibraryTable: React.FC = async () => {
+    const session = await getServerSession(getAuthOptions(undefined))
+    if(!!session)
         return( <Column className='w-screen md:w-full min-h-6 md:pr-6'>
             <section className='flex ml-4 mb-8'>
                 <ProfileIcon />
@@ -37,7 +36,7 @@ const LibraryTable: React.FC = () => {
                    </TableRow>}
                 </TableHeader>
                 <TableBody className='overflow-x-scroll'>
-                    {gameUser?.ownedGames.map(game=><TableRow key={game.appid}>
+                    {!!session.user.gamesLibraryData && session.user?.gamesLibraryData?.ownedGames.map(game=><TableRow key={game.appid}>
                         {game.avatarCapsule && <TableCell >
                             <Image alt={game.name} 
                                 src={game.avatarCapsule} width="112" height={"60"}>

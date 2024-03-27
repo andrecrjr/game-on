@@ -13,8 +13,7 @@ export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned|undefined):P
         const mostPlayedTime:IGameOwned = data?.games?.reduce((prev, curr)=>{
             return (prev.playtime_forever > curr.playtime_forever) ? prev : curr;
         }) || []
-
-        const ownedGames:ISteamSpyGameData[] = await Promise.all<ISteamSpyGameData>(data.games.map(game=>{
+        const ownedGames:ISteamSpyGameData[] = data.games && await Promise.all<ISteamSpyGameData>(data.games.map(game=>{
             return getGameData(game.appid)
         }))
         const mostPlayedData = await getGameData(mostPlayedTime.appid)
