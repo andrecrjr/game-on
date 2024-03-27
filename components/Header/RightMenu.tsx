@@ -27,12 +27,6 @@ const RightMenu: React.FC = () => {
                 <NavigationMenuContent className='transition fixed flex 
                             bg-black md:bg-transparent z-10 top-13 flex-col
                                 justify-center text-center'>
-                    <NavigationMenuLink className='p-4 md:p-2 w-full 
-                        inline-flex justify-center items-center hover:opacity-80' 
-                                    href="/profile">
-                      <ProfileIcon/>  
-                      <p className='text-sm md:text-xs ml-3 md:ml-1'>Profile</p>
-                    </NavigationMenuLink>
                     <NavigationMenuLink className='p-4 md:p-2 w-full
                          inline-flex justify-center 
                          cursor-pointer items-center hover:opacity-80' onClick={(e)=>{
