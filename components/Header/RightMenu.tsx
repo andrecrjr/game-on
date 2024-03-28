@@ -6,8 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import ProfileIcon from '../icons/UserProfile';
 import UserLogout from '../icons/UserLogout';
 
-
-
 const RightMenu: React.FC = () => {
     const {status, data} = useSession()
     

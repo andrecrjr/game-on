@@ -5,8 +5,6 @@ import ProfileIcon from '../icons/UserProfile';
 import AchievementIcon from '../icons/Achievement';
 import { HomeIcon } from 'lucide-react';
 
-// import { Container } from './styles';
-
 const LeftMenuNotLogged = () =>{
       return (<>
    <NavigationMenu className="w-full">
