@@ -12,7 +12,6 @@ export type TemplateProps = {
 
 const Template: React.FC<TemplateProps> = async({ children }) => {
   const session = await getServerSession(getAuthOptions(undefined))
-  console.log(session)
   return (
     <>
       {!session ? <HeaderNotLogged /> : <Header />}
