@@ -1,6 +1,5 @@
 import HeroBanner from "@/components/Herobanner";
 import { getServerSession } from "next-auth";
-import Image from "next/image";
 import { getAuthOptions } from "./(authenticated)/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { HeaderNotLogged } from "@/components/Header";

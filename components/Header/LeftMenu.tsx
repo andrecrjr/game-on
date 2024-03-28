@@ -7,7 +7,7 @@ import { HomeIcon } from 'lucide-react';
 
 // import { Container } from './styles';
 
-export const LeftMenuNotLogged = () =>{
+const LeftMenuNotLogged = () =>{
       return (<>
    <NavigationMenu className="w-full">
       <NavigationMenuList className='max-w-full flex'>
@@ -41,4 +41,4 @@ const LeftMenu: React.FC = () => {
     </NavigationMenu></>;
 }
 
-export default LeftMenu;
+export {LeftMenu, LeftMenuNotLogged};

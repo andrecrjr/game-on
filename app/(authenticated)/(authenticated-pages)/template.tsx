@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import Grid from "@/components/Grid";
 import Column from "@/components/Grid/Column";
 import ColumnProfile from "@/components/Profile";
-import Header from "@/components/Header";
+import { Header } from "@/components/Header";
 
 
 
