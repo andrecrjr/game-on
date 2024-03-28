@@ -1,13 +1,8 @@
 import { TemplateProps } from "@/app/template";
 
 import React from "react";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import Grid from "@/components/Grid";
-import Column from "@/components/Grid/Column";
-import ColumnProfile from "@/components/Profile";
-import { Header } from "@/components/Header";
-import { getAuthOptions } from "../api/auth/[...nextauth]/route";
+
 
 
 

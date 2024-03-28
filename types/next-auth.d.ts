@@ -16,8 +16,9 @@ declare module "next-auth" {
         mostPlayedData: ISteamSpyGameData;
         mostPlayedTime: IGameOwned;
         ownedGames: ISteamSpyGameData[];
-      }
-      account: ISteamAccount
+      };
+      achievements:object;
+      account: ISteamAccount;
     }
   }
 }
