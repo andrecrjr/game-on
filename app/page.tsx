@@ -1,8 +1,8 @@
-import HeroBanner from "@/components/Herobanner";
 import { getServerSession } from "next-auth";
-import { getAuthOptions } from "./(authenticated)/api/auth/[...nextauth]/route";
+import { getAuthOptions } from "./api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { HeaderNotLogged } from "@/components/Header";
+
+import HeroBanner from "@/components/Herobanner";
 
 export default async function Home() {
   const session = await getServerSession(getAuthOptions(undefined))
@@ -13,7 +13,6 @@ export default async function Home() {
   
   return (
       <>
-      <HeaderNotLogged />
       <main 
         className="flex flex-col items-center justify-between md:p-14">
         <HeroBanner />

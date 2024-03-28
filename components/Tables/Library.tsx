@@ -14,7 +14,8 @@ import Image from 'next/image';
 import ProfileIcon from '../icons/UserProfile';
 import Title from '../Title';
 import { getServerSession } from 'next-auth';
-import { getAuthOptions } from '@/app/(authenticated)/api/auth/[...nextauth]/route';
+import { getAuthOptions } from '@/app/api/auth/[...nextauth]/route';
+import Link from 'next/link';
 
 
 const LibraryTable: React.FC = async () => {
@@ -30,9 +31,9 @@ const LibraryTable: React.FC = async () => {
                 <TableHeader>
                     {<TableRow>
                         <TableHead className='min-w-32'></TableHead>
-                        <TableHead className='min-w-56'>Name</TableHead>
-                        <TableHead className='min-w-32'>Game Studio</TableHead>
-                        <TableHead className='w-16 md:min-w-40'>Genres</TableHead>
+                        <TableHead className='min-w-40'>Name</TableHead>
+                        <TableHead>Game Studio</TableHead>
+                        <TableHead>Genres</TableHead>
                    </TableRow>}
                 </TableHeader>
                 <TableBody className='overflow-x-scroll'>
@@ -42,7 +43,9 @@ const LibraryTable: React.FC = async () => {
                                 src={game.avatarCapsule} width="112" height={"60"}>
                             </Image>
                         </TableCell>}
-                        <TableCell >{game.name}</TableCell>
+                        <TableCell >
+                            <Link href={`/game/${game.appid}`} passHref>{game.name}</Link>
+                        </TableCell>
                         <TableCell >{game.developer}</TableCell>
                         <TableCell>{game.genre}</TableCell>
                     </TableRow>)}

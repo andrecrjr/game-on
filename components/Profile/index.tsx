@@ -2,7 +2,7 @@ import React from "react";
 import Column from "../Grid/Column";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getServerSession } from "next-auth";
-import { getAuthOptions } from "@/app/(authenticated)/api/auth/[...nextauth]/route";
+import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { convertTiming } from "@/app/utils";
 import Image from "next/image";
 import Title from "../Title";
@@ -10,8 +10,7 @@ import Title from "../Title";
 const ColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))
 
-
-  return (<Column className='w-full md:w-3/12 md:pl-8 relative mb-12 md:mb-auto'>
+    return (<Column className='w-full md:w-3/12 md:pl-8 relative mb-12 md:mb-auto'>
                 <section className='md:w-full flex flex-col sticky top-20'>
                     <Title tag="h1" className='text-2xl text-center text-gray-800'>{session?.user?.name}</Title>
                     <Avatar className='w-24 h-24 self-center mt-2'>
