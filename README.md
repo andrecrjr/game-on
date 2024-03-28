@@ -9,10 +9,12 @@ Another Steam Client
 ## Goals
 - [ x ]  Homepage (hero banner)
 - [ x ]  User Profile // Library
-- [ ] Achievement Page // https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=KEY&steamid=STEAMid&format=json
+- [ ] Recent Game Played // https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=KEY&steamid=STEAMid&format=json
+- [ ] Achievement User Page
 - [ ]  Game Page List // https://steamspy.com/api.php?request=all&page=1
 - [ ] Top List Games Page // https://steamspy.com/api.php?request=top100in2weeks
 - [ ] Friends Page
+- [ ] Public User Page
 - [ ] Tag Page List // https://steamspy.com/api.php?request=genre&genre=Early+Access (not returning)
 
 ## Steam Web API Use Cases

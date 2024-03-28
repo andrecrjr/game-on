@@ -17,6 +17,11 @@ const nextConfig = {
         hostname: 'cdn.akamai.steamstatic.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'media.steampowered.com',
+        port: '',
+      },
     ],
   },
 };

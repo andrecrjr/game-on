@@ -1,7 +1,9 @@
-import { IGameOwned, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
+import { IGameOwned, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
 import { convertCentsToDols, imageGameSteam } from "../utils";
 
 const spyRoute = (process.env.STEAMSPY_ROUTE || process.env.NEXT_PUBLIC_STEAMSPY_ROUTE)
+const steamRoute = (process.env.STEAM_ROUTE || process.env.NEXT_PUBLIC_STEAM_ROUTE)
+const steamKey = (process.env.STEAM_SECRET||process.env.NEXT_PUBLIC_STEAM_SECRET)
 
 export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned|undefined):Promise<{
     mostPlayedData:ISteamSpyGameData; 
@@ -31,4 +33,10 @@ export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
             avatarHeader:imageGameSteam(appid, "header"),
             price: data.price === "0" ? "Free" : convertCentsToDols(Number(data.price)) 
         };
+}
+
+export const getRecentlyPlayedGames = async(steamUserId:string):Promise<IRecentlyPlayedRoot> =>{
+    const res = await fetch(`${steamRoute}IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steamKey}&steamid=${steamUserId}&format=json`, { next: { revalidate: 8000 } })
+    const data = await res.json()
+    return data
 }

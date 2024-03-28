@@ -17,7 +17,7 @@ export function convertTiming(minutos:number) {
   const m = Math.floor(mRestantes / 60);
   const s = mRestantes % 60;
 
-  return `${d}d ${h}h ${m}m`;
+  return `${ d > 0 && `${d}d` || ""} ${ h > 0 && `${h}h` || ""} ${m}m`;
 }
 
 export function convertCentsToDols(cents:number) {

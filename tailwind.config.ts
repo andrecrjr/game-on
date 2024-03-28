@@ -68,6 +68,9 @@ const config = {
           to: { height: "0" },
         },
       },
+      gridTemplateColumns:{
+        "recentPlayed": "32px 1fr"
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
