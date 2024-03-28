@@ -90,3 +90,25 @@ export interface ISteamSpyTags {
   "Psychological Horror": number
   MMORPG: number
 }
+
+
+export interface IPlayerStatsRoot {
+  playerstats: IPlayerstats
+}
+
+export interface IPlayerstats {
+  steamID: string
+  gameName: string
+  stats: IStat[]
+  achievements: IAchievement[]
+}
+
+export interface IStat {
+  name: string
+  value: number
+}
+
+export interface IAchievement {
+  name: string
+  achieved: number
+}
