@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { getAuthOptions } from "./(authenticated)/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
+import { HeaderNotLogged } from "@/components/Header";
 
 export default async function Home() {
   const session = await getServerSession(getAuthOptions(undefined))
@@ -12,9 +13,12 @@ export default async function Home() {
   }
   
   return (
-    <main 
-      className="flex flex-col items-center justify-between md:p-14">
-       <HeroBanner />
-    </main>
+      <>
+      <HeaderNotLogged />
+      <main 
+        className="flex flex-col items-center justify-between md:p-14">
+        <HeroBanner />
+      </main>
+    </>
   );
 }
