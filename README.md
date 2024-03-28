@@ -7,12 +7,13 @@ Another Steam Client
 * Shadcn/ui
 
 ## Goals
-- [ ]  Homepage
-- [ ]  Game Page
-- [ ]  Game Page List
-- [ ]  User Profile
-
-
+- [ x ]  Homepage (hero banner)
+- [ x ]  User Profile // Library
+- [ ] Achievement Page // https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=KEY&steamid=STEAMid&format=json
+- [ ]  Game Page List // https://steamspy.com/api.php?request=all&page=1
+- [ ] Top List Games Page // https://steamspy.com/api.php?request=top100in2weeks
+- [ ] Friends Page
+- [ ] Tag Page List // https://steamspy.com/api.php?request=genre&genre=Early+Access (not returning)
 
 ## Steam Web API Use Cases
 

@@ -112,3 +112,25 @@ export interface IAchievement {
   name: string
   achieved: number
 }
+
+
+export interface IRecentlyPlayedRoot {
+  response: IRecentlyPlayed
+}
+
+export interface IRecentlyPlayed {
+  total_count: number
+  games: IGameRecentlyPlayed[]
+}
+
+export interface IGameRecentlyPlayed {
+  appid: number
+  name: string
+  playtime_2weeks: number
+  playtime_forever: number
+  img_icon_url: string
+  playtime_windows_forever: number
+  playtime_mac_forever: number
+  playtime_linux_forever: number
+  playtime_deck_forever: number
+}

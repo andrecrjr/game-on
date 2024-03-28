@@ -18,4 +18,4 @@ export const gamesOwned = async (req: NextRequest, res:NextResponse) => {
   }
 };
 
-export { gamesOwned as POST};
+export { gamesOwned as POST };

@@ -1,9 +1,8 @@
-import { NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenu } from '@radix-ui/react-navigation-menu';
 import React from 'react';
+import { NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenu } from '@radix-ui/react-navigation-menu';
 import { signOut, useSession } from 'next-auth/react';
-import { NavigationMenuContent, NavigationMenuTrigger, navigationMenuTriggerStyle } from '../ui/navigation-menu';
+import { NavigationMenuContent, NavigationMenuTrigger } from '../ui/navigation-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import ProfileIcon from '../icons/UserProfile';
 import UserLogout from '../icons/UserLogout';
 
 const RightMenu: React.FC = () => {

@@ -1,7 +1,6 @@
-// template.tsx
+import React from 'react'
 import { HeaderNotLogged, Header } from '@/components/Header'
 import { getServerSession } from 'next-auth'
-import React from 'react'
 import { getAuthOptions } from './api/auth/[...nextauth]/route'
 
 
