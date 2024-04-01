@@ -22,11 +22,11 @@ const ColumnProfile = async () => {
                     </Avatar>
                     <RecentlyPlayedTable />
                     <section className="self-center md:self-auto">
-                        <h2 className='mt-8 font-bold text-gray-200'>Favorite Game</h2>
+                        <h2 className='font-bold text-gray-200'>Favorite Game</h2>
                         <Image fetchPriority="high" className='mt-2' src={session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.avatarHeader || ""}
                          loading="eager" alt={session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.name || ''} width={200} height={60}/>
                         <p className="text-sm mt-2"><strong>{session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.name}</strong></p>
-                        <p className="text-sm text-gray-600">Time Played: {session?.user?.gamesLibraryData && convertTiming(session?.user?.gamesLibraryData.mostPlayedTime.playtime_forever)}</p>
+                        <p className="text-sm text-gray-600" title="Time played in this game">⏲️ {session?.user?.gamesLibraryData && convertTiming(session?.user?.gamesLibraryData.mostPlayedTime.playtime_forever)}</p>
                     </section>
                 </section>
             </Column>);
