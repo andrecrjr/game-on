@@ -1,7 +1,8 @@
+import React from "react";
+
 import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 //import { getUserAchievement } from "@/app/services";
 import { getServerSession } from "next-auth";
-import React from "react";
 
 type Props = {};
 
