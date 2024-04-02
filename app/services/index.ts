@@ -1,9 +1,9 @@
-import { IGameOwned, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
+import { IAchievementsUser, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
 import { convertCentsToDols, imageGameSteam } from "../utils";
+import { fetchData, getStatsToAchievements, spyRoute, steamKey, steamRoute } from "./utils";
 
-const spyRoute = (process.env.STEAMSPY_ROUTE || process.env.NEXT_PUBLIC_STEAMSPY_ROUTE)
-const steamRoute = (process.env.STEAM_ROUTE || process.env.NEXT_PUBLIC_STEAM_ROUTE)
-const steamKey = (process.env.STEAM_SECRET||process.env.NEXT_PUBLIC_STEAM_SECRET)
+
+
 
 export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned|undefined):Promise<{
     mostPlayedData:ISteamSpyGameData; 
@@ -25,9 +25,7 @@ export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned|undefined):P
 
 export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
     
-    const res = await fetch(`${spyRoute}?request=appdetails&appid=${appid}`, { next: { revalidate: 8000 } })
-    const data = await res.json()
-    
+    const data = await fetchData<ISteamSpyGameData>(`${spyRoute}?request=appdetails&appid=${appid}`, { next: { revalidate: 8000 } })
     return {...data, 
             avatarCapsule:imageGameSteam(appid), 
             avatarHeader:imageGameSteam(appid, "header"),
@@ -36,7 +34,21 @@ export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
 }
 
 export const getRecentlyPlayedGames = async(steamUserId:string):Promise<IRecentlyPlayedRoot> =>{
-    const res = await fetch(`${steamRoute}IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steamKey}&steamid=${steamUserId}&format=json`, { next: { revalidate: 8000 } })
-    const data = await res.json()
+    const data = await fetchData<IRecentlyPlayedRoot>(`${steamRoute}IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steamKey}&steamid=${steamUserId}&format=json`, { next: { revalidate: 8000 } })
     return data
+}
+
+export const getUserAchievement = async (gamesOwned:ISteamSpyGameData[],steamUserId:string):Promise<IAchievementsUser[]> =>{
+
+    if(!gamesOwned){
+          throw new Error("Problem to get user stats achievement")
+    }
+    const achievementsDataSettled = await Promise.allSettled(gamesOwned.map(async(item)=>{
+        const url = `${steamRoute}ISteamUserStats/GetPlayerAchievements/v0001/?appid=${item.appid}&key=${steamKey}&steamid=${steamUserId}`
+        const data = await fetchData<IPlayerStatsRoot>(url,  { next: { revalidate: 10000 }} )
+        const achievementsData = await getStatsToAchievements(data.playerstats.achievements, item.appid)
+        return {achievements:achievementsData, gameName:data.playerstats.gameName};
+    }))
+    const achievementsFullfiled = achievementsDataSettled.filter(item=>item.status==="fulfilled").map(item=>item.status==="fulfilled" ? item.value : null)as IAchievementsUser[]
+    return achievementsFullfiled
 }

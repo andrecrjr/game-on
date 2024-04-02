@@ -99,8 +99,10 @@ export interface IPlayerStatsRoot {
 export interface IPlayerstats {
   steamID: string
   gameName: string
-  stats: IStat[]
-  achievements: IAchievement[]
+  stats?: IStat[]
+  achievements: IAchievementStatsUser[]
+  success?: boolean
+  appId?:number
 }
 
 export interface IStat {
@@ -108,9 +110,10 @@ export interface IStat {
   value: number
 }
 
-export interface IAchievement {
-  name: string
+export interface IAchievementStatsUser {
+  apiname: string
   achieved: number
+  unlocktime: number
 }
 
 
@@ -133,4 +136,45 @@ export interface IGameRecentlyPlayed {
   playtime_mac_forever: number
   playtime_linux_forever: number
   playtime_deck_forever: number
+}
+
+export interface IGameSchemaRoot {
+  game: GameSchema
+}
+
+export interface GameSchema {
+  gameName: string
+  gameVersion: string
+  availableGameStats: AvailableGameStatsSchema
+}
+
+export interface AvailableGameStatsSchema {
+  achievements: IAchievementGame[]
+  stats: StatsGame[]
+}
+
+export interface IAchievementGame {
+  name: string
+  defaultvalue: number
+  displayName: string
+  hidden: number
+  description: string
+  icon: string
+  icongray: string
+}
+
+export interface StatsGame {
+  name: string
+  defaultvalue: number
+  displayName: string
+}
+
+export interface IAchievementsUser {
+    achievements: IAchievementGameUser[]
+    gameName: string;
+}
+
+export interface IAchievementGameUser extends IAchievementGame {
+ unlocktime:number; 
+ achieved:number;
 }
