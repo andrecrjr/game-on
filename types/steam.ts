@@ -172,6 +172,8 @@ export interface StatsGame {
 export interface IAchievementsUser {
     achievements: IAchievementGameUser[]
     gameName: string;
+    gameId:number;
+    completedCount: number;
 }
 
 export interface IAchievementGameUser extends IAchievementGame {

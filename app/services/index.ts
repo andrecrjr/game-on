@@ -47,7 +47,8 @@ export const getUserAchievement = async (gamesOwned:ISteamSpyGameData[],steamUse
         const url = `${steamRoute}ISteamUserStats/GetPlayerAchievements/v0001/?appid=${item.appid}&key=${steamKey}&steamid=${steamUserId}`
         const data = await fetchData<IPlayerStatsRoot>(url,  { next: { revalidate: 10000 }} )
         const achievementsData = await getStatsToAchievements(data.playerstats.achievements, item.appid)
-        return {achievements:achievementsData, gameName:data.playerstats.gameName};
+        const achievementCountCompleted = achievementsData.filter(gameAchievement=>gameAchievement.achieved).length
+        return {achievements:achievementsData, gameName:data.playerstats.gameName, completedCount:achievementCountCompleted, gameId:item.appid};
     }))
     const achievementsFullfiled = achievementsDataSettled.filter(item=>item.status==="fulfilled").map(item=>item.status==="fulfilled" ? item.value : null)as IAchievementsUser[]
     return achievementsFullfiled
