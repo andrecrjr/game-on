@@ -10,7 +10,7 @@ import FavoriteTable from "../Tables/FavoriteTable";
 const ColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))
 
-    return (<Column className='w-full md:w-3/12 md:pl-8 mb-12 md:mb-auto sticky top-20'>
+    return (<Column className='w-full md:w-3/12 md:pl-8 mb-12 md:mb-auto md:sticky top-20'>
                 <section className='md:w-full flex flex-col '>
                     <Title tag="h1" className='text-2xl text-center text-gray-800'>{session?.user?.name}</Title>
                     <Avatar className='w-24 h-24 self-center mt-2'>

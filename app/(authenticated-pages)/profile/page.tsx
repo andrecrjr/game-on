@@ -1,4 +1,4 @@
-import LibraryTable from '@/components/Tables/Library';
+import LibraryTable from '@/components/Tables/LibraryTable';
 
 const ProfilePage: React.FunctionComponent = async() => {
   return (<LibraryTable/>)
