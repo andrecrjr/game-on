@@ -30,7 +30,7 @@ const LeftMenu: React.FC = () => {
                   </NavigationMenuLink>
           </NavigationMenuItem>
            <NavigationMenuItem>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/profile/achievements">
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/profile/achievements/1">
                         <AchievementIcon/>
                         <p className='text-sm md:text-xs md:ml-1 hidden md:block'>Achievements</p>
                   </NavigationMenuLink>

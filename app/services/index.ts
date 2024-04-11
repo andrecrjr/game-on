@@ -1,4 +1,4 @@
-import { IAchievementsUser, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
+import { IAchievementsPaginated, IAchievementsUser, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
 import { convertCentsToDols, imageGameSteam } from "../utils";
 import { fetchData, getStatsToAchievements, spyRoute, steamKey, steamRoute } from "./utils";
 
@@ -38,12 +38,21 @@ export const getRecentlyPlayedGames = async(steamUserId:string):Promise<IRecentl
     return data
 }
 
-export const getUserAchievement = async (gamesOwned:ISteamSpyGameData[],steamUserId:string):Promise<IAchievementsUser[]> =>{
+export const getUserAchievement = async (gamesOwned:ISteamSpyGameData[],
+    steamUserId:string,
+    pageNumber: number = 1,
+    pageSize: number = 9,
+    ):Promise<IAchievementsPaginated> =>{
 
     if(!gamesOwned){
           throw new Error("Problem to get user stats achievement")
     }
-    const achievementsDataSettled = await Promise.allSettled(gamesOwned.map(async(item)=>{
+    
+    const totalPages = Math.ceil(gamesOwned.length / pageSize);
+
+    const currentPageGames = gamesOwned.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+    const achievementsDataSettled = await Promise.allSettled(currentPageGames.map(async(item)=>{
         const url = `${steamRoute}ISteamUserStats/GetPlayerAchievements/v0001/?appid=${item.appid}&key=${steamKey}&steamid=${steamUserId}`
         const data = await fetchData<IPlayerStatsRoot>(url,  { next: { revalidate: 10000 }} )
         const achievementsData = await getStatsToAchievements(data.playerstats.achievements, item.appid)
@@ -51,5 +60,5 @@ export const getUserAchievement = async (gamesOwned:ISteamSpyGameData[],steamUse
         return {achievements:achievementsData, gameName:data.playerstats.gameName, completedCount:achievementCountCompleted, gameId:item.appid};
     }))
     const achievementsFullfiled = achievementsDataSettled.filter(item=>item.status==="fulfilled").map(item=>item.status==="fulfilled" ? item.value : null)as IAchievementsUser[]
-    return achievementsFullfiled
+    return {achievements:achievementsFullfiled, currentPage:pageNumber, totalPages}
 }

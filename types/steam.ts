@@ -180,3 +180,9 @@ export interface IAchievementGameUser extends IAchievementGame {
  unlocktime:number; 
  achieved:number;
 }
+
+export interface IAchievementsPaginated {
+  achievements: IAchievementsUser[];
+  currentPage: number;
+  totalPages: number;
+}
