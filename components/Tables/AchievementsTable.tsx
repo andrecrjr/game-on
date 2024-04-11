@@ -16,12 +16,12 @@ const AchievementsTable = async ({achievements}:Props) => {
         {achievements.map((game, indexGame)=>{
             return (
             <section key={game.gameName}>  
-            {game.gameName} - <strong>{game.completedCount}/{game.achievements.length}</strong>
-            <section className="overflow-x-scroll overflow-y-hidden h-[100px] mb-8">
-                <ul className="list-none flex w-fit ">
-                    <AchievementTableLine game={game} indexGame={indexGame}/>
-                </ul>
-            </section>
+                {game.gameName} - <strong>{game.completedCount}/{game.achievements.length}</strong>
+                <section className="overflow-x-scroll overflow-y-hidden h-[100px] mb-8">
+                    <ul className="list-none flex w-fit ">
+                        <AchievementTableLine game={game} indexGame={indexGame}/>
+                    </ul>
+                </section>
             </section>)
         })
         }

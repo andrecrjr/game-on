@@ -7,7 +7,7 @@ type Props = {
     game: IAchievementsUser;
 };
 
-export const AchievementTableLine = ({game, indexGame}: Props) => {
+export const AchievementTableLine = ({game}: Props) => {
   return (
     <>
         {game.achievements.map(
@@ -16,7 +16,7 @@ export const AchievementTableLine = ({game, indexGame}: Props) => {
                     <div className="relative group">
                         <Image src={achievement.achieved ? achievement.icon : achievement.icongray} 
                         className={`${!achievement.achieved && "grayscale" || "" }`} width="80" height={80} alt={achievement.name}/>
-                        <p className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{achievement.description}</p>
+                        <p className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm text-green-100 shadow-md">{achievement.description}</p>
                     </div>
                 </li>
             )
