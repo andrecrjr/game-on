@@ -1,7 +1,7 @@
 import React from "react";
-import OwnedGameTable from "./LibraryTable";
+import LibraryTable from "./LibraryTable";
 export default function index() {
   return <div>index</div>;
 }
 
-export { OwnedGameTable,  }
+export { LibraryTable }
