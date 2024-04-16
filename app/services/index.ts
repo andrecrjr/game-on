@@ -34,7 +34,7 @@ export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
 }
 
 export const getRecentlyPlayedGames = async(steamUserId:string):Promise<IRecentlyPlayedRoot> =>{
-    const data = await fetchData<IRecentlyPlayedRoot>(`${steamRoute}IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steamKey}&steamid=${steamUserId}&format=json`, { next: { revalidate: 8000 } })
+    const data = await fetchData<IRecentlyPlayedRoot>(`${steamRoute}IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steamKey}&steamid=${steamUserId}&format=json`, { next: { revalidate: 90000 } })
     return data
 }
 

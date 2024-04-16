@@ -16,7 +16,7 @@ export default async function AchivementPage({params}: Props) {
   const {achievements, currentPage, totalPages} = await getUserAchievement(session?.user?.gamesLibraryData.ownedGames||[], session?.user.steam.steamid || "", parseInt(params?.id)||1)
   if(achievements.length > 0)
     return( 
-      <section className="flex flex-col w-screen md:pr-6 ">
+      <section className="flex flex-col w-screen md:pr-6">
         <h4 className="mb-4 pl-4">Achievements - Page {currentPage}  of {totalPages}</h4>
           <section className="flex justify-between px-4 pb-4">
             <Button ><Link href={`/profile/achievements/${parseInt(params.id)-1}`}>Anterior</Link></Button>
