@@ -9,10 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import Column from '../Grid/Column';
+import Column from '../../Grid/Column';
 import Image from 'next/image';
-import ProfileIcon from '../icons/UserProfile';
-import Title from '../Title';
+import ProfileIcon from '../../icons/UserProfile';
+import Title from '../../Title';
 import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/api/auth/[...nextauth]/route';
 import Link from 'next/link';

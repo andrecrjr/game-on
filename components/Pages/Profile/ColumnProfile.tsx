@@ -1,11 +1,12 @@
 import React from "react";
-import Column from "../Grid/Column";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { getServerSession } from "next-auth";
 import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route";
-import Title from "../Title";
-import RecentlyPlayedTable from "../Tables/RecentlyPlayedTable";
-import FavoriteTable from "../Tables/FavoriteTable";
+
+import RecentlyPlayedTable from "@/components/Tables/RecentlyPlayedTable";
+import FavoriteTable from "@/components/Tables/FavoriteTable";
+import Title from "@/components/Title";
+import Column from "@/components/Grid/Column";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";1
 
 const ColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))

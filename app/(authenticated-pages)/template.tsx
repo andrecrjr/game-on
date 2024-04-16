@@ -3,7 +3,7 @@ import { TemplateProps } from "@/app/template";
 
 import Grid from "@/components/Grid";
 import Column from "@/components/Grid/Column";
-import ColumnProfile from "@/components/Profile";
+import ColumnProfile from "@/components/Pages/Profile/ColumnProfile";
 
 
 export default async function Template({children}:TemplateProps) {
