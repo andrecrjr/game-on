@@ -12,7 +12,9 @@ type Props = {
 
 export default async function AchievementPage({params}: Props) {
   const session = await getServerSession(getAuthOptions(undefined))
-  const {achievements, currentPage, totalPages} = await getUserAchievement(session?.user?.gamesLibraryData.ownedGames||[], session?.user.steam.steamid || "", parseInt(params?.id)||1)
+  const {achievements, currentPage, totalPages} = await getUserAchievement(session?.user?.gamesLibraryData.ownedGames||[], 
+                                                                                session?.user.steam.steamid || "", 
+                                                                                  parseInt(params?.id)||1)
   if(achievements.length > 0)
     return( 
       <section className="flex flex-col w-screen md:pr-6">
@@ -26,4 +28,6 @@ export default async function AchievementPage({params}: Props) {
           </section>
       </section>
     )
+
+  return (<p>No games found</p>)
 }

@@ -9,13 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import Column from '../../Grid/Column';
-import Image from 'next/image';
-import ProfileIcon from '../../icons/UserProfile';
-import Title from '../../Title';
+
 import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/api/auth/[...nextauth]/route';
 import Link from 'next/link';
+import Column from '@/components/Grid/Column';
+import ProfileIcon from '@/components/icons/UserProfile';
+import Title from '@/components/Title';
+import Image from 'next/image';
 
 
 const LibraryTable: React.FC = async () => {
@@ -38,11 +39,13 @@ const LibraryTable: React.FC = async () => {
                 </TableHeader>
                 <TableBody className='overflow-x-scroll'>
                     {!!session.user.gamesLibraryData && session.user?.gamesLibraryData?.ownedGames.map(game=><TableRow key={game.appid}>
-                        {game.avatarCapsule && <TableCell >
-                            <Image alt={game.name} 
-                                src={game.avatarCapsule} width="112" height={"60"}>
-                            </Image>
-                        </TableCell>}
+                        {game.avatarCapsule && 
+                            <TableCell>
+                                <Image alt={game.name} 
+                                    src={game.avatarCapsule} width="112" height={"60"}>
+                                </Image>
+                            </TableCell>
+                        }
                         <TableCell >
                             <Link href={`/game/${game.appid}`} passHref>{game.name}</Link>
                         </TableCell>
