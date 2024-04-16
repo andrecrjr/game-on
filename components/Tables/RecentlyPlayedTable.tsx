@@ -1,4 +1,4 @@
-import { getAuthOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getAuthOptions } from '@/app/services/steamAuth';
 import { getRecentlyPlayedGames } from '@/app/services';
 import { convertTiming } from '@/app/utils';
 import { getServerSession } from 'next-auth';

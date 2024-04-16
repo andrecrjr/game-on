@@ -2,7 +2,7 @@ import { getMostPlayedOwnedGames } from "@/app/services";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export const gamesOwned = async (req: NextRequest, res:NextResponse) => {
+const gamesOwned = async (req: NextRequest, res:NextResponse) => {
   try {
     const ownedGames = await req.json()
 

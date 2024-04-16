@@ -1,6 +1,6 @@
 import React from "react";
 import { getServerSession } from "next-auth";
-import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthOptions } from '@/app/services/steamAuth';;
 
 import RecentlyPlayedTable from "@/components/Tables/RecentlyPlayedTable";
 import FavoriteTable from "@/components/Tables/FavoriteTable";

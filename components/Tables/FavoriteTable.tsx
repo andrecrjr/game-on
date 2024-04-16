@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getAuthOptions } from '@/app/services/steamAuth';;
 import { convertTiming } from "@/app/utils";
 import { getServerSession } from "next-auth";
 import Image from "next/image";

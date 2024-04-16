@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { getAuthOptions } from "./api/auth/[...nextauth]/route";
+import { getAuthOptions } from '@/app/services/steamAuth';
 import { redirect } from "next/navigation";
 
 import HeroBanner from "@/components/Herobanner";

@@ -1,4 +1,4 @@
-import { getAuthOptions } from "@/app/api/auth/[...nextauth]/route"
+import { getAuthOptions } from '@/app/services/steamAuth';
 import { getUserAchievement } from "@/app/services"
 import AchievementsTable from "@/components/Tables/AchievementsTable"
 import { Button } from "@/components/ui/button"

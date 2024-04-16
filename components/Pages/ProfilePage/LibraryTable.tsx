@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table"
 
 import { getServerSession } from 'next-auth';
-import { getAuthOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getAuthOptions } from '@/app/services/steamAuth';
 import Link from 'next/link';
 import Column from '@/components/Grid/Column';
 import ProfileIcon from '@/components/icons/UserProfile';

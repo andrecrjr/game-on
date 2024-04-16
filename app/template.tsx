@@ -1,7 +1,7 @@
 import React from 'react'
 import { HeaderNotLogged, Header } from '@/components/Header'
 import { getServerSession } from 'next-auth'
-import { getAuthOptions } from './api/auth/[...nextauth]/route'
+import { getAuthOptions } from '@/app/services/steamAuth';
 
 
 export type TemplateProps = {
