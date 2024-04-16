@@ -22,7 +22,7 @@ export default async function AchievementPage({params}: Props) {
             <Button className="self-end"><Link href={`/profile/achievements/${parseInt(params.id)+1}`}>Próximo</Link></Button>
           </section>
           <section className="px-4">
-            {/* <AchievementsTable achievements={achievements} /> */}
+            <AchievementsTable achievements={achievements} />
           </section>
       </section>
     )
