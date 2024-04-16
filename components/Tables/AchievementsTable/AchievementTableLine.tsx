@@ -18,7 +18,7 @@ export const AchievementTableLine = ({game}: Props) => {
     <>
         {game.achievements.map(
             achievement=>
-                <li key={achievement.displayName} className="w-20 mr-6">
+                <li key={achievement.displayName} className="w-20 mr-6 relative">
                     <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
