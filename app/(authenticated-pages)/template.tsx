@@ -3,7 +3,7 @@ import { TemplateProps } from "@/app/template";
 
 import Grid from "@/components/Grid";
 import Column from "@/components/Grid/Column";
-import ColumnProfile from "@/components/Pages/Profile/ColumnProfile";
+import AsideColumnProfile from "@/components/Pages/ProfilePage/ColumnProfile";
 
 
 export default async function Template({children}:TemplateProps) {
@@ -15,7 +15,7 @@ export default async function Template({children}:TemplateProps) {
                 <Column className='md:w-9/12'>
                     {children}
                 </Column>
-                <ColumnProfile/>
+                <AsideColumnProfile/>
             </Grid>
         </main>
     </>);

@@ -41,7 +41,7 @@ export const getRecentlyPlayedGames = async(steamUserId:string):Promise<IRecentl
 export const getUserAchievement = async (gamesOwned:ISteamSpyGameData[],
     steamUserId:string,
     pageNumber: number = 1,
-    pageSize: number = 9,
+    pageSize: number = 6,
     ):Promise<IAchievementsPaginated> =>{
 
     if(!gamesOwned){

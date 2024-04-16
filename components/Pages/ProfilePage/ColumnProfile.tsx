@@ -8,7 +8,7 @@ import Title from "@/components/Title";
 import Column from "@/components/Grid/Column";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";1
 
-const ColumnProfile = async () => {
+const AsideColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))
 
     return (<Column className='w-full md:w-3/12 md:pl-8 mb-12 md:mb-auto md:sticky top-20'>
@@ -26,4 +26,4 @@ const ColumnProfile = async () => {
             </Column>);
 };
 
-export default ColumnProfile
+export default AsideColumnProfile
