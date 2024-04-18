@@ -9,7 +9,7 @@ import * as React from 'react';
 export default async function RecentlyPlayedTable () {
     const session= await getServerSession(getAuthOptions(undefined))
     const {response} = await getRecentlyPlayedGames(session?.user.steam.steamid||"")
-
+    
     if (response.total_count > 0) {
      return (
         <section className='mt-10 self-center  sm:mb-6  w-[200px] md:w-full'>
@@ -31,5 +31,5 @@ export default async function RecentlyPlayedTable () {
             </section>
         </section>
   );}
-  return null
+  return 
 }

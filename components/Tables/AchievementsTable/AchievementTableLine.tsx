@@ -26,7 +26,10 @@ export const AchievementTableLine = ({game}: Props) => {
                             className={`${!achievement.achieved && "grayscale contrast-50" || "contrast-100" }`} width="80" height={80} alt={achievement.name}/>
                         </TooltipTrigger>
                          <TooltipContent>
-                           <p className="font-bold p-3">{achievement.achieved ? "Unlocked:" : "Locked:"}{"\n"} {achievement.description}</p>
+                          <section className="p-3">
+                            <p className="text-center font-bold pb-2">{achievement.achieved ? "Unlocked" : "Locked"}</p>
+                            <p className="font-bold "> {achievement.description}</p>
+                           </section>
                         </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
