@@ -13,12 +13,11 @@ export function getAuthOptions(req: NextApiRequest|undefined): AuthOptions {
             ? [
                 SteamProvider(req, {
                     clientSecret: process.env.STEAM_SECRET!,
-                    callbackUrl: 'http://localhost:3000/api/auth/callback',
+                    callbackUrl: process.env.STEAM_CALLBACK_AUTH!,
                 }),
             ]
             : [
             ],
-        
         callbacks: {
             async jwt({ token, account, profile }) {
                 if (account?.provider === PROVIDER_ID) {

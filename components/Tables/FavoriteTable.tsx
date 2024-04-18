@@ -9,14 +9,22 @@ import Image from "next/image";
 const FavoriteTable = async () => {
 
     const session = await getServerSession(getAuthOptions(undefined))
-
-    return  (<section className="self-center md:self-auto">
+    if(session){
+    const {user} = session;
+    return  (
+            <section className="self-center md:self-auto">
                 <h2 className='font-bold text-gray-200'>Favorite Game</h2>
-                <Image fetchPriority="high" className='mt-2' src={session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.avatarHeader || ""}
-                    loading="eager" alt={session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.name || ''} width={200} height={60}/>
-                <p className="text-sm mt-2"><strong>{session?.user?.gamesLibraryData && session?.user?.gamesLibraryData.mostPlayedData.name}</strong></p>
-                <p className="text-sm text-gray-600" title="Time played in this game">⏲️ {session?.user?.gamesLibraryData && convertTiming(session?.user?.gamesLibraryData.mostPlayedTime.playtime_forever)}</p>
-            </section>);
+                <Image fetchPriority="high" className='mt-2' src={user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.avatarHeader || ""}
+                    loading="eager" alt={user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.name || ''} width={200} height={60}/>
+                <p className="text-sm mt-2">
+                    <strong>{user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.name}</strong>
+                </p>
+                <p className="text-sm text-gray-600" title="Time played in this game">
+                    ⏲️ {user?.gamesLibraryData && convertTiming(user?.gamesLibraryData.mostPlayedTime.playtime_forever)}
+                </p>
+            </section>
+        );
+    }
 };
 
 export default FavoriteTable;
