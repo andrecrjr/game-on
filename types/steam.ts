@@ -40,7 +40,7 @@ export interface ISteamAccount {
   providerAccountId: '76561198287998371',
   id_token: 'fc469798-2929-48d0-8f72-1faec90958d0',
   access_token: '06471b3e-cc06-47f5-91ab-0dfa0a7d23e2',
-  steamId: '76561198287998371'
+  steamId: '1'
 }
 
 export interface ISteamSpyGameData {
@@ -91,7 +91,7 @@ export interface ISteamSpyTags {
   MMORPG: number
 }
 
-
+// Player Stats Type
 export interface IPlayerStatsRoot {
   playerstats: IPlayerstats
 }
@@ -116,7 +116,7 @@ export interface IAchievementStatsUser {
   unlocktime: number
 }
 
-
+// User Recently Played
 export interface IRecentlyPlayedRoot {
   response: IRecentlyPlayed
 }
@@ -168,7 +168,7 @@ export interface StatsGame {
   defaultvalue: number
   displayName: string
 }
-
+// Achievement User Data 'https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=252950&key=key&steamid=user'
 export interface IAchievementsUser {
     achievements: IAchievementGameUser[]
     gameName: string;
@@ -185,4 +185,30 @@ export interface IAchievementsPaginated {
   achievements: IAchievementsUser[];
   currentPage: number;
   totalPages: number;
+}
+
+// Game News  https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=105600&count=15&maxlength=300&format=json
+export interface IGameNewsRoot {
+  appnews: Appnews
+}
+
+export interface Appnews {
+  appid: number
+  newsitems: Newsitem[]
+  count: number
+}
+
+export interface Newsitem {
+  gid: string
+  title: string
+  url: string
+  is_external_url: boolean
+  author: string
+  contents: string
+  feedlabel: string
+  date: number
+  feedname: string
+  feed_type: number
+  appid: number
+  tags?: string[]
 }

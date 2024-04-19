@@ -17,7 +17,8 @@ const HeroBanner = () => {
           <SignButton />
         </section>
         <section className="md:w-1/2  relative">
-          <Image
+          <img
+            fetchPriority='high'
             src="/image/steam-on.jpg"
             alt="Steam logo"
             width={220}

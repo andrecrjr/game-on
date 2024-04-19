@@ -22,7 +22,7 @@ export const AchievementTableLine = ({game}: Props) => {
                     <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Image src={achievement.achieved ? achievement.icon : achievement.icongray} 
+                            <img src={achievement.achieved ? achievement.icon : achievement.icongray} 
                             className={`${!achievement.achieved && "grayscale contrast-50" || "contrast-100" }`} width="80" height={80} alt={achievement.name}/>
                         </TooltipTrigger>
                          <TooltipContent>

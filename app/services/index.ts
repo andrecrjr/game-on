@@ -1,5 +1,5 @@
-import { IAchievementsPaginated, IAchievementsUser, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
-import { convertCentsToDols, imageGameSteam } from "../utils";
+import { IAchievementsPaginated, IAchievementsUser, IGameNewsRoot, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
+import { allSettleHandler, convertCentsToDols, imageGameSteam } from "../utils";
 import { fetchData, getStatsToAchievements, spyRoute, steamKey, steamRoute } from "./utils";
 
 
@@ -33,6 +33,18 @@ export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
         };
 }
 
+
+export const getAllGameData = async(appId:number):Promise<{gameData:ISteamSpyGameData, gameNews:IGameNewsRoot}> =>{
+    const gameAllData= await Promise.allSettled([getGameData(appId), 
+        fetchData<IGameNewsRoot>(`${steamRoute}ISteamNews/GetNewsForApp/v0002/?appid=${appId}&count=15&maxlength=1000&format=json`,  
+                    { next: { revalidate: 90000 } })
+    ])
+    const data = allSettleHandler<ISteamSpyGameData,IGameNewsRoot>(gameAllData)
+    const dataNews = data[1] as IGameNewsRoot;
+    const gameData = data[0] as ISteamSpyGameData
+    return {gameNews:dataNews, gameData:gameData};
+}
+
 export const getRecentlyPlayedGames = async(steamUserId:string):Promise<IRecentlyPlayedRoot> =>{
     const data = await fetchData<IRecentlyPlayedRoot>(`${steamRoute}IPlayerService/GetRecentlyPlayedGames/v0001/?key=${steamKey}&steamid=${steamUserId}&format=json`, { next: { revalidate: 90000 } })
     return data
@@ -59,6 +71,7 @@ export const getUserAchievementPaginated = async (gamesOwned:ISteamSpyGameData[]
         const achievementCountCompleted = achievementsData.filter(gameAchievement=>gameAchievement.achieved).length
         return {achievements:achievementsData, gameName:data.playerstats.gameName, completedCount:achievementCountCompleted, gameId:item.appid};
     }))
-    const achievementsFullfiled = achievementsDataSettled.filter(item=>item.status==="fulfilled").map(item=>item.status==="fulfilled" ? item.value : null)as IAchievementsUser[]
+    
+    const achievementsFullfiled = allSettleHandler(achievementsDataSettled) as IAchievementsUser[]
     return {achievements:achievementsFullfiled, currentPage:pageNumber, totalPages}
 }

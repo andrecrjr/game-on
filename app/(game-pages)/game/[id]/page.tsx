@@ -1,4 +1,5 @@
 import { getGameData } from "@/app/services";
+import GameGenericPage from "@/components/Pages/GamePage";
 import React from "react";
 
 type Props = {
@@ -6,9 +7,8 @@ type Props = {
 };
 
 const GamePage = async (props:Props) => {
-  const data = await getGameData(Number(props.params.id))
-  console.log(data)
-  return <p>{props.params.id}</p>;
+  
+  return <GameGenericPage {...props}/>;
 };
 
 export default GamePage

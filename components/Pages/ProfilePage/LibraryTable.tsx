@@ -41,9 +41,8 @@ const LibraryTable: React.FC = async () => {
                     {!!session.user.gamesLibraryData && session.user?.gamesLibraryData?.ownedGames.map(game=><TableRow key={game.appid}>
                         {game.avatarCapsule && 
                             <TableCell>
-                                <Image alt={game.name} 
-                                    src={game.avatarCapsule} width="112" height={"60"}>
-                                </Image>
+                                <img alt={game.name} 
+                                    src={game.avatarCapsule} width="112" height={"60"} loading='eager'/>
                             </TableCell>
                         }
                         <TableCell >

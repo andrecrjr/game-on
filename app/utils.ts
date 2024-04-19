@@ -24,3 +24,8 @@ export function convertCentsToDols(cents:number) {
   const dolares = (cents / 100).toLocaleString("en-US", { style: "currency", currency: "USD" });
   return dolares;
 }
+
+export const allSettleHandler = <G, I>(arrayData:PromiseSettledResult<G|I>[]):(G | I | null)[] =>{
+  const data = arrayData.filter(item=>item.status==="fulfilled").map(item=>item.status==="fulfilled" ? item.value : null)
+  return data;
+}

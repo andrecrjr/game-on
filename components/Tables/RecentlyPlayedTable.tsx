@@ -18,7 +18,8 @@ export default async function RecentlyPlayedTable () {
                 {response.total_count > 0 && response.games.map(item=>{
                     return (
                         <section className='grid grid-cols-recentPlayed  gap-x-3' key={item.appid}>
-                            <Image 
+                            <img
+                                fetchPriority='high' 
                                 src={`https://media.steampowered.com/steamcommunity/public/images/apps/${item.appid}/${item.img_icon_url}.jpg`}
                                     alt={item.name} className='row-start-1 row-end-3' width={32} height={32} />
                             <p className='text-sm font-bold'>{item.name}</p>
