@@ -1,15 +1,14 @@
-import { getAllGameData } from "@/app/services";
 import { AsideInline } from "@/components/Tables/AsideInline";
+import { ISteamSpyGameData } from "@/types/steam";
 import React from "react";
 
 type Props = {
-  params: {id:string}
+  gameData: ISteamSpyGameData
 };
 
 
-const AsideGameGenericPage = async (props: Props) => {
+const AsideGameGenericPage = async ({gameData}: Props) => {
 
-  const {gameData} = await getAllGameData(Number(props.params.id))
   return (
     <aside className="flex flex-col justify-center items-center">
         <h1 className="font-bold mb-4 text-ellipsis h-max">{gameData.name}</h1>
