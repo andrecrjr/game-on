@@ -1,4 +1,5 @@
 import { getAllGameData } from "@/app/services";
+import { AsideInline } from "@/components/Tables/AsideInline";
 import React from "react";
 
 type Props = {
@@ -6,12 +7,13 @@ type Props = {
 };
 
 
+
 const GameGenericPage = async (props: Props) => {
-  const {gameData, gameNews} = await getAllGameData(Number(props.params.id))
-  // news for game https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid=105600&count=15&maxlength=300&format=json
-  console.log(gameData)
-  console.log(gameNews.appnews)
-  return <section>index</section>;
+  const {gameData} = await getAllGameData(Number(props.params.id))
+  return (
+    <></>
+  );
+
 };
 
 export default GameGenericPage;

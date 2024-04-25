@@ -2,7 +2,6 @@ import { getAuthOptions } from '@/app/services/steamAuth';
 import { getRecentlyPlayedGames } from '@/app/services';
 import { convertTiming } from '@/app/utils';
 import { getServerSession } from 'next-auth';
-import Image from 'next/image';
 import * as React from 'react';
 
 
