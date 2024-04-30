@@ -13,7 +13,7 @@ export const GameFeed = ({gameNews}: Props) => {
       <Title tag="h2" className="mb-2 ">Game Feed</Title>
       {gameNews?.appnews?.newsitems.map(article=>{
         return (
-              <article className="mb-6 break-words">
+              <article className="mb-6 break-words" key={article.date}>
                 <section className="mb-4">
                   <h3 className="font-bold text-xl">{article.title}</h3>
                   <time className="inline text-sm mb-4">{new Date(article.date * 1000).toDateString()}</time>
