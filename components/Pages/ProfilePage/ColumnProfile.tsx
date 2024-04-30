@@ -6,7 +6,7 @@ import RecentlyPlayedTable from "@/components/Tables/RecentlyPlayedTable";
 import FavoriteTable from "@/components/Tables/FavoriteTable";
 import Title from "@/components/Title";
 import Column from "@/components/Grid/Column";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";1
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const AsideColumnProfile = async () => {
     const session = await getServerSession(getAuthOptions(undefined))
