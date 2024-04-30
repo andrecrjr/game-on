@@ -9,7 +9,7 @@ const GamePage = async (props:Props) => {
   
   return (
     <>
-    <GameGenericPage {...props} />
+      <GameGenericPage {...props} />
     </>
     )
 };
