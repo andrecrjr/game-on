@@ -1,12 +1,17 @@
+import GameGenericPage from "@/components/Pages/GamePage";
 import React from "react";
 
 type Props = {
   params: {id:string}
 };
 
-const Page = (props:Props) => {
+const GamePage = async (props:Props) => {
   
-  return <p>{props.params.id}</p>;
+  return (
+    <>
+    <GameGenericPage {...props} />
+    </>
+    )
 };
 
-export default Page
+export default GamePage

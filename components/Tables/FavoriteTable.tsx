@@ -13,8 +13,8 @@ const FavoriteTable = async () => {
     const {user} = session;
     return  (
             <section className="self-center md:self-auto">
-                <h2 className='font-bold text-gray-200'>Favorite Game</h2>
-                <Image fetchPriority="high" className='mt-2' src={user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.avatarHeader || ""}
+                <h2 className='font-bold text-gray-600'>Favorite Game</h2>
+                <img fetchPriority="high" className='mt-2' src={user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.avatarHeader || ""}
                     loading="eager" alt={user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.name || ''} width={200} height={60}/>
                 <p className="text-sm mt-2">
                     <strong>{user?.gamesLibraryData && user?.gamesLibraryData.mostPlayedData.name}</strong>

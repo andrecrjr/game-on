@@ -5,7 +5,7 @@ export const steamRoute = (process.env.STEAM_ROUTE || process.env.NEXT_PUBLIC_ST
 export const steamKey = (process.env.STEAM_SECRET||process.env.NEXT_PUBLIC_STEAM_SECRET)
 
 
-export async function fetchData<G>(url:string , params:object):Promise<G>{
+export async function fetchData<G>(url:string , params?:object):Promise<G>{
     const res = await fetch(url, params)
     const data = await res.json() as Promise<G>
     return data

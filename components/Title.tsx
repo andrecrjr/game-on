@@ -6,7 +6,7 @@ type Props = {
 } & HTMLAttributes<HTMLHeadingElement>
 
 const Title = ({children, tag="h2", ...props}: Props) => {
-    const DomTag = tag;
+  const DomTag = tag;
   return <DomTag {...props}>{children}</DomTag>;
 };
 
