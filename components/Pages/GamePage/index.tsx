@@ -12,7 +12,7 @@ const GameGenericPage = async (props: Props) => {
   const {gameData, gameNews} = await getAllGameData(Number(props.params.id))
   return (
     <>
-    <Column className='md:w-8/12 '>
+    <Column className='md:w-8/12'>
            <GameFeed gameNews={gameNews} />
     </Column>
      <Column className='md:w-4/12'>
