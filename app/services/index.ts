@@ -75,3 +75,9 @@ export const getUserAchievementPaginated = async (gamesOwned:ISteamSpyGameData[]
     const achievementsFullfiled = allSettleHandler(achievementsDataSettled) as IAchievementsUser[]
     return {achievements:achievementsFullfiled, currentPage:pageNumber, totalPages}
 }
+
+
+export const getGamesRanked = async (rank="top100in2weeks") =>{
+    const data = await fetchData(`${spyRoute}?request=${rank}`)
+    return;
+}
