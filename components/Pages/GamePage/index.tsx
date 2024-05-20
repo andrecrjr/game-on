@@ -13,7 +13,7 @@ const GameGenericPage = async (props: Props) => {
   return (
     <>
     <Column className='md:w-8/12'>
-           <GameFeed gameNews={gameNews} />
+          {gameNews && <GameFeed gameNews={gameNews} />}
     </Column>
      <Column className='md:w-4/12'>
            <AsideGameGenericPage gameData={gameData}/>
