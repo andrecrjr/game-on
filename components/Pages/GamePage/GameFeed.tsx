@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const GameFeed = ({gameNews}: Props) => {
-
+  
   return (
     <section className="md:pr-8 w-screen md:w-auto px-4 md:px-0">
       <Title tag="h2" className="mb-2 ">Game Feed</Title>

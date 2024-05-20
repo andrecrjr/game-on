@@ -1,9 +1,7 @@
-import { IAchievementsPaginated, IAchievementsUser, IGameNewsRoot, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData } from "@/types/steam";
+import { IAchievementsPaginated, IAchievementsUser, IGameNewsRoot, IGameOwned, IPlayerStatsRoot, IPlayerstats, IRecentlyPlayedRoot, ISteamGamesOwned, ISteamSpyGameData, TrendingGamePageType } from "@/types/steam";
 import { allSettleHandler, convertCentsToDols, imageGameSteam } from "../utils";
 import { fetchData, getStatsToAchievements, spyRoute, steamKey, steamRoute } from "./utils";
-
-
-
+import { isNull } from "util";
 
 export const getMostPlayedOwnedGames = async (data:ISteamGamesOwned|undefined):Promise<{
     mostPlayedData:ISteamSpyGameData; 
@@ -33,14 +31,15 @@ export const getGameData = async(appid:number):Promise<ISteamSpyGameData> =>{
         };
 }
 
-
-export const getAllGameData = async(appId:number):Promise<{gameData:ISteamSpyGameData, gameNews:IGameNewsRoot}> =>{
+export const getAllGameData = async(appId:number, options:{getNews:boolean}={getNews:true}):Promise<{gameData:ISteamSpyGameData, 
+    gameNews:IGameNewsRoot|null}> =>{
     const gameAllData= await Promise.allSettled([getGameData(appId), 
-        fetchData<IGameNewsRoot>(`${steamRoute}ISteamNews/GetNewsForApp/v0002/?appid=${appId}&count=15&maxlength=1000&format=json`,  
-                    { next: { revalidate: 90000 } })
+         options.getNews ?  fetchData<IGameNewsRoot>(`${steamRoute}ISteamNews/GetNewsForApp/v0002/?appid=${appId}&count=15&maxlength=1000&format=json`,  
+                    { next: { revalidate: 90000 } }
+                ) : null
     ])
-    const data = allSettleHandler<ISteamSpyGameData,IGameNewsRoot>(gameAllData)
-    const dataNews = data[1] as IGameNewsRoot;
+    const data = allSettleHandler<ISteamSpyGameData,IGameNewsRoot|null>(gameAllData)
+    const dataNews = options.getNews ? data[1] as IGameNewsRoot : null;
     const gameData = data[0] as ISteamSpyGameData
     return {gameNews:dataNews, gameData:gameData};
 }
@@ -75,3 +74,16 @@ export const getUserAchievementPaginated = async (gamesOwned:ISteamSpyGameData[]
     const achievementsFullfiled = allSettleHandler(achievementsDataSettled) as IAchievementsUser[]
     return {achievements:achievementsFullfiled, currentPage:pageNumber, totalPages}
 }
+
+
+export const getTrendingGamesRanked = async (rank="top100in2weeks"): Promise<ISteamSpyGameData[]> =>{
+    const data = await fetchData<TrendingGamePageType>(`${spyRoute}?request=${rank}`)
+    const dataArr = Object.keys(data)
+    const allGameTrendDataSettled = await Promise.allSettled(dataArr.map((item:string)=>{
+        const data = getAllGameData(parseInt(item), {getNews:false})
+        return data;
+    }));
+    const handledData = allSettleHandler(allGameTrendDataSettled).map(item=>item?.gameData) as ISteamSpyGameData[];
+    return handledData;
+}
+

@@ -12,7 +12,8 @@ export async function fetchData<G>(url:string , params?:object):Promise<G>{
 }
 
 
-export async function getStatsToAchievements(achievementData:IAchievementStatsUser[], gameId:number):Promise<IAchievementGameUser[]>{
+export async function getStatsToAchievements(achievementData:IAchievementStatsUser[], 
+                                                gameId:number):Promise<IAchievementGameUser[]>{
     const url = `https://api.steampowered.com/ISteamUserStats/GetSchemaForGame/v0002/?key=${steamKey}&appid=${gameId}&l=english&format=json`
 
     const data = await fetchData<IGameSchemaRoot>(url, { next: { revalidate: 10000 }})

@@ -12,7 +12,7 @@ import { redirect } from "next/navigation";
 export default async function Template({children}:TemplateProps) {
   const session = await getServerSession(getAuthOptions(undefined))
   if(!session){
-    redirect("/")
+    return redirect("/")
   }
   return (
   <>
