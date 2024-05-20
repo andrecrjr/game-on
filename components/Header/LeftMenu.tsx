@@ -35,6 +35,12 @@ const LeftMenu: React.FC = () => {
                         <p className='text-sm md:text-xs md:ml-1 hidden md:block'>Profile</p>
                   </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+                <NavigationMenuLink href="/trends" className={navigationMenuTriggerStyle()}>
+                    <TrendingUp width={20} />
+                    <p className='text-sm md:text-xs md:ml-1 hidden md:block'>Trending Game</p>
+                </NavigationMenuLink>
+            </NavigationMenuItem>
            <NavigationMenuItem>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/profile/achievements/1">
                         <AchievementIcon/>
