@@ -78,7 +78,6 @@ export const getUserAchievementPaginated = async (gamesOwned:ISteamSpyGameData[]
 
 export const getTrendingGamesRanked = async (rank="top100in2weeks"): Promise<ISteamSpyGameData[]> =>{
     const data = await fetchData<TrendingGamePageType>(`${spyRoute}?request=${rank}`)
-    console.log(data)
     const dataArr = Object.keys(data)
     const allGameTrendDataSettled = await Promise.allSettled(dataArr.map((item:string)=>{
         const data = getAllGameData(parseInt(item), {getNews:false})
