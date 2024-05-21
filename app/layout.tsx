@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk  } from "next/font/google";
 import "./globals.css";
 import SessionContext from "@/components/context/SessionContext";
+import { getServerSession } from "next-auth";
+import { getAuthOptions } from "./services/steamAuth";
+import { Footer } from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Space_Grotesk({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Steam On",
-  description: "Steam Achievements List",
-};
+export async function generateMetadata() {
+    const session = await getServerSession(getAuthOptions(undefined))
+    if(session)
+      return {
+          title:`${session?.user.name}'s Page`,
+          description: `Game's Library from ${session?.user.name}`
+      }
+    return {
+      title: 'Steam ON - Minimalist Steam Watcher',
+        description: "Steam User Data Watcher",
+    }
+}
+
 
 export default function RootLayout({
   children,
@@ -17,11 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className+" min-h-screen"}>
-        <SessionContext>
-          {children}
-        </SessionContext>
-        </body>
+      <body className={inter.className+" min-h-screen flex flex-col"}>
+          <SessionContext>
+            {children}
+          </SessionContext>
+          <Footer />
+       </body>
     </html>
   );
 }

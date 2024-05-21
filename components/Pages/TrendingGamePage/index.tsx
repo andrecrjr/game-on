@@ -12,7 +12,6 @@ const TrendingGamePage = ({gameRankedData}: Props) => {
     
     return (<><h1>Trending Game Page</h1>
     <Table className='min-w-[700px] h-screen md:w-full'>
-                <TableCaption>Games Library</TableCaption>
                 <TableHeader>
                     {<TableRow>
                         <TableHead className='min-w-40'>Rank</TableHead>

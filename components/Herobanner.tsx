@@ -16,15 +16,8 @@ const HeroBanner = () => {
           </p>
           <SignButton />
         </section>
-        <section className="md:w-1/2  relative">
-          <img
-            fetchPriority='high'
-            src="/image/steam-on.jpg"
-            alt="Steam logo"
-            width={220}
-            height={220}
-            className="object-contain mx-auto md:h-[400px]"
-          />
+        <section className="md:w-1/2 relative bg-[url('/image/steam-on.png')] bg-[300px] bg-no-repeat bg-[length:325px_325px] h-[465px]">
+          
         </section>
       </section>
     </section>
