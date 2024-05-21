@@ -16,7 +16,7 @@ const HeroBanner = () => {
           </p>
           <SignButton />
         </section>
-        <section className="md:w-1/2 relative bg-[url('/image/steam-on.png')] bg-[300px] bg-no-repeat bg-[length:325px_325px] h-[465px]">
+        <section className="md:w-1/2 relative bg-[url('/image/steam-on.png')] bg-[length:400px_400px] bg-[50%_0] h-96 bg-no-repeat md:bg-[80%] md:bg-[length:325px_325px] md:h-[465px]">
           
         </section>
       </section>
