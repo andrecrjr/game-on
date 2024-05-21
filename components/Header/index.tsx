@@ -15,7 +15,7 @@ const Header: React.FC = () => {
 }
 
 const HeaderNotLogged: React.FC = () =>{
-  return (    <header className="w-full h-16 flex mx-auto items-center sticky top-0 z-10">
+  return (    <header className="w-full h-16 flex mx-auto items-center sticky bg-background top-0 z-10">
       <LeftMenuNotLogged/>
     </header>)
 }

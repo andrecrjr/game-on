@@ -1,6 +1,6 @@
 # Steam On
 
-Another Steam Client
+Another Steam Minimalist Client
 
 * NextJS
 * Typescript
@@ -13,10 +13,10 @@ Another Steam Client
 - [ x ] Achievement User Page 
 - [ x ] Game Page
 - [ x ]  Game Page List // https://steamspy.com/api.php?request=all&page=1 https://store.steampowered.com/api/appdetails?appids=105600
-- [ ] Top List Games Page // https://steamspy.com/api.php?request=top100in2weeks
-- [ ] Friends Page
+- [ x ] Top List Games Page // https://steamspy.com/api.php?request=top100in2weeks
+- [ ] Fix SEO title and description to sub pages
 - [ ] Public User Page
-- [ ] Tag Page List // https://steamspy.com/api.php?request=genre&genre=Early+Access (not returning)
+- [ ] Minor css improvements and changes
 
 ## Steam Web API Use Cases
 
