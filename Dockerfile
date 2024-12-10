@@ -1,6 +1,6 @@
 # Dockerfile
 # Use a imagem oficial do node como base
-FROM node:20.11.1-alpine
+FROM node:22-alpine
 
 # Defina a pasta de trabalho no container
 WORKDIR /app

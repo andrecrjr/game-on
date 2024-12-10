@@ -27,6 +27,5 @@ export function convertCentsToDols(cents:number) {
 
 export const allSettleHandler = <G, I>(arrayData:PromiseSettledResult<G|I>[]):(G | I | null)[] =>{
   const data = arrayData.filter(item=>item.status==="fulfilled").map(item=>item.status==="fulfilled" ? item.value : null)
-  console.log(data)
   return data;
 }

@@ -1,5 +1,4 @@
-import { getTrendingGamesRanked } from "@/app/services";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ISteamSpyGameData } from "@/types/steam";
 import Link from "next/link";
 import React from "react";
@@ -10,8 +9,8 @@ type Props = {
 
 const TrendingGamePage = ({gameRankedData}: Props) => {
     
-    return (<><h1>Trending Game Page</h1>
-    <Table className='min-w-[700px] h-screen md:w-full'>
+    return (<><h1>Trending Steam Games</h1>
+    <Table className='h-screen md:w-9/12 mx-auto'>
                 <TableHeader>
                     {<TableRow>
                         <TableHead className='min-w-40'>Rank</TableHead>
