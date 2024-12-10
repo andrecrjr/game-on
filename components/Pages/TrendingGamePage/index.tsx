@@ -1,49 +1,66 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ISteamSpyGameData } from "@/types/steam";
-import Link from "next/link";
-import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { ISteamSpyGameData } from '@/types/steam';
+import Link from 'next/link';
+import React from 'react';
 
 type Props = {
-    gameRankedData?: ISteamSpyGameData[]
+  gameRankedData?: ISteamSpyGameData[];
 };
 
-const TrendingGamePage = ({gameRankedData}: Props) => {
-    
-    return (<><h1>Trending Steam Games</h1>
-    <Table className='h-screen md:w-9/12 mx-auto'>
-                <TableHeader>
-                    {<TableRow>
-                        <TableHead className='min-w-40'>Rank</TableHead>
-                        <TableHead className='min-w-32'></TableHead>
-                        <TableHead className='min-w-40'>Name</TableHead>
-                        <TableHead>Game Studio</TableHead>
-                        <TableHead>Genres</TableHead>
-                   </TableRow>}
-                </TableHeader>
-                <TableBody className='overflow-x-scroll'>
-                    {!!gameRankedData && gameRankedData.map((game, index)=>
-                    {
-                        return(
-                                <TableRow key={game.appid}>
-                                        <TableCell>{index + 1}</TableCell>
-                                        {game.avatarCapsule && 
-                                            <TableCell>
-                                                <img alt={game.name} 
-                                                    src={game.avatarCapsule} width="112" height={"60"} 
-                                                        loading={index>9 ? "lazy" : "eager"}/>
-                                            </TableCell>
-                                        }
-                                        <TableCell >
-                                            <Link href={`/game/${game.appid}`} passHref>{game.name}</Link>
-                                        </TableCell>
-                                        <TableCell >{game.developer}</TableCell>
-                                        <TableCell>{game.genre}</TableCell>
-                                    </TableRow>
-                            )
-                    }
-                )}
-                </TableBody>
-                </Table></>);
+const TrendingGamePage = ({ gameRankedData }: Props) => {
+  return (
+    <>
+      <h1>Trending Steam Games</h1>
+      <Table className="h-screen md:w-9/12 mx-auto">
+        <TableHeader>
+          {
+            <TableRow>
+              <TableHead className="min-w-40">Rank</TableHead>
+              <TableHead className="min-w-32"></TableHead>
+              <TableHead className="min-w-40">Name</TableHead>
+              <TableHead>Game Studio</TableHead>
+              <TableHead>Genres</TableHead>
+            </TableRow>
+          }
+        </TableHeader>
+        <TableBody className="overflow-x-scroll">
+          {!!gameRankedData &&
+            gameRankedData.map((game, index) => {
+              return (
+                <TableRow key={game.appid}>
+                  <TableCell>{index + 1}</TableCell>
+                  {game.avatarCapsule && (
+                    <TableCell>
+                      <img
+                        alt={game.name}
+                        src={game.avatarCapsule}
+                        width="112"
+                        height={'60'}
+                        loading={index > 9 ? 'lazy' : 'eager'}
+                      />
+                    </TableCell>
+                  )}
+                  <TableCell>
+                    <Link href={`/game/${game.appid}`} passHref>
+                      {game.name}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{game.developer}</TableCell>
+                  <TableCell>{game.genre}</TableCell>
+                </TableRow>
+              );
+            })}
+        </TableBody>
+      </Table>
+    </>
+  );
 };
 
-export default TrendingGamePage
+export default TrendingGamePage;

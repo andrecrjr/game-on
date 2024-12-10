@@ -22,8 +22,8 @@ const LeftMenuNotLogged = () =>{
                 </NavigationMenuLink>
             </NavigationMenuItem>
         </NavigationMenuList>
-    </NavigationMenu></>)
-}
+    </NavigationMenu></>);
+};
 
 const LeftMenu: React.FC = () => {
   return <>
@@ -49,6 +49,6 @@ const LeftMenu: React.FC = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
     </NavigationMenu></>;
-}
+};
 
 export {LeftMenu, LeftMenuNotLogged};

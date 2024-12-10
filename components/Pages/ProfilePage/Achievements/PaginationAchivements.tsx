@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
     Pagination,
@@ -8,7 +8,7 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from "@/components/ui/pagination"
+} from '@/components/ui/pagination';
 
 type Props = {
     id:string;

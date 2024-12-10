@@ -1,8 +1,8 @@
-"use client"
-import { useSession } from "next-auth/react";
+'use client';
+import { useSession } from 'next-auth/react';
 import React from 'react';
-import { LeftMenu, LeftMenuNotLogged } from "./LeftMenu";
-import RightMenu from "./RightMenu";
+import { LeftMenu, LeftMenuNotLogged } from './LeftMenu';
+import RightMenu from './RightMenu';
 
 
 const Header: React.FC = () => {
@@ -12,12 +12,12 @@ const Header: React.FC = () => {
       <RightMenu/>
     </header>
 );
-}
+};
 
 const HeaderNotLogged: React.FC = () =>{
   return (    <header className="w-full h-16 flex mx-auto items-center sticky bg-background top-0 z-10">
       <LeftMenuNotLogged/>
-    </header>)
-}
+    </header>);
+};
 
 export {Header, HeaderNotLogged};

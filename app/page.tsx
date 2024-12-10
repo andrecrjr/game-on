@@ -1,14 +1,14 @@
-import { getServerSession } from "next-auth";
+import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/services/steamAuth';
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
-import HeroBanner from "@/components/Herobanner";
+import HeroBanner from '@/components/Herobanner';
 
 export default async function Home() {
-  const session = await getServerSession(getAuthOptions(undefined))
+  const session = await getServerSession(getAuthOptions(undefined));
 
-  if(!!session){
-    redirect("/profile")
+  if(session){
+    redirect('/profile');
   }
   
   return (

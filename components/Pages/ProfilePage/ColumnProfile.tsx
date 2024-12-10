@@ -1,15 +1,15 @@
-import React from "react";
-import { getServerSession } from "next-auth";
+import React from 'react';
+import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/services/steamAuth';
 
-import RecentlyPlayedTable from "@/components/Tables/RecentlyPlayedTable";
-import FavoriteTable from "@/components/Tables/FavoriteTable";
-import Title from "@/components/Title";
-import Column from "@/components/Grid/Column";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import RecentlyPlayedTable from '@/components/Tables/RecentlyPlayedTable';
+import FavoriteTable from '@/components/Tables/FavoriteTable';
+import Title from '@/components/Title';
+import Column from '@/components/Grid/Column';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const AsideColumnProfile = async () => {
-    const session = await getServerSession(getAuthOptions(undefined))
+    const session = await getServerSession(getAuthOptions(undefined));
 
     return (<Column className='w-full md:w-3/12 md:pl-8 mb-12 md:mb-auto md:sticky top-20'>
                 <section className='md:w-full flex flex-col '>
@@ -26,4 +26,4 @@ const AsideColumnProfile = async () => {
             </Column>);
 };
 
-export default AsideColumnProfile
+export default AsideColumnProfile;

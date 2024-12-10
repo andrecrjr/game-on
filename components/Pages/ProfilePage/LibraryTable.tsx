@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from '@/components/ui/table';
 
 import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/services/steamAuth';
@@ -20,8 +20,8 @@ import Image from 'next/image';
 
 
 const LibraryTable: React.FC = async () => {
-    const session = await getServerSession(getAuthOptions(undefined))
-    if(!!session)
+    const session = await getServerSession(getAuthOptions(undefined));
+    if(session)
         return( <Column className='w-screen md:w-full min-h-6 md:pr-6'>
             <section className='flex ml-4 mb-8'>
                 <ProfileIcon />
@@ -42,7 +42,7 @@ const LibraryTable: React.FC = async () => {
                         {game.avatarCapsule && 
                             <TableCell>
                                 <img alt={game.name} 
-                                    src={game.avatarCapsule} width="112" height={"60"} loading='eager'/>
+                                    src={game.avatarCapsule} width="112" height={'60'} loading='eager'/>
                             </TableCell>
                         }
                         <TableCell >
@@ -55,7 +55,7 @@ const LibraryTable: React.FC = async () => {
                 </Table>
             </Column>);
 
-    return <p>Loading</p>
-}
+    return <p>Loading</p>;
+};
 
 export default LibraryTable;

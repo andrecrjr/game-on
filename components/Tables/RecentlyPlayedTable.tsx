@@ -6,8 +6,8 @@ import * as React from 'react';
 
 
 export default async function RecentlyPlayedTable () {
-    const session= await getServerSession(getAuthOptions(undefined))
-    const {response} = await getRecentlyPlayedGames(session?.user.steam.steamid||"")
+    const session= await getServerSession(getAuthOptions(undefined));
+    const {response} = await getRecentlyPlayedGames(session?.user.steam.steamid||'');
     
     if (response.total_count > 0) {
      return (
@@ -26,10 +26,10 @@ export default async function RecentlyPlayedTable () {
                                 ⏲️ {convertTiming(item.playtime_2weeks)}
                             </p>
                         </section>
-                    )
+                    );
                 })}
             </section>
         </section>
   );}
-  return 
+  return; 
 }

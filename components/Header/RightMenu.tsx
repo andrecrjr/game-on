@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import UserLogout from '../icons/UserLogout';
 
 const RightMenu: React.FC = () => {
-    const {status, data} = useSession()
+    const {status, data} = useSession();
     
     if (status === 'authenticated')
     return ( 
@@ -27,8 +27,8 @@ const RightMenu: React.FC = () => {
                     <NavigationMenuLink className='p-4 md:p-2 w-full
                          inline-flex justify-center 
                          cursor-pointer items-center hover:opacity-80' onClick={(e)=>{
-                        e.preventDefault()
-                         signOut()
+                        e.preventDefault();
+                         signOut();
                     }}> 
                      <UserLogout/>   
                      <p className='text-sm md:text-xs  ml-3 md:ml-1'>Logout</p>
@@ -37,6 +37,6 @@ const RightMenu: React.FC = () => {
             </NavigationMenuItem>
         </NavigationMenuList>
         </NavigationMenu>);
-}
+};
 
 export default RightMenu;

@@ -1,6 +1,6 @@
-import { AsideInline } from "@/components/Tables/AsideInline";
-import { ISteamSpyGameData } from "@/types/steam";
-import React from "react";
+import { AsideInline } from '@/components/Tables/AsideInline';
+import { ISteamSpyGameData } from '@/types/steam';
+import React from 'react';
 
 type Props = {
   gameData: ISteamSpyGameData

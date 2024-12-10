@@ -1,5 +1,5 @@
-import React from "react";
-import AchievementPage from "@/components/Pages/ProfilePage/Achievements";
+import React from 'react';
+import AchievementPage from '@/components/Pages/ProfilePage/Achievements';
 
 type Props = {
   params: {id:string}
@@ -8,5 +8,5 @@ type Props = {
 export default async function AchievementsUserPage(props: Props) {
     return( 
       <AchievementPage {...props}/>
-    )
+    );
 }

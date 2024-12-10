@@ -1,9 +1,9 @@
 import { getAuthOptions } from '@/app/services/steamAuth';
-import { getUserAchievementPaginated } from "@/app/services"
-import AchievementsTable from "@/components/Tables/AchievementsTable"
-import { Button } from "@/components/ui/button"
-import { getServerSession } from "next-auth"
-import Link from "next/link"
+import { getUserAchievementPaginated } from '@/app/services';
+import AchievementsTable from '@/components/Tables/AchievementsTable';
+import { Button } from '@/components/ui/button';
+import { getServerSession } from 'next-auth';
+import Link from 'next/link';
 import { PaginationAchivements } from './PaginationAchivements';
 
 type Props = {
@@ -12,10 +12,10 @@ type Props = {
 
 
 export default async function AchievementPage({params}: Props) {
-  const session = await getServerSession(getAuthOptions(undefined))
+  const session = await getServerSession(getAuthOptions(undefined));
   const {achievements, currentPage, totalPages} = await getUserAchievementPaginated(session?.user?.gamesLibraryData.ownedGames||[], 
-                                                                                session?.user.steam.steamid || "", 
-                                                                                  parseInt(params?.id)||1)
+                                                                                session?.user.steam.steamid || '', 
+                                                                                  parseInt(params?.id)||1);
   if(achievements.length > 0)
     return( 
       <section className="flex flex-col w-screen md:w-auto md:pr-6">
@@ -27,7 +27,7 @@ export default async function AchievementPage({params}: Props) {
             <AchievementsTable achievements={achievements} />
           </section>
       </section>
-    )
+    );
 
-  return (<p>No games found</p>)
+  return (<p>No games found</p>);
 }

@@ -7,8 +7,8 @@ interface IColumn extends React.HTMLAttributes<HTMLElement> {
 
 
 const Column: React.FC<IColumn> = ({children, className, ...rest}) => {
-  const columnStyle = classNames("w-auto", className)
+  const columnStyle = classNames('w-auto', className);
   return <section className={columnStyle} {...rest}>{children}</section>;
-}
+};
 
 export default Column;

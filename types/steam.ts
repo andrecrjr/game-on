@@ -69,25 +69,25 @@ export interface ISteamSpyGameData {
 }
 
 export interface ISteamSpyTags {
-  "Free to Play": number
-  "Card Game": number
+  'Free to Play': number
+  'Card Game': number
   Anime: number
   Strategy: number
   Multiplayer: number
-  "Trading Card Game": number
+  'Trading Card Game': number
   Singleplayer: number
-  "Turn-Based": number
+  'Turn-Based': number
   Competitive: number
   Casual: number
   RPG: number
   Memes: number
-  "Great Soundtrack": number
-  "Online Co-Op": number
+  'Great Soundtrack': number
+  'Online Co-Op': number
   Action: number
   Adventure: number
   Simulation: number
-  "Massively Multiplayer": number
-  "Psychological Horror": number
+  'Massively Multiplayer': number
+  'Psychological Horror': number
   MMORPG: number
 }
 

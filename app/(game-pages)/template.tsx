@@ -1,8 +1,8 @@
-import { TemplateProps } from "@/app/template";
+import { TemplateProps } from '@/app/template';
 
-import React from "react";
-import Grid from "@/components/Grid";
-import Column from "@/components/Grid/Column";
+import React from 'react';
+import Grid from '@/components/Grid';
+import Column from '@/components/Grid/Column';
 
 
 

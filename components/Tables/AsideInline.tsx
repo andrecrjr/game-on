@@ -1,9 +1,9 @@
-import { ISteamSpyGameData } from "@/types/steam";
-import React from "react";
+import { ISteamSpyGameData } from '@/types/steam';
+import React from 'react';
 
 const AsideLine = ({children, label}:{children:React.ReactNode, label:string}) =>{
-   return <li className="mb-2 pb-2 border-b-2 border-gray-500"><strong>{label}</strong>{children}</li>
-}
+   return <li className="mb-2 pb-2 border-b-2 border-gray-500"><strong>{label}</strong>{children}</li>;
+};
 
 type Props = {
     gameData: ISteamSpyGameData

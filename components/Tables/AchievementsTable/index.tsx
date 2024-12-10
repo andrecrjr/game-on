@@ -1,3 +1,3 @@
-import AchievementsTable from "./AchievementsTable";
+import AchievementsTable from './AchievementsTable';
 
-export default AchievementsTable
+export default AchievementsTable;

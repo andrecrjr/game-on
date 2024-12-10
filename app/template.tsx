@@ -1,6 +1,6 @@
-import React from 'react'
-import { HeaderNotLogged, Header } from '@/components/Header'
-import { getServerSession } from 'next-auth'
+import React from 'react';
+import { HeaderNotLogged, Header } from '@/components/Header';
+import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/services/steamAuth';
 
 
@@ -10,14 +10,14 @@ export type TemplateProps = {
 }
 
 const Template: React.FC<TemplateProps> = async({ children }) => {
-  const session = await getServerSession(getAuthOptions(undefined))
+  const session = await getServerSession(getAuthOptions(undefined));
   
   return (
     <>
       {!session ? <HeaderNotLogged /> : <Header />}
       {children}
     </>
-  )
-}
+  );
+};
 
-export default Template
+export default Template;

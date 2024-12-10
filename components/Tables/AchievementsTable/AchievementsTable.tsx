@@ -1,10 +1,10 @@
 
-import React from "react";
+import React from 'react';
 
 
-import { AchievementTableLine } from "./AchievementTableLine";
-import { IAchievementsUser } from "@/types/steam";
-import Link from "next/link";
+import { AchievementTableLine } from './AchievementTableLine';
+import { IAchievementsUser } from '@/types/steam';
+import Link from 'next/link';
 
 interface Props {
     achievements: IAchievementsUser[]
@@ -24,12 +24,12 @@ const AchievementsTable = async ({achievements}:Props) => {
                                 <AchievementTableLine game={game} indexGame={indexGame}/>
                             </ul>
                         </section>
-                    </section>)
+                    </section>);
                 }   
             )
         }
         </>
-    )
+    );
 };
 
-export default AchievementsTable
+export default AchievementsTable;
