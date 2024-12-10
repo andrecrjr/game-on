@@ -1,8 +1,11 @@
 import { getAuthOptions } from '@/app/services/steamAuth';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
+
 import NextAuth from 'next-auth';
-//@ts-ignore
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+import { NextApiRequest } from 'next';
+
+async function handler(req: NextRequest | NextApiRequest, res: NextResponse) {
+  //@ts-ignore
   return NextAuth(req, res, getAuthOptions(req));
 }
 
