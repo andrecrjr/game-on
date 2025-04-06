@@ -93,14 +93,14 @@ const CarouselButton = React.memo(({
 CarouselButton.displayName = 'CarouselButton';
 
 export const AchievementTableLine = React.memo(({ game }: Props) => {
-  // Optimize carousel options by memoizing them
+  // Use specific string literals instead of generic strings for Embla options
   const carouselOptions = useMemo(() => ({
-    align: 'start',
-    containScroll: 'trimSnaps',
+    align: 'start' as const,
+    containScroll: 'trimSnaps' as const,
     dragFree: true,
   }), []);
   
-  const [emblaRef, emblaApi] = useEmblaCarousel(carouselOptions as EmblaOptionsType);
+  const [emblaRef, emblaApi] = useEmblaCarousel(carouselOptions);
   
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(true);
