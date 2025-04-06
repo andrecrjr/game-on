@@ -25,7 +25,7 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
         user: User | AdapterUser;
         account: Account | null;
         profile?: Profile | undefined;
-        trigger?: "signIn" | "signUp" | "update";
+        trigger?: 'signIn' | 'signUp' | 'update';
         isNewUser?: boolean;
         session?: any;
       }) {

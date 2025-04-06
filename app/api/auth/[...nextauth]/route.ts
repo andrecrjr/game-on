@@ -14,7 +14,7 @@ async function auth(
     }
   }
 ) {
-  return NextAuth(req, ctx, getAuthOptions(req))
+  return NextAuth(req, ctx, getAuthOptions(req));
 }
 
 // Export the handler functions for GET and POST requests
