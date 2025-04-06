@@ -16,7 +16,7 @@ export async function generateMetadata() {
           description: `Game's Library from ${session?.user.name}`
       };
     return {
-      title: 'Steam ON - Minimalist Steam Watcher',
+      title: 'Gamer On - Minimalist Steam Watcher',
         description: 'Steam User Data Watcher',
     };
 }
