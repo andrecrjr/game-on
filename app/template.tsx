@@ -5,11 +5,11 @@ import { getAuthOptions } from '@/app/services/steamAuth';
 
 
 export type TemplateProps = {
-  data: any // os dados da página
-  children:React.ReactNode
+  data?: unknown // Optional data for the page with more type-safe unknown instead of any
+  children: React.ReactNode
 }
 
-const Template: React.FC<TemplateProps> = async({ children }) => {
+const Template = async({ children }: TemplateProps): Promise<JSX.Element> => {
   const session = await getServerSession(getAuthOptions(undefined));
   
   return (
