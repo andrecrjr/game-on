@@ -1,16 +1,17 @@
 import Steam, { PROVIDER_ID, STEAM_PROVIDER_ID } from 'next-auth-steam';
 import { NextRequest } from 'next/server';
 import { JWT } from 'next-auth/jwt';
-import { Session } from 'next-auth';
+import { Account, AuthOptions, Profile, Session, User } from 'next-auth';
 import { getMostPlayedOwnedGames } from '.';
 import { ISteamAccount, ISteamGamesOwned, ISteamProfile } from '@/types/steam';
+import { AdapterUser } from 'next-auth/adapters';
 
 /**
  * Get authentication options for NextAuth
  * @param req Optional NextRequest object from the App Router
  * @returns AuthOptions configuration for NextAuth
  */
-export function getAuthOptions(req?: NextRequest) {
+export function getAuthOptions(req?: NextRequest): AuthOptions {
   return {
     providers: [
       Steam(req as NextRequest, {
@@ -19,11 +20,19 @@ export function getAuthOptions(req?: NextRequest) {
       }),
     ],
     callbacks: {
-      async jwt({ token, account, profile }: { token: JWT; account: ISteamAccount | null; profile: ISteamProfile | null }) {
+      async jwt({ token, user, account, profile, trigger, isNewUser, session }: {
+        token: JWT;
+        user: User | AdapterUser;
+        account: Account | null;
+        profile?: Profile | undefined;
+        trigger?: "signIn" | "signUp" | "update";
+        isNewUser?: boolean;
+        session?: any;
+      }) {
         // Store the Steam profile and account info in the token
         if (account?.provider === STEAM_PROVIDER_ID && profile) {
-          token.steam = profile;
-          token.account = account;
+          token.steam = profile as ISteamProfile;
+          token.account = account as unknown as ISteamAccount;
         }
         return token;
       },

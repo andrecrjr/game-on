@@ -10,7 +10,7 @@ export type TemplateProps = {
 }
 
 const Template = async({ children }: TemplateProps): Promise<JSX.Element> => {
-  const session = await getServerSession(getAuthOptions(undefined));
+  const session = await getServerSession(getAuthOptions());
   
   return (
     <>
