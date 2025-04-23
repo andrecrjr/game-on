@@ -54,8 +54,7 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
 				try {
 					// Ensure we have a Steam ID before making API calls
 					if (!token.account?.steamId) {
-						console.error('Steam ID not found in token');
-						return session;
+						throw new Error('Steam ID not found in token');
 					}
 
 					// Fetch the user's owned games from Steam API
@@ -85,7 +84,6 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
 
 					return session;
 				} catch (error) {
-					console.error('Error in session callback:', error);
 					// Return the session without the Steam data in case of error
 					return session;
 				}

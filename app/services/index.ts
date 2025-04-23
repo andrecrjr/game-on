@@ -25,7 +25,6 @@ const safeFetchData = async <T>(
 	try {
 		return await fetchData<T>(url, options);
 	} catch (error) {
-		console.error(`Error fetching data from ${url}:`, error);
 		return null;
 	}
 };
