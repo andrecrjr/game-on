@@ -8,10 +8,5 @@
 		"enabled": true,
 		"rules": { "recommended": false, "suspicious": { "noConsole": "warn" } }
 	},
-	"javascript": { "formatter": { "quoteStyle": "double" } },
-	"overrides": [
-		{ "include": ["*.tsx"], "linter": { "rules": {} } },
-		{ "include": ["*.tsx"], "linter": { "rules": {} } },
-		{ "include": ["*.tsx"], "linter": { "rules": {} } }
-	]
+	"javascript": { "formatter": { "quoteStyle": "single" } }
 }

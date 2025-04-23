@@ -7,14 +7,14 @@ import { getAuthOptions } from '@/app/services/steamAuth';
  * This implementation follows the next-auth-steam documentation
  */
 async function auth(
-  req: NextRequest,
-  ctx: {
-    params: {
-      nextauth: string[]
-    }
-  }
+	req: NextRequest,
+	ctx: {
+		params: {
+			nextauth: string[];
+		};
+	},
 ) {
-  return NextAuth(req, ctx, getAuthOptions(req));
+	return NextAuth(req, ctx, getAuthOptions(req));
 }
 
 // Export the handler functions for GET and POST requests
