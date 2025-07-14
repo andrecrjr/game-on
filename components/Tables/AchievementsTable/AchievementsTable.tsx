@@ -9,7 +9,6 @@ interface Props {
 }
 
 const AchievementsTable = async ({ achievements }: Props) => {
-  console.log("aaaaaaaaaaaaaaaaaaaaa", achievements)
   return (
     <div className="space-y-6">
       {achievements.filter(item=>item!==null).map((game) => (
