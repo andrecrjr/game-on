@@ -1,9 +1,7 @@
 import { getAuthOptions } from '@/app/services/steamAuth';
 import { getUserAchievementPaginated } from '@/app/services';
 import AchievementsTable from '@/components/Tables/AchievementsTable';
-import { Button } from '@/components/ui/button';
 import { getServerSession } from 'next-auth';
-import Link from 'next/link';
 import { PaginationAchivements } from './PaginationAchivements';
 
 type Props = {

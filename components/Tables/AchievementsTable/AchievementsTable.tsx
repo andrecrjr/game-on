@@ -9,9 +9,10 @@ interface Props {
 }
 
 const AchievementsTable = async ({ achievements }: Props) => {
+  console.log("aaaaaaaaaaaaaaaaaaaaa", achievements)
   return (
     <div className="space-y-6">
-      {achievements.map((game) => (
+      {achievements.filter(item=>item!==null).map((game) => (
         <Card key={game.gameName} className="shadow-md">
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center justify-between">
