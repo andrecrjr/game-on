@@ -1,6 +1,6 @@
+import React from 'react';
 import { getTrendingGamesRanked } from '@/app/services';
 import TrendingGamePage from '@/components/Pages/TrendingGamePage';
-import React from 'react';
 
 const TrendingPage = async () => {
   const data = await getTrendingGamesRanked();

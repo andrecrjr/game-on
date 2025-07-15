@@ -1,6 +1,6 @@
+import React from 'react';
 import Title from '@/components/Title';
 import { IGameNewsRoot } from '@/types/steam';
-import React from 'react';
 
 type Props = {
   gameNews: IGameNewsRoot;
