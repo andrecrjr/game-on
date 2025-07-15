@@ -19,17 +19,15 @@ type Props = {
 
 // Memoized individual achievement item component
 const AchievementItem = React.memo(
-  ({
-    achievement,
-  }: {
-    achievement: IAchievementsUser['achievements'][0];
-  }) => {
+  ({ achievement }: { achievement: IAchievementsUser['achievements'][0] }) => {
     const isAchieved = achievement.achieved === 1;
 
     // Title tooltip content
     const titleContent = (
       <div className="p-2 relative">
-        <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-md ${isAchieved ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+        <div
+          className={`absolute top-0 left-0 right-0 h-1 rounded-t-md ${isAchieved ? 'bg-green-500' : 'bg-gray-400'}`}
+        ></div>
         <p
           className={`text-center font-bold pb-2 ${isAchieved ? 'text-green-500' : 'text-gray-400'} flex items-center justify-center`}
         >
@@ -58,11 +56,14 @@ const AchievementItem = React.memo(
     // Description tooltip content
     const descriptionContent = (
       <div className="p-2 relative">
-        <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-md bg-blue-400`}></div>
+        <div
+          className={`absolute top-0 left-0 right-0 h-1 rounded-t-md bg-blue-400`}
+        ></div>
         <p className="text-xs italic">{achievement.description}</p>
         {achievement.unlocktime > 0 && (
           <p className="text-xs mt-2 text-green-500 font-medium">
-            Unlocked: {new Date(achievement.unlocktime * 1000).toLocaleDateString()}
+            Unlocked:{' '}
+            {new Date(achievement.unlocktime * 1000).toLocaleDateString()}
           </p>
         )}
       </div>
@@ -127,7 +128,9 @@ const CarouselButton = React.memo(
           aria-label={`${direction === 'left' ? 'Previous' : 'Next'} achievements`}
         >
           <Icon size={20} />
-          <span className="sr-only">{direction === 'left' ? 'Previous' : 'Next'}</span>
+          <span className="sr-only">
+            {direction === 'left' ? 'Previous' : 'Next'}
+          </span>
         </button>
       </div>
     );
@@ -197,7 +200,10 @@ export const AchievementTableLine = React.memo(({ game }: Props) => {
         enabled={prevBtnEnabled}
       />
 
-      <div className="overflow-hidden h-full rounded-lg bg-background/50 backdrop-blur-sm shadow-inner" ref={emblaRef}>
+      <div
+        className="overflow-hidden h-full rounded-lg bg-background/50 backdrop-blur-sm shadow-inner"
+        ref={emblaRef}
+      >
         <div className="flex h-full items-center py-6 px-2">
           {achievements.map((achievement) => (
             <AchievementItem

@@ -4,7 +4,10 @@ import React from 'react';
 const AsideLine = ({
   children,
   label,
-}: { children: React.ReactNode; label: string }) => {
+}: {
+  children: React.ReactNode;
+  label: string;
+}) => {
   return (
     <li className="mb-2 pb-2 border-b-2 border-gray-500">
       <strong>{label}</strong>

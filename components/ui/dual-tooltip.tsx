@@ -36,29 +36,31 @@ const DualTooltip = ({
   // Generate a unique ID for this tooltip instance
   const uniqueId = React.useId();
   const [showDescTooltip, setShowDescTooltip] = React.useState(false);
-  
+
   // When showDescriptionIndicator is false, we want to show both tooltips on hover
   const handleMouseEnter = React.useCallback(() => {
     if (!showDescriptionIndicator) {
       setShowDescTooltip(true);
     }
   }, [showDescriptionIndicator]);
-  
+
   const handleMouseLeave = React.useCallback(() => {
     if (!showDescriptionIndicator) {
       setShowDescTooltip(false);
     }
   }, [showDescriptionIndicator]);
-  
+
   return (
     <DualTooltipProvider>
-      <div 
-        className="relative group" 
+      <div
+        className="relative group"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
         {/* Title tooltip */}
-        <TooltipPrimitive.Root open={showDescriptionIndicator ? undefined : showDescTooltip}>
+        <TooltipPrimitive.Root
+          open={showDescriptionIndicator ? undefined : showDescTooltip}
+        >
           <TooltipPrimitive.Trigger asChild>
             <div className="w-full h-full">{children}</div>
           </TooltipPrimitive.Trigger>
@@ -67,7 +69,7 @@ const DualTooltip = ({
             sideOffset={titleSideOffset}
             className={cn(
               'z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 max-w-[300px]',
-              titleClassName
+              titleClassName,
             )}
           >
             {titleContent}
@@ -75,21 +77,25 @@ const DualTooltip = ({
         </TooltipPrimitive.Root>
 
         {/* Description tooltip */}
-        <TooltipPrimitive.Root open={showDescriptionIndicator ? undefined : showDescTooltip}>
+        <TooltipPrimitive.Root
+          open={showDescriptionIndicator ? undefined : showDescTooltip}
+        >
           <TooltipPrimitive.Trigger asChild>
             {showDescriptionIndicator ? (
-              <div 
+              <div
                 className={cn(
-                  "absolute -bottom-1 right-0 w-5 h-5 bg-gray-800/80 dark:bg-gray-200/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-help z-20",
-                  descriptionIndicatorClassName
+                  'absolute -bottom-1 right-0 w-5 h-5 bg-gray-800/80 dark:bg-gray-200/80 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-help z-20',
+                  descriptionIndicatorClassName,
                 )}
                 id={`desc-trigger-${uniqueId}`}
               >
-                <span className="text-gray-200 dark:text-gray-800 text-xs">i</span>
+                <span className="text-gray-200 dark:text-gray-800 text-xs">
+                  i
+                </span>
               </div>
             ) : (
-              <div 
-                className="absolute inset-0 cursor-help z-10 opacity-0" 
+              <div
+                className="absolute inset-0 cursor-help z-10 opacity-0"
                 id={`desc-trigger-${uniqueId}`}
                 aria-describedby={`desc-content-${uniqueId}`}
               />
@@ -100,7 +106,7 @@ const DualTooltip = ({
             sideOffset={descriptionSideOffset}
             className={cn(
               'z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 max-w-[250px]',
-              descriptionClassName
+              descriptionClassName,
             )}
             id={`desc-content-${uniqueId}`}
           >

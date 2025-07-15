@@ -25,7 +25,7 @@ const config = {
         ring: '#8b5cf6',
         background: '#0f172a',
         foreground: '#f8fafc',
-        
+
         // Primary gaming colors with improved contrast
         primary: {
           50: '#faf5ff',
@@ -42,7 +42,7 @@ const config = {
           DEFAULT: '#8b5cf6',
           foreground: '#ffffff',
         },
-        
+
         // Secondary gaming colors (cyan/teal)
         secondary: {
           50: '#ecfeff',
@@ -59,7 +59,7 @@ const config = {
           DEFAULT: '#06b6d4',
           foreground: '#ffffff',
         },
-        
+
         // Enhanced destructive colors
         destructive: {
           50: '#fef2f2',
@@ -76,7 +76,7 @@ const config = {
           DEFAULT: '#ef4444',
           foreground: '#ffffff',
         },
-        
+
         // Improved muted colors for better readability
         muted: {
           50: '#f8fafc',
@@ -93,7 +93,7 @@ const config = {
           DEFAULT: '#64748b',
           foreground: '#f1f5f9',
         },
-        
+
         // Gaming accent colors
         accent: {
           50: '#f0fdf4',
@@ -110,19 +110,19 @@ const config = {
           DEFAULT: '#22c55e',
           foreground: '#ffffff',
         },
-        
+
         // Enhanced popover colors
         popover: {
           DEFAULT: '#1e293b',
           foreground: '#f8fafc',
         },
-        
+
         // Gaming card colors
         card: {
           DEFAULT: '#1e293b',
           foreground: '#f8fafc',
         },
-        
+
         // Gaming-specific colors
         gaming: {
           purple: {
@@ -150,17 +150,17 @@ const config = {
           },
         },
       },
-      
+
       // Enhanced border radius for gaming aesthetic
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-        'gaming': '12px',
+        gaming: '12px',
         'gaming-lg': '16px',
         'gaming-xl': '20px',
       },
-      
+
       // Enhanced keyframes for gaming animations
       keyframes: {
         'accordion-down': {
@@ -171,74 +171,74 @@ const config = {
           from: { height: 'var(--radix-navigation-menu-viewport-height)' },
           to: { height: '0' },
         },
-        'fadeIn': {
+        fadeIn: {
           '0%': { opacity: '0', transform: 'translateY(10px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        'glow': {
-          '0%, 100%': { 
+        glow: {
+          '0%, 100%': {
             boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)',
-            textShadow: '0 0 10px rgba(139, 92, 246, 0.5)'
+            textShadow: '0 0 10px rgba(139, 92, 246, 0.5)',
           },
-          '50%': { 
+          '50%': {
             boxShadow: '0 0 30px rgba(139, 92, 246, 0.6)',
-            textShadow: '0 0 20px rgba(139, 92, 246, 0.8)'
+            textShadow: '0 0 20px rgba(139, 92, 246, 0.8)',
           },
         },
         'pulse-glow': {
-          '0%, 100%': { 
+          '0%, 100%': {
             opacity: '0.4',
-            transform: 'scale(1)'
+            transform: 'scale(1)',
           },
-          '50%': { 
+          '50%': {
             opacity: '0.8',
-            transform: 'scale(1.05)'
+            transform: 'scale(1.05)',
           },
         },
         'slide-in': {
-          '0%': { 
+          '0%': {
             opacity: '0',
-            transform: 'translateX(-20px)'
+            transform: 'translateX(-20px)',
           },
-          '100%': { 
+          '100%': {
             opacity: '1',
-            transform: 'translateX(0)'
+            transform: 'translateX(0)',
           },
         },
       },
-      
+
       // Enhanced animations
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fadeIn': 'fadeIn 0.5s ease-out forwards',
-        'glow': 'glow 2s ease-in-out infinite',
+        fadeIn: 'fadeIn 0.5s ease-out forwards',
+        glow: 'glow 2s ease-in-out infinite',
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'slide-in': 'slide-in 0.3s ease-out forwards',
       },
-      
+
       // Gaming-specific spacing
       spacing: {
-        'gaming': '0.75rem',
+        gaming: '0.75rem',
         'gaming-lg': '1.5rem',
         'gaming-xl': '2.5rem',
       },
-      
+
       // Enhanced grid templates
       gridTemplateColumns: {
         recentPlayed: '32px 1fr',
-        'gaming': 'repeat(auto-fit, minmax(280px, 1fr))',
+        gaming: 'repeat(auto-fit, minmax(280px, 1fr))',
         'gaming-sm': 'repeat(auto-fit, minmax(200px, 1fr))',
       },
-      
+
       // Gaming-specific shadows
       boxShadow: {
-        'gaming': '0 4px 20px rgba(139, 92, 246, 0.15)',
+        gaming: '0 4px 20px rgba(139, 92, 246, 0.15)',
         'gaming-lg': '0 8px 32px rgba(139, 92, 246, 0.25)',
         'gaming-xl': '0 16px 64px rgba(139, 92, 246, 0.35)',
         'gaming-glow': '0 0 20px rgba(139, 92, 246, 0.4)',
       },
-      
+
       // Enhanced typography
       fontSize: {
         'gaming-xs': ['0.75rem', { lineHeight: '1rem' }],

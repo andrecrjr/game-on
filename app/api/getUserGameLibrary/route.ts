@@ -1,6 +1,5 @@
-import { getMostPlayedOwnedGames } from '@/app/services';
-
 import { NextRequest, NextResponse } from 'next/server';
+import { getMostPlayedOwnedGames } from '@/app/services';
 
 const gamesOwned = async (req: NextRequest, res: NextResponse) => {
   try {

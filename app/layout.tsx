@@ -14,7 +14,6 @@ export async function generateMetadata() {
     return {
       title: `${session?.user.name}'s Page`,
       description: `Game's Library from ${session?.user.name}`,
-      
     };
   return {
     title: 'Game On - Your RetroAchievement and Steam Companion',
