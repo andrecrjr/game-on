@@ -1,23 +1,22 @@
-import React from 'react'
-import { HeaderNotLogged, Header } from '@/components/Header'
-import { getServerSession } from 'next-auth'
+import React from 'react';
+import { HeaderNotLogged, Header } from '@/components/Header';
+import { getServerSession } from 'next-auth';
 import { getAuthOptions } from '@/app/services/steamAuth';
 
-
 export type TemplateProps = {
-  data: any // os dados da página
-  children:React.ReactNode
-}
+  data?: unknown; // Optional data for the page with more type-safe unknown instead of any
+  children: React.ReactNode;
+};
 
-const Template: React.FC<TemplateProps> = async({ children }) => {
-  const session = await getServerSession(getAuthOptions(undefined))
-  
+const Template = async ({ children }: TemplateProps): Promise<JSX.Element> => {
+  const session = await getServerSession(getAuthOptions());
+
   return (
     <>
       {!session ? <HeaderNotLogged /> : <Header />}
       {children}
     </>
-  )
-}
+  );
+};
 
-export default Template
+export default Template;

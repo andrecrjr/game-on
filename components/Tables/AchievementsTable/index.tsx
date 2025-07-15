@@ -1,3 +1,6 @@
-import AchievementsTable from "./AchievementsTable";
+import AchievementsTable from './AchievementsTable';
+import { AchievementTableLine } from './AchievementTableLine';
 
-export default AchievementsTable
+// Export both components for more flexibility
+export { AchievementTableLine };
+export default AchievementsTable;

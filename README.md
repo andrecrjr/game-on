@@ -1,4 +1,4 @@
-# Steam On
+# Gamer On
 
 Another Steam Minimalist Client
 

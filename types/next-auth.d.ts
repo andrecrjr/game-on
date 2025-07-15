@@ -1,7 +1,11 @@
-import { Session } from "next-auth";
-import { IGameOwned, IGamesOwned, ISteamAccount, ISteamGamesOwned, ISteamProfile, ISteamSpyGameData } from "./steam";
+import {
+  IGameOwned,
+  ISteamAccount,
+  ISteamProfile,
+  ISteamSpyGameData,
+} from './steam';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     user: {
       // Propriedades existentes
@@ -11,14 +15,14 @@ declare module "next-auth" {
       // Adicione suas propriedades personalizadas aqui
       username?: string;
       uid?: string;
-      steam: ISteamProfile
-      gamesLibraryData:{
+      steam: ISteamProfile;
+      gamesLibraryData: {
         mostPlayedData: ISteamSpyGameData;
         mostPlayedTime: IGameOwned;
         ownedGames: ISteamSpyGameData[];
       };
-      achievements:object;
+      achievements: object;
       account: ISteamAccount;
-    }
+    };
   }
 }
