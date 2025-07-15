@@ -8,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { DualTooltip } from '@/components/ui/dual-tooltip';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -25,42 +26,77 @@ const AchievementItem = React.memo(
   }) => {
     const isAchieved = achievement.achieved === 1;
 
+    // Title tooltip content
+    const titleContent = (
+      <div className="p-2 relative">
+        <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-md ${isAchieved ? 'bg-green-500' : 'bg-gray-400'}`}></div>
+        <p
+          className={`text-center font-bold pb-2 ${isAchieved ? 'text-green-500' : 'text-gray-400'} flex items-center justify-center`}
+        >
+          {isAchieved ? (
+            <>
+              <span className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs">✓</span>
+              </span>
+              <span>Unlocked</span>
+            </>
+          ) : (
+            <>
+              <span className="w-4 h-4 bg-gray-400 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs">!</span>
+              </span>
+              <span>Locked</span>
+            </>
+          )}
+        </p>
+        <h4 className="font-bold text-sm mb-2 border-b pb-2 border-gray-200 dark:border-gray-700">
+          {achievement.displayName}
+        </h4>
+      </div>
+    );
+
+    // Description tooltip content
+    const descriptionContent = (
+      <div className="p-2 relative">
+        <div className={`absolute top-0 left-0 right-0 h-1 rounded-t-md bg-blue-400`}></div>
+        <p className="text-xs italic">{achievement.description}</p>
+        {achievement.unlocktime > 0 && (
+          <p className="text-xs mt-2 text-green-500 font-medium">
+            Unlocked: {new Date(achievement.unlocktime * 1000).toLocaleDateString()}
+          </p>
+        )}
+      </div>
+    );
+
     return (
-      <div className="flex-[0_0_100px] mx-2 first:ml-12 last:mr-12">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="relative transition-all duration-200 hover:scale-105">
-                <img
-                  src={isAchieved ? achievement.icon : achievement.icongray}
-                  className={`w-full h-auto rounded-md ${!isAchieved ? 'grayscale contrast-50' : 'contrast-100'}`}
-                  width="80"
-                  height="80"
-                  alt={achievement.name}
-                  loading="lazy"
-                />
-                {isAchieved && (
-                  <div className="absolute -top-2 -right-2 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
-                    <span className="text-white text-xs">✓</span>
-                  </div>
-                )}
+      <div className="flex-[0_0_100px] mx-3 first:ml-12 last:mr-12 relative z-10">
+        <DualTooltip
+          titleContent={titleContent}
+          descriptionContent={descriptionContent}
+          titleSide="top"
+          descriptionSide="bottom"
+          titleSideOffset={8}
+          descriptionSideOffset={5}
+          titleClassName="max-w-[300px] z-[100]"
+          descriptionClassName="max-w-[250px] z-[100]"
+          showDescriptionIndicator={false}
+        >
+          <div className="relative transition-all duration-300 hover:scale-110 hover:rotate-1 transform-gpu animate-fadeIn">
+            <img
+              src={isAchieved ? achievement.icon : achievement.icongray}
+              className={`w-full h-auto rounded-md ${!isAchieved ? 'grayscale contrast-50' : 'contrast-100'}`}
+              width="80"
+              height="80"
+              alt={achievement.name}
+              loading="lazy"
+            />
+            {isAchieved && (
+              <div className="absolute -top-2 -right-2 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                <span className="text-white text-xs">✓</span>
               </div>
-            </TooltipTrigger>
-            <TooltipContent side="top" className="max-w-[250px]">
-              <div className="p-3">
-                <p
-                  className={`text-center font-bold pb-2 ${isAchieved ? 'text-green-500' : 'text-gray-400'}`}
-                >
-                  {isAchieved ? 'Unlocked' : 'Locked'}
-                </p>
-                <h4 className="font-bold text-sm mb-1">
-                  {achievement.displayName}
-                </h4>
-                <p className="text-sm">{achievement.description}</p>
-              </div>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+            )}
+          </div>
+        </DualTooltip>
       </div>
     );
   },
@@ -85,13 +121,13 @@ const CarouselButton = React.memo(
     return (
       <div className={`absolute top-0 bottom-0 ${position} flex items-center`}>
         <button
-          className="p-2 rounded-full bg-primary text-white shadow-md hover:bg-primary/90 mx-2 z-20 transition-opacity"
+          className={`p-2 rounded-full shadow-md mx-2 z-20 transition-all duration-300 ${enabled ? 'bg-primary text-white hover:bg-primary/90 hover:scale-110' : 'bg-gray-200 dark:bg-gray-800 text-gray-400'}`}
           onClick={onClick}
           disabled={!enabled}
           aria-label={`${direction === 'left' ? 'Previous' : 'Next'} achievements`}
-          style={{ opacity: enabled ? 1 : 0.5 }}
         >
-          <Icon size={24} />
+          <Icon size={20} />
+          <span className="sr-only">{direction === 'left' ? 'Previous' : 'Next'}</span>
         </button>
       </div>
     );
@@ -154,15 +190,15 @@ export const AchievementTableLine = React.memo(({ game }: Props) => {
   const achievements = useMemo(() => game.achievements, [game.achievements]);
 
   return (
-    <div className="relative w-full h-[140px] overflow-hidden">
+    <div className="relative w-full overflow-visible flex-end">
       <CarouselButton
         direction="left"
         onClick={scrollPrev}
         enabled={prevBtnEnabled}
       />
 
-      <div className="overflow-hidden h-full" ref={emblaRef}>
-        <div className="flex h-full items-center">
+      <div className="overflow-hidden h-full rounded-lg bg-background/50 backdrop-blur-sm shadow-inner" ref={emblaRef}>
+        <div className="flex h-full items-center py-6 px-2">
           {achievements.map((achievement) => (
             <AchievementItem
               key={achievement.displayName}

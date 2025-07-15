@@ -26,7 +26,7 @@ const RightMenu: React.FC = () => {
             <NavigationMenuTrigger>
               <Avatar className="w-9 h-9">
                 <AvatarImage
-                  src={data?.user?.steam.avatarmedium}
+                  src={data?.user?.steam?.avatarmedium || ''}
                   alt={data.user?.username}
                 />
                 <AvatarFallback>AA</AvatarFallback>
