@@ -14,10 +14,11 @@ export async function generateMetadata() {
     return {
       title: `${session?.user.name}'s Page`,
       description: `Game's Library from ${session?.user.name}`,
+      
     };
   return {
-    title: 'Gamer On - Minimalist Steam Watcher',
-    description: 'Steam User Data Watcher',
+    title: 'Game On - Your RetroAchievement and Steam Companion',
+    description: 'Your RetroAchievement and Steam Companion',
   };
 }
 
