@@ -1,10 +1,11 @@
-import Steam, { PROVIDER_ID, STEAM_PROVIDER_ID } from 'next-auth-steam';
 import { NextRequest } from 'next/server';
-import { JWT } from 'next-auth/jwt';
 import { Account, AuthOptions, Profile, Session, User } from 'next-auth';
-import { getMostPlayedOwnedGames } from '.';
-import { ISteamAccount, ISteamGamesOwned, ISteamProfile } from '@/types/steam';
 import { AdapterUser } from 'next-auth/adapters';
+import { JWT } from 'next-auth/jwt';
+// import MicrosoftEntraID from 'next-auth/providers/microsoft-entra-id';
+import Steam, { PROVIDER_ID, STEAM_PROVIDER_ID } from 'next-auth-steam';
+import { ISteamAccount, ISteamGamesOwned, ISteamProfile } from '@/types/steam';
+import { getMostPlayedOwnedGames } from '.';
 
 /**
  * Get authentication options for NextAuth
@@ -18,6 +19,11 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
         clientSecret: process.env.STEAM_SECRET!,
         callbackUrl: process.env.STEAM_CALLBACK_AUTH!,
       }),
+      // MicrosoftEntraID({
+      //   clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID!,
+      //   clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET!,
+      //   callbackUrl: process.env.MICROSOFT_CALLBACK_AUTH!,
+      // }),
     ],
     callbacks: {
       async jwt({

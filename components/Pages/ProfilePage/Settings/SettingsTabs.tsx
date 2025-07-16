@@ -26,18 +26,18 @@ const tabs = [
     icon: Link,
     component: IntegrationsSettings,
   },
-  {
-    id: 'privacy',
-    label: 'Privacy',
-    icon: Shield,
-    component: PrivacySettings,
-  },
-  {
-    id: 'appearance',
-    label: 'Appearance',
-    icon: Palette,
-    component: AppearanceSettings,
-  },
+  // {
+  //   id: 'privacy',
+  //   label: 'Privacy',
+  //   icon: Shield,
+  //   component: PrivacySettings,
+  // },
+  // {
+  //   id: 'appearance',
+  //   label: 'Appearance',
+  //   icon: Palette,
+  //   component: AppearanceSettings,
+  // },
 ];
 
 export const SettingsTabs: React.FC<SettingsTabsProps> = ({ session }) => {

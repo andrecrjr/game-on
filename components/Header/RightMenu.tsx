@@ -4,7 +4,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from '@radix-ui/react-navigation-menu';
-import { User } from 'lucide-react';
+import { Settings, User } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import UserLogout from '../icons/UserLogout';
@@ -56,6 +56,21 @@ const RightMenu: React.FC = () => {
                 </div>
                 <p className="text-gaming-sm ml-3 relative z-10 font-medium">
                   Profile
+                </p>
+              </NavigationMenuLink>
+                            <NavigationMenuLink
+                className="group relative p-2 gap-4 w-full
+                         inline-flex justify-center items-center hover:bg-gradient-to-r 
+                         hover:from-gaming-purple-light/20 hover:to-gaming-cyan-light/20 
+                         cursor-pointer transition-all duration-300 hover:text-gaming-text-primary"
+                href="/profile/settings"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-gaming-purple-light/20 to-gaming-cyan-light/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-gaming"></div>
+                <div className="relative z-10 text-gaming-purple-light group-hover:text-gaming-cyan-light transition-colors">
+                  <Settings />
+                </div>
+                <p className="text-gaming-sm ml-3 relative z-10 font-medium">
+                  Settings
                 </p>
               </NavigationMenuLink>
 

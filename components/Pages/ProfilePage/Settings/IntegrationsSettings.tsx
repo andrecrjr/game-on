@@ -99,7 +99,7 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
         setIntegrations((prev) =>
           prev.map((integration) =>
             integration.id === integrationId
-              ? { ...integration, isConnected: true, username, apiKey }
+              ? { ...integration, isConnected: true, username }
               : integration,
           ),
         );
@@ -130,7 +130,6 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
                 ...integration,
                 isConnected: false,
                 username: undefined,
-                apiKey: undefined,
               }
             : integration,
         ),
@@ -155,13 +154,12 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
     <div className="space-y-6">
       {/* Available Integrations */}
       <div className="space-y-4">
-        {integrations.map((integration) => {
+        {integrations.map((integration: Integration) => {
           const Icon = integration.icon;
           const isEditing = editingIntegration === integration.id;
           const [username, setUsername] = React.useState(
             integration.username || '',
           );
-          const [apiKey, setApiKey] = React.useState(integration.apiKey || '');
 
           return (
             <Card
@@ -216,20 +214,7 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder={`Enter your ${integration.name} username`}
-                            className="bg-gaming-background-secondary"
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor={`${integration.id}-apikey`}>
-                            API Key (Optional)
-                          </Label>
-                          <Input
-                            id={`${integration.id}-apikey`}
-                            type="password"
-                            value={apiKey}
-                            onChange={(e) => setApiKey(e.target.value)}
-                            placeholder="Enter your API key for enhanced features"
-                            className="bg-gaming-background-secondary"
+                            className="bg-gaming-background-secondary w-full"
                           />
                         </div>
                       </div>
@@ -237,15 +222,14 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
                       <div className="flex gap-2">
                         <Button
                           onClick={() =>
-                            handleConnect(integration.id, username, apiKey)
+                            handleConnect(integration.id, username)
                           }
                           disabled={isLoading || !username.trim()}
                           className="flex items-center gap-2"
                         >
                           <Link className="w-4 h-4" />
                           {isLoading ? 'Connecting...' : 'Connect Account'}
-                        </Button>
-                        
+                        </Button>                        
                       </div>
                     </>
                   ) : (
