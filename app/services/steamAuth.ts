@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { Account, AuthOptions, Profile, Session, User } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import { JWT } from 'next-auth/jwt';
-// import MicrosoftEntraID from 'next-auth/providers/microsoft-entra-id';
+import AzureAD from 'next-auth/providers/azure-ad';
 import Steam, { PROVIDER_ID, STEAM_PROVIDER_ID } from 'next-auth-steam';
 import { ISteamAccount, ISteamGamesOwned, ISteamProfile } from '@/types/steam';
 import { getMostPlayedOwnedGames } from '.';
@@ -19,11 +19,17 @@ export function getAuthOptions(req?: NextRequest): AuthOptions {
         clientSecret: process.env.STEAM_SECRET!,
         callbackUrl: process.env.STEAM_CALLBACK_AUTH!,
       }),
-      // MicrosoftEntraID({
-      //   clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID!,
-      //   clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET!,
-      //   callbackUrl: process.env.MICROSOFT_CALLBACK_AUTH!,
-      // }),
+      AzureAD({
+        clientId: process.env.AUTH_MICROSOFT_ENTRA_ID_ID!,
+        clientSecret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET!,
+        tenantId: process.env.AUTH_MICROSOFT_ENTRA_ID_TENANT_ID!,
+        authorization: {
+          params: {
+            scope: 'openid profile XboxLive.signin XboxLive.offline_access',
+            prompt: 'consent',
+          },
+        },
+      }),
     ],
     callbacks: {
       async jwt({
