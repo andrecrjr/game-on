@@ -20,7 +20,7 @@
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.343.0",
-    "next": "^14.2.26",
+    "next": "^15.4.1",
     "next-auth": "^4.24.11",
     "next-auth-steam": "^0.4.0",
     "next-passport": "^0.9.0",
