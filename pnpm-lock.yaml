@@ -53,6 +53,9 @@ importers:
       passport-steam:
         specifier: ^1.0.18
         version: 1.0.18
+      pocketbase:
+        specifier: ^0.26.1
+        version: 0.26.1
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -84,9 +87,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.3)
-      eslint:
-        specifier: ^8.57.1
-        version: 8.57.1
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -1652,6 +1652,9 @@ packages:
   pkg-dir@5.0.0:
     resolution: {integrity: sha512-NPE8TDbzl/3YQYY7CSS228s3g2ollTFnc+Qi3tqmqJp9Vg2ovUpixcJEo2HJScN2Ez+kEaal6y70c0ehqJBJeA==}
     engines: {node: '>=10'}
+
+  pocketbase@0.26.1:
+    resolution: {integrity: sha512-fjcPDpxyqTZCwqGUTPUV7vssIsNMqHxk9GxbhxYHPEf18RqX2d9cpSqbbHk7aas30jqkgptuKfG7aY/Mytjj3g==}
 
   postcss-import@15.1.0:
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
@@ -3478,6 +3481,8 @@ snapshots:
   pkg-dir@5.0.0:
     dependencies:
       find-up: 5.0.0
+
+  pocketbase@0.26.1: {}
 
   postcss-import@15.1.0(postcss@8.5.3):
     dependencies:
