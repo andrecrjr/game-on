@@ -94,7 +94,7 @@ export async function GET(req: NextRequest) {
 
   const pb = new PocketBase(process.env.POCKETBASE_URL!);
   try{
-        await pb.collection('users').authWithPassword(
+        await pb.collection('_superusers').authWithPassword(
       process.env.PB_ADMIN_USER!,
       process.env.PB_ADMIN_PASS!,
     );
@@ -140,9 +140,9 @@ export async function GET(req: NextRequest) {
   console.log('PocketBase record:', record);
   try {
     if (existing) {
-      await pb.collection('linked_accounts_gameon').update(existing.id, record);
+      await pb.collection('linked_accounts').update(existing.id, record);
     } else {
-      await pb.collection('linked_accounts_gameon').create(record);
+      await pb.collection('linked_accounts').create(record);
     }
   } catch (err) {
     return NextResponse.json(
