@@ -331,11 +331,6 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
             </Card>
           );
         })}
-        <Button onClick={() => {
-          window.location.href = '/api/link/microsoft';
-        }}>
-          Connect Microsoft Account
-        </Button>
       </div>
 
       {/* Help Section */}
