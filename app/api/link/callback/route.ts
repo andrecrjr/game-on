@@ -140,9 +140,9 @@ export async function GET(req: NextRequest) {
   console.log('PocketBase record:', record);
   try {
     if (existing) {
-      await pb.collection('linked_accounts').update(existing.id, record);
+      await pb.collection('linked_accounts_gameon').update(existing.id, record);
     } else {
-      await pb.collection('linked_accounts').create(record);
+      await pb.collection('linked_accounts_gameon').create(record);
     }
   } catch (err) {
     return NextResponse.json(
