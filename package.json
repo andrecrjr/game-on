@@ -19,6 +19,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.343.0",
     "next": "^15.4.1",
     "next-auth": "^4.24.11",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.17.30",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",

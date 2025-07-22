@@ -48,6 +48,15 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
       color: 'text-gaming-purple',
       isConnected: false,
     },
+    {
+      id: 'microsoft',
+      name: 'Microsoft/Xbox Live',
+      description:
+        'Connect your Microsoft account to sync Xbox Live achievements and game library',
+      icon: ExternalLink,
+      color: 'text-green-500',
+      isConnected: false,
+    },
     // Future integrations can be added here
     // {
     //   id: 'psn',
@@ -72,27 +81,33 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
     username: string,
     apiKey?: string,
   ) => {
-    if (!username.trim()) {
-      setConnectionStatus('error');
-      return;
-    }
-
     setIsLoading(true);
     setConnectionStatus('testing');
 
     try {
       let success = false;
 
-      // Handle different integrations
-      const response = await fetch('/api/settings/integrations', {
-        method: 'POST',
-        body: JSON.stringify({ integrationId, username, apiKey }),
-      });
-
-      if (response.ok) {
-        success = true;
+      if (integrationId === 'microsoft') {
+        // Redirect to Microsoft OAuth
+        window.location.href = '/api/link/microsoft';
+        return;
       } else {
-        success = false;
+        // Handle other integrations (like RetroAchievements)
+        if (!username.trim()) {
+          setConnectionStatus('error');
+          return;
+        }
+
+        const response = await fetch('/api/settings/integrations', {
+          method: 'POST',
+          body: JSON.stringify({ integrationId, username, apiKey }),
+        });
+
+        if (response.ok) {
+          success = true;
+        } else {
+          success = false;
+        }
       }
 
       if (success) {
@@ -120,6 +135,9 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
         await disconnectRetroAchievementsAccount(
           integrations.find((i) => i.id === integrationId)?.username || '',
         );
+      } else if (integrationId === 'microsoft') {
+        // TODO: Implement Microsoft disconnect
+        console.log('Microsoft disconnect not implemented yet');
       }
       // Add more integrations here as needed
 
@@ -144,6 +162,8 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
     switch (integrationId) {
       case 'retroachievements':
         return 'https://retroachievements.org';
+      case 'microsoft':
+        return 'https://xbox.com';
       // Add more integrations here as needed
       default:
         return '#';
@@ -204,33 +224,50 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
                 <div className="space-y-4">
                   {!integration.isConnected ? (
                     <>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor={`${integration.id}-username`}>
-                            {integration.name} Username
-                          </Label>
-                          <Input
-                            id={`${integration.id}-username`}
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder={`Enter your ${integration.name} username`}
-                            className="bg-gaming-background-secondary w-full"
-                          />
+                      {integration.id === 'microsoft' ? (
+                        <div className="flex gap-2">
+                          <Button
+                            onClick={() =>
+                              handleConnect(integration.id, '')
+                            }
+                            disabled={isLoading}
+                            className="flex items-center gap-2"
+                          >
+                            <Link className="w-4 h-4" />
+                            {isLoading ? 'Connecting...' : 'Connect Microsoft Account'}
+                          </Button>
                         </div>
-                      </div>
+                      ) : (
+                        <>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Label htmlFor={`${integration.id}-username`}>
+                                {integration.name} Username
+                              </Label>
+                              <Input
+                                id={`${integration.id}-username`}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder={`Enter your ${integration.name} username`}
+                                className="bg-gaming-background-secondary w-full"
+                              />
+                            </div>
+                          </div>
 
-                      <div className="flex gap-2">
-                        <Button
-                          onClick={() =>
-                            handleConnect(integration.id, username)
-                          }
-                          disabled={isLoading || !username.trim()}
-                          className="flex items-center gap-2"
-                        >
-                          <Link className="w-4 h-4" />
-                          {isLoading ? 'Connecting...' : 'Connect Account'}
-                        </Button>                        
-                      </div>
+                          <div className="flex gap-2">
+                            <Button
+                              onClick={() =>
+                                handleConnect(integration.id, username)
+                              }
+                              disabled={isLoading || !username.trim()}
+                              className="flex items-center gap-2"
+                            >
+                              <Link className="w-4 h-4" />
+                              {isLoading ? 'Connecting...' : 'Connect Account'}
+                            </Button>                        
+                          </div>
+                        </>
+                      )}
                     </>
                   ) : (
                     <div className="flex gap-2">
@@ -294,6 +331,11 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
             </Card>
           );
         })}
+        <Button onClick={() => {
+          window.location.href = '/api/link/microsoft';
+        }}>
+          Connect Microsoft Account
+        </Button>
       </div>
 
       {/* Help Section */}
