@@ -1,7 +1,7 @@
 import { Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { ISteamAccount, ISteamGamesOwned, ISteamProfile } from '@/types/steam';
-import { getMostPlayedOwnedGames } from '../../index';
+import { getCombinedLibraryData } from '../../index';
 
 /**
  * Steam JWT callback handler
@@ -19,7 +19,7 @@ export const handleSteamJWT = (
 };
 
 /**
- * Steam session callback handler
+ * Steam session callback handler with Xbox integration
  */
 export const handleSteamSession = async (
   session: Session,
@@ -43,16 +43,17 @@ export const handleSteamSession = async (
     const { response: gamesOwned }: { response: ISteamGamesOwned } =
       await res.json();
 
-    // Process the games data to get most played games
-    const data = await getMostPlayedOwnedGames(gamesOwned);
+    // Get combined library data (Steam + Xbox if linked)
+    const combinedData = await getCombinedLibraryData(gamesOwned, token.account.steamId);
 
-    // Add Steam profile and games data to the session
+    // Add Steam profile and combined games data to the session
     if (token.steam) {
       session.user = {
         ...session.user,
         steam: token.steam,
         account: token.account,
-        gamesLibraryData: data,
+                 gamesLibraryData: combinedData.steam || { mostPlayedData: null as any, mostPlayedTime: null as any, ownedGames: [] }, // Keep backward compatibility
+        combinedLibraryData: combinedData, // New combined data
       };
     }
 

@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
       { status: 500 },
     );
   }
-  const redirectUri = `${baseUrl}/api/link/callback`;
+  const redirectUri = `${baseUrl}/api/link/microsoft/callback`;
   const params = new URLSearchParams({
     client_id: clientId,
     redirect_uri: redirectUri,

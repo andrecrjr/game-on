@@ -1,12 +1,18 @@
 import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
 import PocketBase from 'pocketbase';
+import { getSteamProvider } from '@/app/services/auth/providers';
+import { getAuthOptions } from '@/app/services/steamAuth';
 
 const MICROSOFT_TOKEN_URL =
   'https://login.microsoftonline.com/consumers/oauth2/v2.0/token';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+  const session = await getServerSession(getAuthOptions(undefined));
+  const steamId = session?.user.steam.steamid;
+  console.log('steamId', steamId);
   const code = searchParams.get('code');
   const state = searchParams.get('state');
 
@@ -40,7 +46,7 @@ export async function GET(req: NextRequest) {
     client_id: process.env.AUTH_MICROSOFT_ENTRA_ID_ID!,
     client_secret: process.env.AUTH_MICROSOFT_ENTRA_ID_SECRET!,
     code,
-    redirect_uri: `${process.env.BASE_URL}/api/link/callback`,
+    redirect_uri: `${process.env.BASE_URL}/api/link/microsoft/callback`,
     grant_type: 'authorization_code',
   });
   let tokenResponse;
@@ -93,11 +99,10 @@ export async function GET(req: NextRequest) {
   console.log(userInfo);
 
   const pb = new PocketBase(process.env.POCKETBASE_URL!);
-  try{
-        await pb.collection('_superusers').authWithPassword(
-      process.env.PB_ADMIN_USER!,
-      process.env.PB_ADMIN_PASS!,
-    );
+  try {
+    await pb
+      .collection('_superusers')
+      .authWithPassword(process.env.PB_ADMIN_USER!, process.env.PB_ADMIN_PASS!);
   } catch (e) {
     console.log(e);
   }
@@ -108,7 +113,7 @@ export async function GET(req: NextRequest) {
     console.log('PocketBase admin auth successful');
     existing = await pb
       .collection('linked_accounts_gameon')
-      .getFirstListItem(`user="${userId}" && provider="microsoft"`);
+      .getFirstListItem(`user_id="${steamId}" && provider="microsoft"`);
     console.log(existing);
   } catch (e) {
     existing = null;
@@ -125,6 +130,7 @@ export async function GET(req: NextRequest) {
   };
   const record = {
     user: userId,
+    user_id: String(steamId),
     provider: 'microsoft',
     provider_id,
     credentials,
@@ -136,7 +142,7 @@ export async function GET(req: NextRequest) {
       : null,
     token_updated_at: new Date().toISOString(),
   };
-  
+
   console.log('PocketBase record:', record);
   try {
     if (existing) {

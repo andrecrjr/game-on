@@ -9,6 +9,11 @@ import {
   ISteamSpyGameData,
   TrendingGamePageType,
 } from '@/types/steam';
+import {
+  CombinedGameData,
+  CombinedLibraryData,
+  XboxLibraryData,
+} from '@/types/xbox';
 import { allSettleHandler, convertCentsToDols, imageGameSteam } from '../utils';
 import {
   fetchData,
@@ -17,6 +22,7 @@ import {
   steamKey,
   steamRoute,
 } from './utils';
+import { xboxLiveService } from './xboxLiveService';
 
 const safeFetchData = async <T>(
   url: string,
@@ -70,6 +76,123 @@ export const getMostPlayedOwnedGames = async (
   const mostPlayedData = await getGameData(mostPlayedTime.appid);
 
   return { mostPlayedData, mostPlayedTime, ownedGames };
+};
+
+/**
+ * Get combined library data including both Steam and Xbox games
+ */
+export const getCombinedLibraryData = async (
+  steamData: ISteamGamesOwned | undefined,
+  steamId: string,
+): Promise<CombinedLibraryData> => {
+  const [steamLibrary, xboxLibrary, hasXboxLinked] = await Promise.allSettled([
+    steamData ? getMostPlayedOwnedGames(steamData) : Promise.resolve(null),
+    xboxLiveService.getXboxLibraryData(steamId),
+    xboxLiveService.hasXboxAccountLinked(steamId),
+  ]);
+
+  return {
+    steam: steamLibrary.status === 'fulfilled' ? steamLibrary.value : undefined,
+    xbox: xboxLibrary.status === 'fulfilled' ? xboxLibrary.value : undefined,
+    hasXboxLinked:
+      hasXboxLinked.status === 'fulfilled' ? hasXboxLinked.value : false,
+    hasSteamLinked: !!steamData && !!steamData.games,
+  };
+};
+
+/**
+ * Normalize games from different platforms into a common format
+ */
+export const normalizeGamesData = (
+  combinedData: CombinedLibraryData,
+): CombinedGameData[] => {
+  const games: CombinedGameData[] = [];
+
+  // Add Steam games
+  if (combinedData.steam?.ownedGames) {
+    games.push(
+      ...combinedData.steam.ownedGames.map(
+        (game): CombinedGameData => ({
+          id: `steam-${game.appid}`,
+          name: game.name,
+          platform: 'steam',
+          image: game.avatarCapsule,
+          developer: game.developer,
+          publisher: game.publisher,
+          genres: game.genre?.split(',').map((g: string) => g.trim()),
+          appid: game.appid,
+          avatarCapsule: game.avatarCapsule,
+          genre: game.genre,
+        }),
+      ),
+    );
+  }
+
+  // Add Xbox Game Pass games
+  if (combinedData.xbox?.gamePassGames) {
+    games.push(
+      ...combinedData.xbox.gamePassGames.map(
+        (game): CombinedGameData => ({
+          id: `xbox-gp-${game.titleId}`,
+          name: game.name,
+          platform: 'xbox',
+          image: game.displayImage || '',
+          developer: game.developer,
+          publisher: game.publisher,
+          categories: game.categories,
+          isGamePass: game.isGamePass,
+          gamePassTier: game.gamePassTier,
+          achievements: game.achievementStats
+            ? {
+                current: game.achievementStats.currentAchievements,
+                total: game.achievementStats.totalAchievements,
+                gamerScore: game.achievementStats.currentGamerscore,
+              }
+            : undefined,
+          lastPlayed: game.lastPlayedDate,
+          playtime: game.playtimeStats?.totalPlaytime,
+          titleId: game.titleId,
+          displayImage: game.displayImage,
+          ownershipType: game.ownershipType,
+          purchaseDate: game.purchaseDate,
+        }),
+      ),
+    );
+  }
+
+  // Add Xbox owned games
+  if (combinedData.xbox?.ownedGames) {
+    games.push(
+      ...combinedData.xbox.ownedGames.map(
+        (game): CombinedGameData => ({
+          id: `xbox-owned-${game.titleId}`,
+          name: game.name,
+          platform: 'xbox',
+          image: game.displayImage || '',
+          developer: game.developer,
+          publisher: game.publisher,
+          categories: game.categories,
+          isGamePass: game.isGamePass,
+          gamePassTier: game.gamePassTier,
+          achievements: game.achievementStats
+            ? {
+                current: game.achievementStats.currentAchievements,
+                total: game.achievementStats.totalAchievements,
+                gamerScore: game.achievementStats.currentGamerscore,
+              }
+            : undefined,
+          lastPlayed: game.lastPlayedDate,
+          playtime: game.playtimeStats?.totalPlaytime,
+          titleId: game.titleId,
+          displayImage: game.displayImage,
+          ownershipType: game.ownershipType,
+          purchaseDate: game.purchaseDate,
+        }),
+      ),
+    );
+  }
+
+  return games;
 };
 
 // Função para obter dados completos do jogo e notícias (opcional)
@@ -181,3 +304,6 @@ export const getTrendingGamesRanked = async (
     (result) => result?.gameData,
   ) as ISteamSpyGameData[];
 };
+
+// Export Xbox service for external use
+export { xboxLiveService };

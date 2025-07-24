@@ -1,7 +1,7 @@
-import { getAuthOptions } from '@/app/services/steamAuth';
-import { getUserAchievementPaginated } from '@/app/services';
-import AchievementsTable from '@/components/Tables/AchievementsTable';
 import { getServerSession } from 'next-auth';
+import { getUserAchievementPaginated } from '@/app/services';
+import { getAuthOptions } from '@/app/services/steamAuth';
+import AchievementsTable from '@/components/Tables/AchievementsTable';
 import { PaginationAchivements } from './PaginationAchivements';
 
 type Props = {
@@ -10,6 +10,7 @@ type Props = {
 
 export default async function AchievementPage({ params }: Props) {
   const session = await getServerSession(getAuthOptions(undefined));
+
   const { achievements, currentPage, totalPages } =
     await getUserAchievementPaginated(
       session?.user?.gamesLibraryData.ownedGames || [],
