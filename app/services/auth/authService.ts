@@ -4,7 +4,7 @@ import { AdapterUser } from 'next-auth/adapters';
 import { JWT } from 'next-auth/jwt';
 import { ISteamAccount, ISteamProfile } from '@/types/steam';
 import { handleSteamSession } from './callbacks/steamCallbacks';
-import { getAzureProvider, getSteamProvider } from './providers';
+import { getSteamProvider } from './providers';
 
 /**
  * Centralized authentication service
@@ -15,7 +15,7 @@ export class AuthService {
    * Get all authentication providers
    */
   static getProviders(req?: NextRequest) {
-    return [getSteamProvider(req), getAzureProvider()];
+    return [getSteamProvider(req)];
   }
 
   /**
