@@ -12,7 +12,6 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const session = await getServerSession(getAuthOptions(undefined));
   const steamId = session?.user.steam.steamid;
-  console.log('steamId', steamId);
   const code = searchParams.get('code');
   const state = searchParams.get('state');
 
@@ -96,7 +95,6 @@ export async function GET(req: NextRequest) {
   }
 
   const provider_id = userInfo?.id || userId; // Fallback to userId if no provider_id
-  console.log(userInfo);
 
   const pb = new PocketBase(process.env.POCKETBASE_URL!);
   try {
@@ -110,11 +108,9 @@ export async function GET(req: NextRequest) {
   // Find existing record
   let existing;
   try {
-    console.log('PocketBase admin auth successful');
     existing = await pb
       .collection('linked_accounts_gameon')
       .getFirstListItem(`user_id="${steamId}" && provider="microsoft"`);
-    console.log(existing);
   } catch (e) {
     existing = null;
     console.log(e);
@@ -143,7 +139,6 @@ export async function GET(req: NextRequest) {
     token_updated_at: new Date().toISOString(),
   };
 
-  console.log('PocketBase record:', record);
   try {
     if (existing) {
       await pb.collection('linked_accounts_gameon').update(existing.id, record);

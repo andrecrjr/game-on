@@ -77,6 +77,14 @@ export class XboxLiveService {
         throw new Error('Microsoft access token not found');
       }
 
+      // credentials.expires_in is always 40 minutes so we need to check if the record is older than 40
+      // but my server is in UTC+2 so we need to add 2 hours to the date
+      const fortyMinutesAgo = new Date(Date.now() - 40 * 60 * 1000 + 2 * 60 * 60 * 1000);
+      if (new Date(record.updated) < fortyMinutesAgo) {
+        return credentials;
+      }
+      console.log("not refreshing token");
+
       // Always refresh token to ensure it's fresh
       return await this.refreshAccessToken(record, credentials);
     } catch (error) {

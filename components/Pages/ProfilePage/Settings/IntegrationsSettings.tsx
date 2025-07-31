@@ -38,6 +38,7 @@ interface Integration {
 export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
   session,
 }) => {
+  const hasXboxAccount = session?.user.combinedLibraryData?.xbox?.profile?.gamertag;
   const [integrations, setIntegrations] = React.useState<Integration[]>([
     {
       id: 'retroachievements',
@@ -55,7 +56,7 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
         'Connect your Microsoft account to sync Xbox Live achievements and game library',
       icon: ExternalLink,
       color: 'text-green-500',
-      isConnected: false,
+      isConnected: hasXboxAccount,
     },
     // Future integrations can be added here
     // {
@@ -136,7 +137,9 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
           integrations.find((i) => i.id === integrationId)?.username || '',
         );
       } else if (integrationId === 'microsoft') {
+
         // TODO: Implement Microsoft disconnect
+        
         console.log('Microsoft disconnect not implemented yet');
       }
       // Add more integrations here as needed

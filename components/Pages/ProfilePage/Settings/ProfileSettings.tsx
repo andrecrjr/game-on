@@ -1,6 +1,7 @@
 'use client';
 
 import { Edit, Save, X } from 'lucide-react';
+import { Session } from 'next-auth';
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -8,13 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-interface ProfileSettingsProps {
-  session: any;
-}
-
-export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
+export const ProfileSettings: React.FC<{ session: Session | null }> = ({
   session,
 }) => {
+  console.log(
+    'session',
+    session?.user.combinedLibraryData?.xbox?.profile.gamertag,
+  );
   const [isEditing, setIsEditing] = React.useState(false);
   const [displayName, setDisplayName] = React.useState(
     session?.user?.name || '',
@@ -44,11 +45,11 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
           </AvatarFallback>
         </Avatar>
         <div className="flex-1">
-          <h3 className="text-xl font-bold text-gaming-text-primary">
-            {session?.user?.name || 'User'}
-          </h3>
           <p className="text-gaming-text-secondary">
-            Steam ID: {session?.user?.steam?.steamid || 'N/A'}
+            Steam ID: {session?.user?.name || 'No Steam account linked'}
+          </p>
+          <p className="text-gaming-text-secondary">
+            Xbox Gamertag: {session?.user.combinedLibraryData?.xbox?.profile?.gamertag || 'No linked account'}
           </p>
         </div>
       </div>
@@ -131,15 +132,27 @@ export const ProfileSettings: React.FC<ProfileSettingsProps> = ({
           <div className="space-y-3 text-sm text-gaming-text-secondary">
             <div className="flex justify-between">
               <span>Steam ID:</span>
-              <span className="font-mono">{session?.user?.steam?.steamid || 'N/A'}</span>
+              <span className="font-mono">
+                {session?.user?.steam?.steamid || 'N/A'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Account Created:</span>
-              <span>{session?.user?.steam?.timecreated ? new Date(session.user.steam.timecreated * 1000).toLocaleDateString() : 'N/A'}</span>
+              <span>
+                {session?.user?.steam?.timecreated
+                  ? new Date(
+                      session.user.steam.timecreated * 1000,
+                    ).toLocaleDateString()
+                  : 'N/A'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span>Profile Visibility:</span>
-              <span className="capitalize">{session?.user?.steam?.communityvisibilitystate === 3 ? 'Public' : 'Private'}</span>
+              <span className="capitalize">
+                {session?.user?.steam?.communityvisibilitystate === 3
+                  ? 'Public'
+                  : 'Private'}
+              </span>
             </div>
           </div>
         </CardContent>
