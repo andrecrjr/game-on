@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function AchievementPage({ params }: Props) {
-  const { id } = await params;
+  const { id } = params;
   const session = await getServerSession(getAuthOptions(undefined));
 
   const { achievements, currentPage, totalPages } =

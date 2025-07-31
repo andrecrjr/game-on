@@ -72,7 +72,7 @@ const LibraryTable: React.FC = async () => {
   const totalGames = allGames.length;
   const steamGamesCount = allGames.filter(g => g.platform === 'steam').length;
   const xboxGamesCount = allGames.filter(g => g.platform === 'xbox').length;
-  const hasXboxLinked = combinedLibraryData?.hasXboxLinked || false;
+  const hasXboxLinked = combinedLibraryData?.xbox?.profile || false;
 
   return (
     <TooltipProvider>
