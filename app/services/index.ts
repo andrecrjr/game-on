@@ -12,7 +12,6 @@ import {
 import {
   CombinedGameData,
   CombinedLibraryData,
-  XboxLibraryData,
 } from '@/types/xbox';
 import { allSettleHandler, convertCentsToDols, imageGameSteam } from '../utils';
 import {
@@ -85,18 +84,14 @@ export const getCombinedLibraryData = async (
   steamData: ISteamGamesOwned | undefined,
   steamId: string,
 ): Promise<CombinedLibraryData> => {
-  const [steamLibrary, xboxLibrary, hasXboxLinked] = await Promise.allSettled([
+  const [steamLibrary, xboxLibrary] = await Promise.allSettled([
     steamData ? getMostPlayedOwnedGames(steamData) : Promise.resolve(null),
-    xboxLiveService.getXboxLibraryData(steamId),
-    xboxLiveService.hasXboxAccountLinked(steamId),
+    xboxLiveService.getXboxAchievementsData(steamId),
   ]);
 
   return {
     steam: steamLibrary.status === 'fulfilled' ? steamLibrary.value : undefined,
     xbox: xboxLibrary.status === 'fulfilled' ? xboxLibrary.value : undefined,
-    hasXboxLinked:
-      hasXboxLinked.status === 'fulfilled' ? hasXboxLinked.value : false,
-    hasSteamLinked: !!steamData && !!steamData.games,
   };
 };
 
@@ -123,70 +118,6 @@ export const normalizeGamesData = (
           appid: game.appid,
           avatarCapsule: game.avatarCapsule,
           genre: game.genre,
-        }),
-      ),
-    );
-  }
-
-  // Add Xbox Game Pass games
-  if (combinedData.xbox?.gamePassGames) {
-    games.push(
-      ...combinedData.xbox.gamePassGames.map(
-        (game): CombinedGameData => ({
-          id: `xbox-gp-${game.titleId}`,
-          name: game.name,
-          platform: 'xbox',
-          image: game.displayImage || '',
-          developer: game.developer,
-          publisher: game.publisher,
-          categories: game.categories,
-          isGamePass: game.isGamePass,
-          gamePassTier: game.gamePassTier,
-          achievements: game.achievementStats
-            ? {
-                current: game.achievementStats.currentAchievements,
-                total: game.achievementStats.totalAchievements,
-                gamerScore: game.achievementStats.currentGamerscore,
-              }
-            : undefined,
-          lastPlayed: game.lastPlayedDate,
-          playtime: game.playtimeStats?.totalPlaytime,
-          titleId: game.titleId,
-          displayImage: game.displayImage,
-          ownershipType: game.ownershipType,
-          purchaseDate: game.purchaseDate,
-        }),
-      ),
-    );
-  }
-
-  // Add Xbox owned games
-  if (combinedData.xbox?.ownedGames) {
-    games.push(
-      ...combinedData.xbox.ownedGames.map(
-        (game): CombinedGameData => ({
-          id: `xbox-owned-${game.titleId}`,
-          name: game.name,
-          platform: 'xbox',
-          image: game.displayImage || '',
-          developer: game.developer,
-          publisher: game.publisher,
-          categories: game.categories,
-          isGamePass: game.isGamePass,
-          gamePassTier: game.gamePassTier,
-          achievements: game.achievementStats
-            ? {
-                current: game.achievementStats.currentAchievements,
-                total: game.achievementStats.totalAchievements,
-                gamerScore: game.achievementStats.currentGamerscore,
-              }
-            : undefined,
-          lastPlayed: game.lastPlayedDate,
-          playtime: game.playtimeStats?.totalPlaytime,
-          titleId: game.titleId,
-          displayImage: game.displayImage,
-          ownershipType: game.ownershipType,
-          purchaseDate: game.purchaseDate,
         }),
       ),
     );
