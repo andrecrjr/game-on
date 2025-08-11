@@ -4,3 +4,7 @@ export {
   handleSteamJWT,
   STEAM_PROVIDER,
 } from './steamProvider';
+export {
+  getPocketBaseProvider,
+  POCKETBASE_PROVIDER,
+} from './pocketbaseProvider';

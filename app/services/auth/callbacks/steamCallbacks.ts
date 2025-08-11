@@ -50,9 +50,11 @@ export const handleSteamSession = async (
     if (token.steam) {
       session.user = {
         ...session.user,
+        name: token.steam.personaname,
+        username: token.steam.personaname,
         steam: token.steam,
         account: token.account,
-                 gamesLibraryData: combinedData.steam || { mostPlayedData: null as any, mostPlayedTime: null as any, ownedGames: [] }, // Keep backward compatibility
+        gamesLibraryData: combinedData.steam || { mostPlayedData: null as any, mostPlayedTime: null as any, ownedGames: [] }, // Keep backward compatibility
         combinedLibraryData: combinedData, // New combined data
       };
     }

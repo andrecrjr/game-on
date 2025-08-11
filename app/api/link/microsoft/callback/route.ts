@@ -11,7 +11,7 @@ const MICROSOFT_TOKEN_URL =
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const session = await getServerSession(getAuthOptions(undefined));
-  const steamId = session?.user.steam.steamid;
+  const steamId = session?.user.steam?.steamid;
   const code = searchParams.get('code');
   const state = searchParams.get('state');
 

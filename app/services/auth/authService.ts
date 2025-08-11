@@ -3,8 +3,12 @@ import { Account, AuthOptions, Profile, Session, User } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 import { JWT } from 'next-auth/jwt';
 import { ISteamAccount, ISteamProfile } from '@/types/steam';
+import { IPocketBaseAccount, IPocketBaseUser } from '@/types/pocketbase';
 import { handleSteamSession } from './callbacks/steamCallbacks';
-import { getSteamProvider } from './providers';
+import { handlePocketBaseSession } from './callbacks/pocketbaseCallbacks';
+import { getSteamProvider, getPocketBaseProvider } from './providers';
+import { handleSteamJWT } from './callbacks/steamCallbacks';
+import { handlePocketBaseJWT } from './callbacks/pocketbaseCallbacks';
 
 /**
  * Centralized authentication service
@@ -15,7 +19,10 @@ export class AuthService {
    * Get all authentication providers
    */
   static getProviders(req?: NextRequest) {
-    return [getSteamProvider(req)];
+    return [
+      getSteamProvider(req),
+      getPocketBaseProvider(req)
+    ];
   }
 
   /**
@@ -40,8 +47,13 @@ export class AuthService {
   }) {
     // Handle Steam JWT
     if (account?.provider === 'steam' && profile) {
-      token.steam = profile as ISteamProfile;
-      token.account = account as unknown as ISteamAccount;
+      token = handleSteamJWT(token, account, profile);
+    }
+
+    // Handle PocketBase JWT
+    if (account?.provider === 'pocketbase' && user) {
+      // Type assertion since we know the user object structure for PocketBase
+      token = handlePocketBaseJWT(token, user as IPocketBaseUser, account as IPocketBaseAccount);
     }
 
     // Handle Azure JWT (if needed in the future)
@@ -61,11 +73,16 @@ export class AuthService {
     token,
   }: {
     session: Session;
-    token: JWT & { steam?: any; account?: any };
+    token: JWT & { steam?: any; pocketbase?: any; account?: any };
   }) {
     // Handle Steam session
     if (token.steam) {
       return await handleSteamSession(session, token);
+    }
+
+    // Handle PocketBase session
+    if (token.pocketbase) {
+      return await handlePocketBaseSession(session, token);
     }
 
     // Handle Azure session (if needed in the future)
