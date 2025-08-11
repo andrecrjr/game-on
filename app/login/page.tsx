@@ -4,7 +4,14 @@ import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import PocketBaseLoginForm from '@/components/auth/PocketBaseLoginForm';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,10 +21,10 @@ export default function LoginPage() {
       <Card className="w-full max-w-md bg-gray-800 border-gray-700">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center text-gaming-purple-light">
-            PocketBase Login
+            ACJR Login
           </CardTitle>
           <CardDescription className="text-center text-gray-400">
-            Sign in to your PocketBase account
+            Sign in to your ACJR account
           </CardDescription>
         </CardHeader>
         <CardContent>

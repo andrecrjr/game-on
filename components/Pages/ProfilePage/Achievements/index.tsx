@@ -12,10 +12,24 @@ export default async function AchievementPage({ params }: Props) {
   const { id } = params;
   const session = await getServerSession(getAuthOptions(undefined));
 
+  // Check if user is authenticated with Steam (has steamid)
+  const steamId = session?.user?.steam?.steamid || '';
+  
+  // For PocketBase users (ACJR), return empty achievements
+  if (!steamId) {
+    return (
+      <section className="flex flex-col w-screen md:w-auto md:pr-6">
+        <h4 className="mb-4 pl-4">
+          No achievements available - Steam account not linked
+        </h4>
+      </section>
+    );
+  }
+
   const { achievements, currentPage, totalPages } =
     await getUserAchievementPaginated(
-      session?.user?.gamesLibraryData.ownedGames || [],
-      session?.user.steam.steamid || '',
+      session?.user?.gamesLibraryData?.ownedGames || [],
+      steamId,
       parseInt(id) || 1,
     );
   if (achievements.length > 0)

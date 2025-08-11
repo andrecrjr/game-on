@@ -18,7 +18,7 @@ export const handlePocketBaseJWT = (
       name: user.name || user.username, // Use username as fallback if name is not provided
       emailVerified: user.emailVerified,
       pocketbaseToken: user.pocketbaseToken,
-      pocketbaseRecord: user.pocketbaseRecord
+      pocketbaseRecord: user.pocketbaseRecord,
     };
     token.account = account;
   }
@@ -41,7 +41,31 @@ export const handlePocketBaseSession = async (
         email: token.pocketbase.email,
         username: token.pocketbase.username,
         pocketbaseToken: token.pocketbase.pocketbaseToken,
-        pocketbaseRecord: token.pocketbase.pocketbaseRecord
+        pocketbaseRecord: token.pocketbase.pocketbaseRecord,
+        // Ensure Xbox data is always empty for ACJR users
+        gamesLibraryData: {
+          mostPlayedData: null,
+          mostPlayedTime: null,
+          ownedGames: [],
+        },
+        combinedLibraryData: {
+          steam: {
+            mostPlayedData: null,
+            mostPlayedTime: null,
+            ownedGames: [],
+          },
+          xbox: {
+            profile: {
+              id: '',
+              gamertag: '',
+              gamerpic: '',
+              gamerScore: 0,
+            },
+            achievements: [],
+            totalGamerscore: 0,
+            totalAchievements: 0,
+          },
+        },
       };
     }
 
