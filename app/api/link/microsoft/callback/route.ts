@@ -12,6 +12,8 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const session = await getServerSession(getAuthOptions(undefined));
   const steamId = session?.user.steam?.steamid;
+  const pocketbaseId = session?.user.pocketbaseRecord?.id;
+  const currentUserId = steamId || pocketbaseId; // Support both Steam and PocketBase users
   const code = searchParams.get('code');
   const state = searchParams.get('state');
 
@@ -110,7 +112,7 @@ export async function GET(req: NextRequest) {
   try {
     existing = await pb
       .collection('linked_accounts_gameon')
-      .getFirstListItem(`user_id="${steamId}" && provider="microsoft"`);
+      .getFirstListItem(`user_id="${currentUserId}" && provider="microsoft"`);
   } catch (e) {
     existing = null;
     console.log(e);
@@ -126,7 +128,7 @@ export async function GET(req: NextRequest) {
   };
   const record = {
     user: userId,
-    user_id: String(steamId),
+    user_id: String(currentUserId),
     provider: 'microsoft',
     provider_id,
     credentials,

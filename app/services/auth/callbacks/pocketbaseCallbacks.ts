@@ -1,6 +1,51 @@
 import { Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { IPocketBaseUser } from '@/types/pocketbase';
+import { CombinedLibraryData } from '@/types/xbox';
+import { xboxLiveService } from '../../xboxLiveService';
+
+/**
+ * Get combined library data for PocketBase users (Microsoft/Xbox only)
+ */
+const getPocketBaseCombinedLibraryData = async (
+  pocketbaseUserId: string,
+): Promise<CombinedLibraryData> => {
+  try {
+    console.log('pocketbaseUserId', pocketbaseUserId);
+    // For PocketBase users, we only fetch Xbox data using their PocketBase ID
+    const xboxLibrary =
+      await xboxLiveService.getXboxAchievementsData(pocketbaseUserId);
+
+    return {
+      steam: {
+        mostPlayedData: null,
+        mostPlayedTime: null,
+        ownedGames: [],
+      },
+      xbox: xboxLibrary,
+    };
+  } catch (error) {
+    console.error('Failed to get PocketBase combined library data:', error);
+    return {
+      steam: {
+        mostPlayedData: null,
+        mostPlayedTime: null,
+        ownedGames: [],
+      },
+      xbox: {
+        profile: {
+          id: '',
+          gamertag: '',
+          gamerpic: '',
+          gamerScore: 0,
+        },
+        achievements: [],
+        totalGamerscore: 0,
+        totalAchievements: 0,
+      },
+    };
+  }
+};
 
 /**
  * PocketBase JWT callback handler
@@ -42,30 +87,16 @@ export const handlePocketBaseSession = async (
         username: token.pocketbase.username,
         pocketbaseToken: token.pocketbase.pocketbaseToken,
         pocketbaseRecord: token.pocketbase.pocketbaseRecord,
-        // Ensure Xbox data is always empty for ACJR users
+        // Initialize empty game library data for ACJR users (Steam-specific)
         gamesLibraryData: {
           mostPlayedData: null,
           mostPlayedTime: null,
           ownedGames: [],
         },
-        combinedLibraryData: {
-          steam: {
-            mostPlayedData: null,
-            mostPlayedTime: null,
-            ownedGames: [],
-          },
-          xbox: {
-            profile: {
-              id: '',
-              gamertag: '',
-              gamerpic: '',
-              gamerScore: 0,
-            },
-            achievements: [],
-            totalGamerscore: 0,
-            totalAchievements: 0,
-          },
-        },
+        // Get combined library data (including Microsoft/Xbox data if linked)
+        combinedLibraryData: await getPocketBaseCombinedLibraryData(
+          token.pocketbase.pocketbaseRecord?.id || token.pocketbase.username,
+        ),
       };
     }
 

@@ -1,25 +1,27 @@
-import { getAuthOptions } from '@/app/services/steamAuth';
-import { getRecentlyPlayedGames } from '@/app/services';
-import { convertTiming } from '@/app/utils';
 import { getServerSession } from 'next-auth';
 import * as React from 'react';
+import { getRecentlyPlayedGames } from '@/app/services';
+import { getAuthOptions } from '@/app/services/steamAuth';
+import { convertTiming } from '@/app/utils';
 
 export default async function RecentlyPlayedTable() {
   const session = await getServerSession(getAuthOptions(undefined));
-  
+
   // Check if user is authenticated with Steam (has steamid)
   const steamId = session?.user?.steam?.steamid || '';
-  
+
   // For PocketBase users (ACJR), return empty state
   if (!steamId) {
     return (
       <section className="mt-10 self-center sm:mb-6 w-[200px] md:w-full">
         <h3 className="mb-3 font-bold text-gray-200">Recently Played Game</h3>
-        <p className="text-gray-400">No recent games - Steam account not linked</p>
+        <p className="text-gray-400">
+          No recent games - Steam account not linked
+        </p>
       </section>
     );
   }
-  
+
   const { response } = await getRecentlyPlayedGames(steamId);
 
   if (response.total_count > 0) {
