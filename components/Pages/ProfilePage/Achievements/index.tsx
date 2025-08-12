@@ -26,6 +26,8 @@ export default async function AchievementPage({ params }: Props) {
     );
   }
 
+  
+
   const { achievements, currentPage, totalPages } =
     await getUserAchievementPaginated(
       session?.user?.gamesLibraryData?.ownedGames || [],
