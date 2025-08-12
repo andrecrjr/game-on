@@ -4,10 +4,12 @@ import {
   AlertCircle,
   CheckCircle,
   ExternalLink,
+  Gamepad2,
   Link,
   Plus,
   Trophy,
   Unlink,
+  User,
 } from 'lucide-react';
 import React from 'react';
 import {
@@ -38,8 +40,21 @@ interface Integration {
 export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
   session,
 }) => {
-  const hasXboxAccount = session?.user.combinedLibraryData?.xbox?.profile?.gamertag;
+  const hasXboxAccount =
+    session?.user.combinedLibraryData?.xbox?.profile?.gamertag;
+  const hasSteamAccount = !!session?.user.steam;
+
   const [integrations, setIntegrations] = React.useState<Integration[]>([
+    {
+      id: 'steam',
+      name: 'Steam',
+      description:
+        'Your Steam account is automatically connected through login',
+      icon: Gamepad2,
+      color: 'text-blue-500',
+      isConnected: hasSteamAccount,
+      username: session?.user.steam?.personaname || '',
+    },
     {
       id: 'retroachievements',
       name: 'RetroAchievements',
@@ -92,6 +107,11 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
         // Redirect to Microsoft OAuth
         window.location.href = '/api/link/microsoft';
         return;
+      } else if (integrationId === 'steam') {
+        // Steam is automatically connected through login
+        // We don't need to do anything here
+        success = true;
+        window.location.href = '/api/link/steam';
       } else {
         // Handle other integrations (like RetroAchievements)
         if (!username.trim()) {
@@ -137,10 +157,12 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
           integrations.find((i) => i.id === integrationId)?.username || '',
         );
       } else if (integrationId === 'microsoft') {
-
         // TODO: Implement Microsoft disconnect
-        
         console.log('Microsoft disconnect not implemented yet');
+      } else if (integrationId === 'steam') {
+        // Steam disconnect would require logging out entirely
+        window.location.href = '/api/auth/signout';
+        return;
       }
       // Add more integrations here as needed
 
@@ -163,6 +185,8 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
 
   const getIntegrationUrl = (integrationId: string) => {
     switch (integrationId) {
+      case 'steam':
+        return 'https://steamcommunity.com';
       case 'retroachievements':
         return 'https://retroachievements.org';
       case 'microsoft':
@@ -230,14 +254,25 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
                       {integration.id === 'microsoft' ? (
                         <div className="flex gap-2">
                           <Button
-                            onClick={() =>
-                              handleConnect(integration.id, '')
-                            }
+                            onClick={() => handleConnect(integration.id, '')}
                             disabled={isLoading}
                             className="flex items-center gap-2"
                           >
                             <Link className="w-4 h-4" />
-                            {isLoading ? 'Connecting...' : 'Connect Microsoft Account'}
+                            {isLoading
+                              ? 'Connecting...'
+                              : 'Connect Microsoft Account'}
+                          </Button>
+                        </div>
+                      ) : integration.id === 'steam' ? (
+                        <div className="flex gap-2">
+                          <Button
+                            onClick={() => handleConnect(integration.id, '')}
+                            disabled={isLoading}
+                            className="flex items-center gap-2"
+                          >
+                            <User className="w-4 h-4" />
+                            {isLoading ? 'Connecting...' : 'Login with Steam'}
                           </Button>
                         </div>
                       ) : (
@@ -267,34 +302,52 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
                             >
                               <Link className="w-4 h-4" />
                               {isLoading ? 'Connecting...' : 'Connect Account'}
-                            </Button>                        
+                            </Button>
                           </div>
                         </>
                       )}
                     </>
                   ) : (
                     <div className="flex gap-2">
-                      <Button
-                        variant="destructive"
-                        onClick={() => handleDisconnect(integration.id)}
-                        className="flex items-center gap-2"
-                      >
-                        <Unlink className="w-4 h-4" />
-                        Disconnect
-                      </Button>
-                      <Button
-                        variant="outline"
-                        onClick={() =>
-                          window.open(
-                            getIntegrationUrl(integration.id),
-                            '_blank',
-                          )
-                        }
-                        className="flex items-center gap-2"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        Visit {integration.name}
-                      </Button>
+                      {integration.id === 'steam' ? (
+                        <Button
+                          variant="outline"
+                          onClick={() =>
+                            window.open(
+                              getIntegrationUrl(integration.id),
+                              '_blank',
+                            )
+                          }
+                          className="flex items-center gap-2"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Visit {integration.name}
+                        </Button>
+                      ) : (
+                        <>
+                          <Button
+                            variant="destructive"
+                            onClick={() => handleDisconnect(integration.id)}
+                            className="flex items-center gap-2"
+                          >
+                            <Unlink className="w-4 h-4" />
+                            Disconnect
+                          </Button>
+                          <Button
+                            variant="outline"
+                            onClick={() =>
+                              window.open(
+                                getIntegrationUrl(integration.id),
+                                '_blank',
+                              )
+                            }
+                            className="flex items-center gap-2"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            Visit {integration.name}
+                          </Button>
+                        </>
+                      )}
                     </div>
                   )}
 
@@ -353,7 +406,10 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
             </p>
             <ol className="list-decimal list-inside space-y-1 ml-4">
               <li>Choose the platform you want to connect</li>
-              <li>Enter your username from that platform</li>
+              <li>For Steam, simply log in with your Steam account</li>
+              <li>
+                For other platforms, enter your username from that platform
+              </li>
               <li>Optional: Add your API key for enhanced features</li>
               <li>Click "Connect Account" to establish the connection</li>
             </ol>
@@ -361,6 +417,11 @@ export const IntegrationsSettings: React.FC<IntegrationsSettingsProps> = ({
               <strong>API Keys:</strong> Some platforms offer API keys for
               enhanced features like real-time sync and detailed statistics.
               These are optional but recommended for the best experience.
+            </p>
+            <p className="pt-2 border-t border-gaming-border">
+              <strong>Note:</strong> Your Steam account is automatically
+              connected when you log in to Steam On. To disconnect your Steam
+              account, you'll need to log out entirely.
             </p>
           </div>
         </CardContent>
