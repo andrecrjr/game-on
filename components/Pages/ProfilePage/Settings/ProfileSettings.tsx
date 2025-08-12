@@ -12,10 +12,6 @@ import { Label } from '@/components/ui/label';
 export const ProfileSettings: React.FC<{ session: Session | null }> = ({
   session,
 }) => {
-  console.log(
-    'session',
-    session?.user.combinedLibraryData?.xbox?.profile.gamertag,
-  );
   const [isEditing, setIsEditing] = React.useState(false);
   const [displayName, setDisplayName] = React.useState(
     session?.user?.name || '',
@@ -49,7 +45,9 @@ export const ProfileSettings: React.FC<{ session: Session | null }> = ({
             Steam ID: {session?.user?.name || 'No Steam account linked'}
           </p>
           <p className="text-gaming-text-secondary">
-            Xbox Gamertag: {session?.user.combinedLibraryData?.xbox?.profile?.gamertag || 'No linked account'}
+            Xbox Gamertag:{' '}
+            {session?.user.combinedLibraryData?.xbox?.profile?.gamertag ||
+              'No linked account'}
           </p>
         </div>
       </div>

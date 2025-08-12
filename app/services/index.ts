@@ -236,5 +236,7 @@ export const getTrendingGamesRanked = async (
   ) as ISteamSpyGameData[];
 };
 
-// Export Xbox service for external use
+// Export Xbox and Steam link services for external use
 export { xboxLiveService };
+export { steamLinkService } from './steamLinkService';
+export { unifiedSteamService } from './unifiedSteamService';

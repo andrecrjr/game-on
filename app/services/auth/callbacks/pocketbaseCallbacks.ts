@@ -2,30 +2,47 @@ import { Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import { IPocketBaseUser } from '@/types/pocketbase';
 import { CombinedLibraryData } from '@/types/xbox';
+import { steamLinkService } from '../../steamLinkService';
 import { xboxLiveService } from '../../xboxLiveService';
 
 /**
- * Get combined library data for PocketBase users (Microsoft/Xbox only)
+ * Get combined library data for PocketBase users (Steam + Microsoft/Xbox)
  */
 const getPocketBaseCombinedLibraryData = async (
   pocketbaseUserId: string,
 ): Promise<CombinedLibraryData> => {
   try {
-    console.log('pocketbaseUserId', pocketbaseUserId);
-    // For PocketBase users, we only fetch Xbox data using their PocketBase ID
-    const xboxLibrary =
-      await xboxLiveService.getXboxAchievementsData(pocketbaseUserId);
+    // Fetch both Steam and Xbox data in parallel
+    const [steamLibrary, xboxLibrary] = await Promise.allSettled([
+      steamLinkService.getSteamLibraryData(pocketbaseUserId),
+      xboxLiveService.getXboxAchievementsData(pocketbaseUserId),
+    ]);
 
     return {
-      steam: {
-        mostPlayedData: null,
-        mostPlayedTime: null,
-        ownedGames: [],
-      },
-      xbox: xboxLibrary,
+      steam:
+        steamLibrary.status === 'fulfilled'
+          ? steamLibrary.value
+          : {
+              mostPlayedData: null,
+              mostPlayedTime: null,
+              ownedGames: [],
+            },
+      xbox:
+        xboxLibrary.status === 'fulfilled'
+          ? xboxLibrary.value
+          : {
+              profile: {
+                id: '',
+                gamertag: '',
+                gamerpic: '',
+                gamerScore: 0,
+              },
+              achievements: [],
+              totalGamerscore: 0,
+              totalAchievements: 0,
+            },
     };
   } catch (error) {
-    console.error('Failed to get PocketBase combined library data:', error);
     return {
       steam: {
         mostPlayedData: null,
@@ -80,6 +97,11 @@ export const handlePocketBaseSession = async (
   try {
     // Add PocketBase user data to the session
     if (token.pocketbase) {
+      // Get combined library data (including Steam + Microsoft/Xbox data if linked)
+      const combinedLibraryData = await getPocketBaseCombinedLibraryData(
+        token.pocketbase.pocketbaseRecord?.id || token.pocketbase.username,
+      );
+
       session.user = {
         ...session.user,
         name: token.pocketbase.name || token.pocketbase.username, // Use username as fallback if name is not provided
@@ -87,16 +109,14 @@ export const handlePocketBaseSession = async (
         username: token.pocketbase.username,
         pocketbaseToken: token.pocketbase.pocketbaseToken,
         pocketbaseRecord: token.pocketbase.pocketbaseRecord,
-        // Initialize empty game library data for ACJR users (Steam-specific)
-        gamesLibraryData: {
+        // Maintain backward compatibility with gamesLibraryData (Steam data)
+        gamesLibraryData: combinedLibraryData.steam || {
           mostPlayedData: null,
           mostPlayedTime: null,
           ownedGames: [],
         },
-        // Get combined library data (including Microsoft/Xbox data if linked)
-        combinedLibraryData: await getPocketBaseCombinedLibraryData(
-          token.pocketbase.pocketbaseRecord?.id || token.pocketbase.username,
-        ),
+        // New combined library data
+        combinedLibraryData,
       };
     }
 

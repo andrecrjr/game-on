@@ -9,6 +9,7 @@ export interface CombinedLibraryData {
     mostPlayedData: any;
     mostPlayedTime: any;
     ownedGames: any[];
+    steamProfile?: any;
   } | null;
   xbox?: XboxUserData | null;
 }
@@ -41,4 +42,4 @@ export interface CombinedGameData {
   // Ownership properties
   ownershipType?: 'Owned' | 'Subscription' | 'Trial';
   purchaseDate?: string;
-} 
+}

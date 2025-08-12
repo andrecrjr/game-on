@@ -19,7 +19,7 @@ const AsideColumnProfile = async () => {
         </Title>
         <Avatar className="w-24 h-24 self-center mt-2">
           <AvatarImage
-            src={session?.user?.steam.avatarfull}
+            src={session?.user?.steam?.avatarfull}
             alt={session?.user?.username}
             className="hover:zoom-in-75 
                             transition-all"
